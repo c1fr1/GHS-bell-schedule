@@ -9,17 +9,154 @@
 import UIKit
 import CoreData
 
+var schedule:[Date:String]!
+var periodInfo:[String:[[String:String]]]!
+var periodInfoRawJson:Data!
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var cPC:NSPersistentContainer?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        let versionNumDefault = UserDefaults.standard.value(forKey: "GHSSVERS")
+        let versionNum:Int? = versionNumDefault as? Int
+        let data = try! Data(contentsOf: URL(string: "http://www.grantcompsci.com/bellapp/versionNumber.json")!)
+        let obj = try! JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! [String:Any]
+        let rVersNum = Int(obj["VERSION"] as! String)!
+        if versionNum != nil {
+            if rVersNum == versionNum! {
+                print("A")//up to date, grab saved schedule
+                schedule = getStoredData()
+                periodInfo = getStoredScheduleInfo()
+            }else {
+                //Get the data
+                schedule = getDatesInfo()
+                periodInfo = getScheduleInfo()
+                UserDefaults.standard.setValue(rVersNum, forKey: "GHSSVERS")
+                print("B")//not up to date download and parse schedule
+            }
+        }else {
+            //get the data
+            schedule = getDatesInfo()
+            periodInfo = getScheduleInfo()
+            UserDefaults.standard.setValue(rVersNum, forKey: "GHSSVERS")
+            print("C")//first time starting app.
+        }
         return true
     }
-
+    func getDatesInfo() -> [Date:String] {
+        var retval:[Date:String] = [:]
+        let scheduleData = try! Data(contentsOf: URL(string: "http://www.grantcompsci.com/bellapp/schoolYearSchedule.json")!)
+        let scheduleStr = String(describing: try! JSONSerialization.jsonObject(with: scheduleData, options: .mutableContainers) as! [String:Any])
+        let allElements = parse(json: scheduleStr)
+        //[[String:String]]
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMdd"
+        for dict in allElements {
+            var date = dict["VALUE"]
+            var ndate = ""
+            for char in date!.characters {
+                if Int("\(char)") != nil {
+                    ndate += "\(char)"
+                }
+            }
+            retval[formatter.date(from: ndate)!] = dict["SUMMARY"]
+        }
+        return retval
+    }
+    func getScheduleInfo() -> [String:[[String:String]]] {
+        var retval = [String:[[String:String]]]()
+        let data = try! Data(contentsOf: URL(string: "http://www.grantcompsci.com/bellapp/periodSchedule.json")!)
+        periodInfoRawJson = data
+        if let lyr1 = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:Any] {
+            for element in lyr1! {
+                if let lyr2 = element.value as? [[String:String]] {
+                    retval[element.key] = lyr2
+                }
+            }
+        }else {
+            print("notWorking")
+        }
+        return retval
+    }
+    func getStoredScheduleInfo() -> [String:[[String:String]]] {
+        var retval = [String:[[String:String]]]()
+        let request = NSFetchRequest<NSManagedObject>(entityName:"GHSPeriodTimes")
+        var data:Data!
+        do {
+            let obj = try persistentContainer.viewContext.fetch(request)//empty
+            data = obj.first!.value(forKey: "rawJson") as! Data//CRASH
+        } catch _ as NSError {
+            print("dataMissing")
+        }
+        periodInfoRawJson = data
+        if let lyr1 = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:Any] {
+            for element in lyr1! {
+                if let lyr2 = element.value as? [[String:String]] {
+                    retval[element.key] = lyr2
+                }
+            }
+        }else {
+            print("notWorking")
+        }
+        return retval
+    }
+    func parse(json:String) -> [[String:String]] {
+        var retVal:[[String:String]] = []
+        var curDict:[String:String] = [:]
+        var curVal = ""
+        var curCharacteristicName = ""
+        var onCharacteristicName:Bool = true
+        var inElement:Bool = false
+        for char in json.characters {
+            if inElement {
+                if char != " " && char != "\n" && char != "\"" {
+                    if char != "}" {
+                        if char == "=" {
+                            onCharacteristicName = false
+                        }else if char == ";" {
+                            onCharacteristicName = true
+                            curDict[curCharacteristicName] = curVal
+                            curVal = ""
+                            curCharacteristicName = ""
+                        }else {
+                            if onCharacteristicName {
+                                curCharacteristicName = "\(curCharacteristicName)\(char)"
+                            }else {
+                                curVal = "\(curVal)\(char)"
+                            }
+                        }
+                    }else {
+                        retVal.append(curDict)
+                        curDict = [:]
+                        inElement = false
+                    }
+                }
+            }else {
+                if char == "{" {
+                    inElement = true
+                }
+            }
+        }
+        return retVal
+    }
+    func getStoredData() -> [Date:String] {
+        let request = NSFetchRequest<NSManagedObject>(entityName:"GHSSchedule")
+        do {
+            var retVal:[Date:String] = [:]
+            let scheduleList = try persistentContainer.viewContext.fetch(request)
+            print(scheduleList.count)
+            for obj in scheduleList {
+                retVal[obj.value(forKey: "date") as! Date] = obj.value(forKey: "scheduleType") as? String
+            }
+            return retVal
+        } catch _ as NSError {
+            print("dataMissing")
+        }
+        return [:]
+    }
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -39,6 +176,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
+        let ctx = persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "GHSSchedule", in: ctx)
+        for element in schedule {
+            let obj = NSManagedObject(entity: entity!, insertInto: ctx)
+            obj.setValue(element.key, forKey: "date")
+            obj.setValue(element.value, forKey: "scheduleType")
+        }
+        let ent = NSEntityDescription.entity(forEntityName: "GHSPeriodTimes", in: ctx)!
+        let obj = NSManagedObject(entity: ent, insertInto: ctx)
+        obj.setValue(periodInfoRawJson, forKey: "rawJson")
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
