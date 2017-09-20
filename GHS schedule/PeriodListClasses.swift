@@ -24,6 +24,7 @@ class PeriodListLayer:CALayer {
         textlyr.string = scheduleType
         textlyr.foregroundColor = UIColor.darkGray.cgColor
         addSublayer(textlyr)
+        textlyr.contentsScale = UIScreen.main.scale
     }
     override init(layer: Any) {
         let nLayer = layer as! PeriodListLayer
@@ -50,6 +51,17 @@ class PeriodListLayer:CALayer {
             textlyr.string = scheduleType
             if let schdle = periodInfo[scheduleType] {
                 setSchedule(schedule: schdle)
+            }else {
+                setSchedule(schedule: [])
+            }
+        }
+        if translationPeriods != nil {
+            for p in periods {
+                p.frame.origin.x = translationPeriods!
+            }
+        }else {
+            for p in periods {
+                p.frame.origin.x = 0
             }
         }
     }
@@ -70,6 +82,13 @@ class PeriodTextLayer:CALayer {
     var nameLayer:CATextLayer
     var startLayer:CATextLayer
     var endLayer:CATextLayer
+    override init(layer: Any) {
+        let l = layer as! PeriodTextLayer
+        nameLayer = l.nameLayer
+        startLayer = l.startLayer
+        endLayer = l.endLayer
+        super.init(layer: layer)
+    }
     init(with width:CGFloat, y:CGFloat, period:[String:String]) {
         nameLayer = CATextLayer()
         startLayer = CATextLayer()
@@ -98,6 +117,9 @@ class PeriodTextLayer:CALayer {
         addSublayer(nameLayer)
         addSublayer(startLayer)
         addSublayer(endLayer)
+        nameLayer.contentsScale = UIScreen.main.scale
+        startLayer.contentsScale = UIScreen.main.scale
+        endLayer.contentsScale = UIScreen.main.scale
     }
     func reuse(period:[String:String]) {
         nameLayer.string = period["NAME"]

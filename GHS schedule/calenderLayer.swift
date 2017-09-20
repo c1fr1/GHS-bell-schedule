@@ -24,13 +24,13 @@ class CalendarLayer:CALayer {
     var transitionPixels:CGFloat?
     var ghsText:CATextLayer = CATextLayer()
     var dateText:CATextLayer = CATextLayer()
-    var mtext:CATextLayer = CalendarLayer.getrowStarter(d: "Mon", x: 0)
-    var ttext:CATextLayer = CalendarLayer.getrowStarter(d: "Tues", x: 1)
-    var wtext:CATextLayer = CalendarLayer.getrowStarter(d: "Wed", x: 2)
-    var thtext:CATextLayer = CalendarLayer.getrowStarter(d: "Thurs", x: 3)
-    var frtext:CATextLayer = CalendarLayer.getrowStarter(d: "Fri", x: 4)
-    var satext:CATextLayer = CalendarLayer.getrowStarter(d: "Sat", x: 5)
-    var sutext:CATextLayer = CalendarLayer.getrowStarter(d: "Sun", x: 6)
+    var mtext:CATextLayer = CalendarLayer.getrowStarter(d: "Sun", x: 0)
+    var ttext:CATextLayer = CalendarLayer.getrowStarter(d: "Mon", x: 1)
+    var wtext:CATextLayer = CalendarLayer.getrowStarter(d: "Tues", x: 2)
+    var thtext:CATextLayer = CalendarLayer.getrowStarter(d: "Wed", x: 3)
+    var frtext:CATextLayer = CalendarLayer.getrowStarter(d: "Thurs", x: 4)
+    var satext:CATextLayer = CalendarLayer.getrowStarter(d: "Fri", x: 5)
+    var sutext:CATextLayer = CalendarLayer.getrowStarter(d: "Sat", x: 6)
     var dateTexts:[CATextLayer] = {() -> [CATextLayer] in
         var retval:[CATextLayer] = []
         for x in 1...31 {
@@ -40,6 +40,7 @@ class CalendarLayer:CALayer {
             retval.last!.alignmentMode = kCAAlignmentCenter
             retval.last!.foregroundColor = UIColor.white.cgColor
             retval.last!.string = "\(x)"
+            retval.last!.contentsScale = UIScreen.main.scale
         }
         return retval
     }()
@@ -62,8 +63,13 @@ class CalendarLayer:CALayer {
         }
         let grid = getGridFrom(width: dframe.width, date: (selectedMonth, 15, selectedYear))
         for (num, box) in grid.enumerated() {//set frame
-            dateTexts[num].frame = box
-            dateTexts[num].isHidden = false
+            if translationCal != nil {
+                dateTexts[num].frame = CGRect(x: box.origin.x + translationCal!, y: box.origin.y, width: box.width, height: box.height)
+                dateTexts[num].isHidden = false
+            }else {
+                dateTexts[num].frame = box
+                dateTexts[num].isHidden = false
+            }
         }
     }
     override init() {
@@ -73,6 +79,8 @@ class CalendarLayer:CALayer {
         }
         addSublayer(ghsText)
         addSublayer(dateText)
+        ghsText.contentsScale = UIScreen.main.scale
+        dateText.contentsScale = UIScreen.main.scale
         
         ghsText.font = UIFont(name: "Arial", size: 6)!
         ghsText.fontSize = 27
@@ -84,6 +92,14 @@ class CalendarLayer:CALayer {
         dateText.fontSize = 18
         dateText.foregroundColor = UIColor.white.cgColor
         dateText.frame = CGRect(x: 20, y: 60, width: 300, height: 50)
+        
+        mtext.contentsScale = UIScreen.main.scale
+        ttext.contentsScale = UIScreen.main.scale
+        wtext.contentsScale = UIScreen.main.scale
+        thtext.contentsScale = UIScreen.main.scale
+        frtext.contentsScale = UIScreen.main.scale
+        satext.contentsScale = UIScreen.main.scale
+        sutext.contentsScale = UIScreen.main.scale
         
         addSublayer(mtext)
         addSublayer(ttext)
@@ -114,19 +130,29 @@ class CalendarLayer:CALayer {
             formatter.dateStyle = DateFormatter.Style.full
             let strg = formatter.string(from: date)
             dateText.string = strg
+        }else {
+            dateText.string = getMonth(from: (selectedMonth, selectedYear))
         }
         
-        layoutCalendar()
         for (num, _) in dateTexts.enumerated() {
             if selected {
-                dateTexts[num].opacity = 1
+                if num < getDayCount(forMonth: selectedMonth, andYear: selectedYear) {
+                    dateTexts[num].isHidden = false
+                }
             }else {
-                dateTexts[num].opacity = 0
+                dateTexts[num].isHidden = true
             }
         }
         if selectedDay != nil && selected {
-            ctx.move(to: CGPoint(x: dateTexts[selectedDay! - 1].frame.midX + 15, y: dateTexts[selectedDay! - 1].frame.origin.y + 9))
-            ctx.addArc(center: CGPoint(x: dateTexts[selectedDay! - 1].frame.midX, y: dateTexts[selectedDay! - 1].frame.origin.y + 9), radius: 15, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: false)
+            let frm = getGridFrom(width: frame.width, date: (selectedMonth, selectedDay!, selectedYear))[selectedDay! - 1]
+            var transl:CGFloat = 0
+            if translationCal != nil {
+                transl += translationCal!
+            }
+            ctx.move(to: CGPoint(x: frm.midX + 15 + transl, y: dateTexts[selectedDay! - 1].frame.origin.y + 9))
+            ctx.addArc(center: CGPoint(x: frm.midX + transl, y: dateTexts[selectedDay! - 1].frame.origin.y + 9), radius: 15, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: false)
+            //ctx.move(to: CGPoint(x: dateTexts[selectedDay! - 1].frame.midX + 15, y: dateTexts[selectedDay! - 1].frame.origin.y + 9))
+            //ctx.addArc(center: CGPoint(x: dateTexts[selectedDay! - 1].frame.midX, y: dateTexts[selectedDay! - 1].frame.origin.y + 9), radius: 15, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: false)
             ctx.setFillColor(UIColor.black.cgColor)
             ctx.fillPath()
         }

@@ -8,20 +8,33 @@
 
 import UIKit
 
+var startUpPattern:String! = "FAIDFAE"
+
+var translationCal:CGFloat?
+var translationPeriods:CGFloat?
+
 var selectedMonth = getDateInts().0
 var selectedDay:Int? = getDateInts().1
 var selectedYear = getDateInts().2
 
 class ViewController: UIViewController {
+    @IBOutlet weak var blayer: UILabel!
+    
     var startPoint:CGPoint?
     var pllayer:PeriodListLayer!
     var clayer:CalendarLayer!
-    @IBAction func gesture(_ sender: UIPanGestureRecognizer) {
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    @IBAction func gesture(_ sender: UIPanGestureRecognizer) {//check back later for updates.
         if startPoint != nil {
             if sender.numberOfTouches == 0 {
-                if startPoint!.x - sender.location(in: view).x < -50 && abs(startPoint!.y - sender.location(in: view).y) < 30 {
+                translationCal = nil
+                translationPeriods = nil
+                if startPoint!.x - sender.location(in: view).x < -50 {
                     //left
-                    if sender.location(in: view).y < clayer.dframe.height {
+                    if startPoint!.y < clayer.dframe.height {
                         if clayer.selected {
                             selectedMonth -= 1
                             selectedDay = nil
@@ -29,16 +42,23 @@ class ViewController: UIViewController {
                                 selectedMonth = 12
                                 selectedYear -= 1
                             }
+                            for c in clayer.dateTexts {
+                                c.opacity = 0
+                                c.frame.origin.x -= view.frame.width
+                            }
                         }
                     }else {
+                        for p in pllayer.periods {
+                            p.isHidden = true
+                            p.frame.origin.x -= view.frame.width
+                        }
                         if selectedDay != nil {
                             selectedDay! -= 1
                         }
                     }
-                    clayer.setNeedsDisplay()
-                }else if startPoint!.x - sender.location(in: view).x > 50 && abs(startPoint!.y - sender.location(in: view).y) < 30 {
+                }else if startPoint!.x - sender.location(in: view).x > 50 {
                     //right
-                    if sender.location(in: view).y < clayer.dframe.height {
+                    if startPoint!.y < clayer.dframe.height {
                         if clayer.selected {
                             selectedMonth += 1
                             selectedDay = nil
@@ -46,15 +66,55 @@ class ViewController: UIViewController {
                                 selectedMonth = 1
                                 selectedYear += 1
                             }
+                            for c in clayer.dateTexts {
+                                c.opacity = 0
+                                c.frame.origin.x += view.frame.width
+                            }
                         }
                     }else {
+                        for p in pllayer.periods {
+                            p.isHidden = true
+                            p.frame.origin.x += view.frame.width
+                        }
                         if selectedDay != nil {
                             selectedDay! += 1
                         }
                     }
                 }
-                startPoint = nil
                 updateDisplay()
+                if startPoint!.y < clayer.dframe.height {
+                    timer = Timer.scheduledTimer(withTimeInterval: 0.15, repeats: false, block: {(_:Timer) in
+                        self.clayer.layoutCalendar()
+                        self.timer =  Timer.scheduledTimer(withTimeInterval: 0.15, repeats: false, block: {(_:Timer) in
+                            for c in self.clayer.dateTexts {
+                                c.opacity = 1
+                            }
+                        })
+                    })
+                }else {
+                    timer = Timer.scheduledTimer(withTimeInterval: 0.15, repeats: false, block: {(_:Timer) in
+                        self.updateDisplay()
+                        self.timer = Timer.scheduledTimer(withTimeInterval: 0.15, repeats: false, block: {(_:Timer) in
+                            for p in self.pllayer.periods {
+                                p.isHidden = false
+                            }
+                        })
+                    })
+                }
+                startPoint = nil
+            }else {
+                if clayer.selected {
+                    if startPoint!.y < clayer.dframe.height {
+                        translationCal = (sender.location(in: view).x - startPoint!.x)*3
+                    }else {
+                        translationPeriods = (sender.location(in: view).x - startPoint!.x)*3
+                    }
+                    updateDisplay()
+                    clayer.layoutCalendar()
+                }else {
+                    translationPeriods = (sender.location(in: view).x - startPoint!.x)*3
+                    updateDisplay()
+                }
             }
         }else {
             startPoint = sender.location(in: view)
@@ -65,8 +125,9 @@ class ViewController: UIViewController {
             clayer.selected = !clayer.selected
         }
         if clayer.selected {
+            let pnt = CGPoint(x: sender.location(in: view).x, y: sender.location(in: view).y + 10)
             for (num, bx) in getGridFrom(width: UIScreen.main.bounds.width, date: (selectedMonth, 15, selectedYear)).enumerated() {
-                if bx.contains(sender.location(in: view)) {
+                if bx.contains(pnt) {
                     if selectedDay != nil {
                         clayer.dateTexts[selectedDay! - 1].font = UIFont(name: "Arial", size: 6)!
                         clayer.dateTexts[selectedDay! - 1].foregroundColor = UIColor.white.cgColor
@@ -79,6 +140,12 @@ class ViewController: UIViewController {
         }
         pt = sender.location(in: view)
         updateDisplay()
+        clayer.layoutCalendar()
+    }
+    var timer:Timer!
+    func start(_:Timer) {
+        updateDisplay()
+        clayer.layoutCalendar()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,6 +163,7 @@ class ViewController: UIViewController {
         pllayer.contentsScale = UIScreen.main.scale
         pllayer.setNeedsDisplay()
         
+        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(start(_:)), userInfo: nil, repeats: false)
         
     }
     func updateDisplay() {
@@ -105,6 +173,8 @@ class ViewController: UIViewController {
         pllayer.frame.origin.y = clayer.dframe.height
         pllayer.setNeedsDisplay()
         clayer.setNeedsDisplay()
+        
+        blayer.text = startUpPattern
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

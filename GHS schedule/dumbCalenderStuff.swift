@@ -8,8 +8,15 @@
 
 import UIKit
 
+var curDate = {() -> Date in
+    var cal = Calendar(identifier: .gregorian)
+    cal.timeZone = TimeZone(abbreviation: "PST")!
+    let comp = cal.dateComponents(in: cal.timeZone, from: Date())
+    return comp.date!
+}()
+
 func getDateInts() -> (Int, Int, Int) {
-    let currentDate = Date()
+    let currentDate = curDate
     let dateFormatter = DateFormatter()
     dateFormatter.dateStyle = DateFormatter.Style.short
     let dateString = dateFormatter.string(from: currentDate)
@@ -38,11 +45,25 @@ func getDate(from:(Int, Int, Int)) -> Date {
     comps.month = from.0
     comps.day = from.1
     comps.year = from.2
-    let date = NSCalendar.current.date(from: comps)!
+    var cal = Calendar(identifier: .gregorian)
+    cal.timeZone = TimeZone(abbreviation: "PST")!
+    let date = cal.date(from: comps)!
     return date
+}
+func getMonth(from:(Int, Int)) -> String {
+    var comps = DateComponents()
+    comps.month = from.0
+    comps.year = from.1
+    var cal = Calendar(identifier: .gregorian)
+    cal.timeZone = TimeZone(abbreviation: "PST")!
+    let date = cal.date(from: comps)
+    let formatter = DateFormatter()
+    formatter.dateFormat = "MMMM, yyyy"
+    return formatter.string(from: date!)
 }
 func getdayNum(from dateI:(Int, Int, Int)) -> Int {
     let date = getDate(from: dateI)
+    
     let daysSince = floor(date.timeIntervalSince1970/(60*60*24))
     var day = (daysSince - floor(daysSince/7)*7) - 3
     if day < 0 {

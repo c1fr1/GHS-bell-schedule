@@ -13,60 +13,136 @@ var schedule:[Date:String]!
 var periodInfo:[String:[[String:String]]]!
 var periodInfoRawJson:Data!
 
+//A: it is not during the school day, checked version number and it is the same, so grabbing stored data
+//B: it is not during the school day, checked version number and it is not up to date, download schedule
+//C: defaults are nil, it is assumed the app has not been ran on this device yet, download schedule
+//D: it is during the school day, download schedule
+
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var cPC:NSPersistentContainer?
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        if let versChecked = UserDefaults.standard.value(forKey: "GHSSDATE") {
+            //if version number has been checked since 7:00 this morning, get stored info, otherwise, check vers num etc.
+            let date = versChecked as! Date
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyyMMdd"
+            formatter.timeZone = TimeZone(abbreviation: "PST")
+            if formatter.string(from: curDate) == formatter.string(from: date) {
+                formatter.dateFormat = "HH"
+                let hrs = Int(formatter.string(from: date))!
+                formatter.dateFormat = "mm"
+                let mins = Int(formatter.string(from: date))!
+                let day = getdayNum(from: (selectedMonth, selectedDay!, selectedYear))//change this to 5 or six to say it is a weekend and actually "getData"
+                if ((hrs > 8 && hrs < 16) || (mins >= 30 && hrs == 8)) && day < 5 {//any time after school, or any time during weekend
+                    print("D")
+                    startUpPattern = "D"
+                    schedule = getStoredData()
+                    periodInfo = getStoredScheduleInfo()
+                    if schedule.count == 0 {
+                        schedule = getDatesInfo()
+                    }
+                    if periodInfo.count == 0 {
+                        periodInfo = getScheduleInfo()
+                    }
+                }else {
+                    getData()
+                    UserDefaults.standard.set(curDate, forKey: "GHSSDATE")
+                }
+            }else {
+                getData()
+                UserDefaults.standard.set(curDate, forKey: "GHSSDATE")
+            }
+        }else {
+            getData()
+            UserDefaults.standard.set(curDate, forKey: "GHSSDATE")
+        }
+        print(getdayNum(from: (selectedMonth, selectedDay!, selectedYear)))
+        return true
+    }
+    func getData() {
         let versionNumDefault = UserDefaults.standard.value(forKey: "GHSSVERS")
         let versionNum:Int? = versionNumDefault as? Int
-        let data = try! Data(contentsOf: URL(string: "http://www.grantcompsci.com/bellapp/versionNumber.json")!)
-        let obj = try! JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! [String:Any]
-        let rVersNum = Int(obj["VERSION"] as! String)!
-        if versionNum != nil {
-            if rVersNum == versionNum! {
-                print("A")//up to date, grab saved schedule
-                schedule = getStoredData()
-                periodInfo = getStoredScheduleInfo()
+        var data:Data?
+        var obj:[String:Any]?
+        do {
+            data = try Data(contentsOf: URL(string: "http://www.grantcompsci.com/bellapp/versionNumber.json")!)
+            obj = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [String:Any]
+            let rVersNum = Int(obj!["VERSION"] as! String)!
+            if versionNum != nil {
+                if rVersNum == versionNum! {
+                    print("A")//up to date, grab saved schedule
+                    startUpPattern = "A"
+                    schedule = getStoredData()
+                    periodInfo = getStoredScheduleInfo()
+                    if schedule.count == 0 {
+                        schedule = getDatesInfo()
+                    }
+                    if periodInfo.count == 0 {
+                        periodInfo = getScheduleInfo()
+                    }
+                }else {
+                    //Get the data
+                    schedule = getDatesInfo()
+                    if schedule.count == 0 {
+                        schedule = getStoredData()
+                    }
+                    periodInfo = getScheduleInfo()
+                    if periodInfo.count == 0 {
+                        periodInfo = getStoredScheduleInfo()
+                    }
+                    UserDefaults.standard.setValue(rVersNum, forKey: "GHSSVERS")
+                    deleteStoredData(iN: persistentContainer.viewContext)
+                    print("B")//not up to date download and parse schedule
+                    startUpPattern = "B"
+                }
             }else {
-                //Get the data
+                //get the data
                 schedule = getDatesInfo()
                 periodInfo = getScheduleInfo()
                 UserDefaults.standard.setValue(rVersNum, forKey: "GHSSVERS")
-                print("B")//not up to date download and parse schedule
+                print("C")//first time starting app.
+                startUpPattern = "C"
             }
-        }else {
-            //get the data
-            schedule = getDatesInfo()
-            periodInfo = getScheduleInfo()
-            UserDefaults.standard.setValue(rVersNum, forKey: "GHSSVERS")
-            print("C")//first time starting app.
+        } catch _ as Error {
+            print("offline")//no internet connection, grabbing data if it exists
+            if versionNum != nil {
+                schedule = getStoredData()
+                periodInfo = getStoredScheduleInfo()
+            }
         }
-        return true
     }
     func getDatesInfo() -> [Date:String] {
+        print("getting date info")
+        startUpPattern = "\(startUpPattern!)?"
         var retval:[Date:String] = [:]
-        let scheduleData = try! Data(contentsOf: URL(string: "http://www.grantcompsci.com/bellapp/schoolYearSchedule.json")!)
-        let scheduleStr = String(describing: try! JSONSerialization.jsonObject(with: scheduleData, options: .mutableContainers) as! [String:Any])
-        let allElements = parse(json: scheduleStr)
-        //[[String:String]]
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyyMMdd"
-        for dict in allElements {
-            var date = dict["VALUE"]
-            var ndate = ""
-            for char in date!.characters {
-                if Int("\(char)") != nil {
-                    ndate += "\(char)"
+        do {
+            let scheduleData = try Data(contentsOf: URL(string: "http://www.grantcompsci.com/bellapp/schoolYearSchedule.json")!)
+            let scheduleStr = try JSONSerialization.jsonObject(with: scheduleData, options: .mutableContainers) as! [String:[[String:String]]]
+            let formatter = DateFormatter()
+            formatter.timeZone = TimeZone(abbreviation: "PST")
+            formatter.dateFormat = "yyyyMMdd"
+            for dict in scheduleStr["VEVENT"]! {
+                var date = dict["DTSTART;VALUE=DATE"]
+                var ndate = ""
+                for char in date!.characters {
+                    if Int("\(char)") != nil {
+                        ndate += "\(char)"
+                    }
                 }
+                retval[formatter.date(from: ndate)!] = dict["SUMMARY"]
             }
-            retval[formatter.date(from: ndate)!] = dict["SUMMARY"]
+            return retval
+        } catch _ as NSError {
+            return [:]
         }
-        return retval
     }
     func getScheduleInfo() -> [String:[[String:String]]] {
+        print("getting schedule info")
         var retval = [String:[[String:String]]]()
         let data = try! Data(contentsOf: URL(string: "http://www.grantcompsci.com/bellapp/periodSchedule.json")!)
         periodInfoRawJson = data
@@ -86,10 +162,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let request = NSFetchRequest<NSManagedObject>(entityName:"GHSPeriodTimes")
         var data:Data!
         do {
-            let obj = try persistentContainer.viewContext.fetch(request)//empty
-            data = obj.first!.value(forKey: "rawJson") as! Data//CRASH
+            let obj = try persistentContainer.viewContext.fetch(request)
+            if obj.count == 0 {
+                return [:]
+            }
+            data = obj.first!.value(forKey: "rawJson") as! Data
         } catch _ as NSError {
             print("dataMissing")
+            return [:]
         }
         periodInfoRawJson = data
         if let lyr1 = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:Any] {
@@ -100,47 +180,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }else {
             print("notWorking")
+            return [:]
         }
         return retval
-    }
-    func parse(json:String) -> [[String:String]] {
-        var retVal:[[String:String]] = []
-        var curDict:[String:String] = [:]
-        var curVal = ""
-        var curCharacteristicName = ""
-        var onCharacteristicName:Bool = true
-        var inElement:Bool = false
-        for char in json.characters {
-            if inElement {
-                if char != " " && char != "\n" && char != "\"" {
-                    if char != "}" {
-                        if char == "=" {
-                            onCharacteristicName = false
-                        }else if char == ";" {
-                            onCharacteristicName = true
-                            curDict[curCharacteristicName] = curVal
-                            curVal = ""
-                            curCharacteristicName = ""
-                        }else {
-                            if onCharacteristicName {
-                                curCharacteristicName = "\(curCharacteristicName)\(char)"
-                            }else {
-                                curVal = "\(curVal)\(char)"
-                            }
-                        }
-                    }else {
-                        retVal.append(curDict)
-                        curDict = [:]
-                        inElement = false
-                    }
-                }
-            }else {
-                if char == "{" {
-                    inElement = true
-                }
-            }
-        }
-        return retVal
     }
     func getStoredData() -> [Date:String] {
         let request = NSFetchRequest<NSManagedObject>(entityName:"GHSSchedule")
@@ -152,10 +194,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 retVal[obj.value(forKey: "date") as! Date] = obj.value(forKey: "scheduleType") as? String
             }
             return retVal
-        } catch _ as NSError {
-            print("dataMissing")
+        } catch let e {
+            print("dataMissing\(e.localizedDescription)")
+            return [:]
         }
-        return [:]
     }
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -168,6 +210,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
+        let ints = getDateInts()
+        selectedMonth = ints.0
+        selectedDay = ints.1
+        selectedYear = ints.2
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
 
@@ -176,19 +222,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
+        
+        let request = NSFetchRequest<NSManagedObject>(entityName:"GHSSchedule")
         let ctx = persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "GHSSchedule", in: ctx)
-        for element in schedule {
-            let obj = NSManagedObject(entity: entity!, insertInto: ctx)
-            obj.setValue(element.key, forKey: "date")
-            obj.setValue(element.value, forKey: "scheduleType")
+        if schedule.count > 0 && (try! ctx.fetch(request).count) < 1 {
+            //DOSTUFF
+            
+            let entity = NSEntityDescription.entity(forEntityName: "GHSSchedule", in: ctx)
+            for element in schedule {
+                let obj = NSManagedObject(entity: entity!, insertInto: ctx)
+                obj.setValue(element.key, forKey: "date")
+                obj.setValue(element.value, forKey: "scheduleType")
+            }
+            let ent = NSEntityDescription.entity(forEntityName: "GHSPeriodTimes", in: ctx)!
+            let obj = NSManagedObject(entity: ent, insertInto: ctx)
+            obj.setValue(periodInfoRawJson, forKey: "rawJson")
+            
+            print(try! persistentContainer.viewContext.fetch(request).count)
+            // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+            // Saves changes in the application's managed object context before the application terminates.
         }
-        let ent = NSEntityDescription.entity(forEntityName: "GHSPeriodTimes", in: ctx)!
-        let obj = NSManagedObject(entity: ent, insertInto: ctx)
-        obj.setValue(periodInfoRawJson, forKey: "rawJson")
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
+    }
+    func deleteStoredData(iN ctx:NSManagedObjectContext) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "GHSSchedule")
+        let fe2chRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "GHSPeriodTimes")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        let de2eteReqest = NSBatchDeleteRequest(fetchRequest: fe2chRequest)
+        do {
+            let container = NSPersistentContainer(name: "GHS_schedule")
+            container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+                if let error = error as NSError? {
+                    fatalError("Unresolved error \(error), \(error.userInfo)")
+                }
+            })
+            let coordinator = container.persistentStoreCoordinator
+            try coordinator.execute(deleteRequest, with: ctx)
+            try coordinator.execute(de2eteReqest, with: ctx)
+        } catch _ as Error {
+            print("RIP")
+        }
     }
 
     // MARK: - Core Data stack
@@ -201,6 +274,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          error conditions that could cause the creation of the store to fail.
         */
         let container = NSPersistentContainer(name: "GHS_schedule")
+        
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
