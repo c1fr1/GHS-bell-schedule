@@ -39,8 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let mins = Int(formatter.string(from: date))!
                 let day = getdayNum(from: (selectedMonth, selectedDay!, selectedYear))//change this to 5 or six to say it is a weekend and actually "getData"
                 if ((hrs > 8 && hrs < 16) || (mins >= 30 && hrs == 8)) && day < 5 {//any time after school, or any time during weekend
-                    print("D")
-                    startUpPattern = "D"
                     schedule = getStoredData()
                     periodInfo = getStoredScheduleInfo()
                     if schedule.count == 0 {
@@ -61,7 +59,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             getData()
             UserDefaults.standard.set(curDate, forKey: "GHSSDATE")
         }
-        print(getdayNum(from: (selectedMonth, selectedDay!, selectedYear)))
         return true
     }
     func getData() {
@@ -75,8 +72,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let rVersNum = Int(obj!["VERSION"] as! String)!
             if versionNum != nil {
                 if rVersNum == versionNum! {
-                    print("A")//up to date, grab saved schedule
-                    startUpPattern = "A"
                     schedule = getStoredData()
                     periodInfo = getStoredScheduleInfo()
                     if schedule.count == 0 {
@@ -97,19 +92,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
                     UserDefaults.standard.setValue(rVersNum, forKey: "GHSSVERS")
                     deleteStoredData(iN: persistentContainer.viewContext)
-                    print("B")//not up to date download and parse schedule
-                    startUpPattern = "B"
                 }
             }else {
                 //get the data
                 schedule = getDatesInfo()
                 periodInfo = getScheduleInfo()
                 UserDefaults.standard.setValue(rVersNum, forKey: "GHSSVERS")
-                print("C")//first time starting app.
-                startUpPattern = "C"
             }
         } catch _ as Error {
-            print("offline")//no internet connection, grabbing data if it exists
             if versionNum != nil {
                 schedule = getStoredData()
                 periodInfo = getStoredScheduleInfo()
@@ -117,8 +107,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     func getDatesInfo() -> [Date:String] {
-        print("getting date info")
-        startUpPattern = "\(startUpPattern!)?"
         var retval:[Date:String] = [:]
         do {
             let scheduleData = try Data(contentsOf: URL(string: "http://www.grantcompsci.com/bellapp/schoolYearSchedule.json")!)
@@ -142,7 +130,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     func getScheduleInfo() -> [String:[[String:String]]] {
-        print("getting schedule info")
         var retval = [String:[[String:String]]]()
         let data = try! Data(contentsOf: URL(string: "http://www.grantcompsci.com/bellapp/periodSchedule.json")!)
         periodInfoRawJson = data
@@ -189,7 +176,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         do {
             var retVal:[Date:String] = [:]
             let scheduleList = try persistentContainer.viewContext.fetch(request)
-            print(scheduleList.count)
             for obj in scheduleList {
                 retVal[obj.value(forKey: "date") as! Date] = obj.value(forKey: "scheduleType") as? String
             }
@@ -237,8 +223,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let ent = NSEntityDescription.entity(forEntityName: "GHSPeriodTimes", in: ctx)!
             let obj = NSManagedObject(entity: ent, insertInto: ctx)
             obj.setValue(periodInfoRawJson, forKey: "rawJson")
-            
-            print(try! persistentContainer.viewContext.fetch(request).count)
             // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
             // Saves changes in the application's managed object context before the application terminates.
         }

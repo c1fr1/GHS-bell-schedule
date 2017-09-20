@@ -8,8 +8,6 @@
 
 import UIKit
 
-var startUpPattern:String! = "FAIDFAE"
-
 var translationCal:CGFloat?
 var translationPeriods:CGFloat?
 
@@ -18,7 +16,6 @@ var selectedDay:Int? = getDateInts().1
 var selectedYear = getDateInts().2
 
 class ViewController: UIViewController {
-    @IBOutlet weak var blayer: UILabel!
     
     var startPoint:CGPoint?
     var pllayer:PeriodListLayer!
@@ -173,8 +170,6 @@ class ViewController: UIViewController {
         pllayer.frame.origin.y = clayer.dframe.height
         pllayer.setNeedsDisplay()
         clayer.setNeedsDisplay()
-        
-        blayer.text = startUpPattern
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
