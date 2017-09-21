@@ -18,6 +18,7 @@ var curDate = {() -> Date in
 func getDateInts() -> (Int, Int, Int) {
     let currentDate = curDate
     let dateFormatter = DateFormatter()
+    dateFormatter.timeZone = TimeZone(abbreviation: "PST")
     dateFormatter.dateStyle = DateFormatter.Style.short
     let dateString = dateFormatter.string(from: currentDate)
     var currentString = ""

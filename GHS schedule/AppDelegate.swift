@@ -18,14 +18,16 @@ var periodInfoRawJson:Data!
 //C: defaults are nil, it is assumed the app has not been ran on this device yet, download schedule
 //D: it is during the school day, download schedule
 
-
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        startUp()
+        return true
+    }
+    func startUp() {
         if let versChecked = UserDefaults.standard.value(forKey: "GHSSDATE") {
             //if version number has been checked since 7:00 this morning, get stored info, otherwise, check vers num etc.
             let date = versChecked as! Date
@@ -38,8 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 formatter.dateFormat = "mm"
                 let mins = Int(formatter.string(from: date))!
                 let day = getdayNum(from: (selectedMonth, selectedDay!, selectedYear))//change this to 5 or six to say it is a weekend and actually "getData"
-                if ((hrs > 8 && hrs < 16) || (mins >= 30 && hrs == 8)) && day < 5 {//any time after school, or any time during weekend
-                    schedule = getStoredData()
+                if (((hrs > 8 && hrs < 16) || (mins >= 30 && hrs == 8)) && day < 5) || date.timeIntervalSince(curDate) < 180 {//any time after school, or any time during weekend
+                    schedule = getStoredData()//D
                     periodInfo = getStoredScheduleInfo()
                     if schedule.count == 0 {
                         schedule = getDatesInfo()
@@ -59,7 +61,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             getData()
             UserDefaults.standard.set(curDate, forKey: "GHSSDATE")
         }
-        return true
     }
     func getData() {
         let versionNumDefault = UserDefaults.standard.value(forKey: "GHSSVERS")
@@ -72,6 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let rVersNum = Int(obj!["VERSION"] as! String)!
             if versionNum != nil {
                 if rVersNum == versionNum! {
+                    //C
                     schedule = getStoredData()
                     periodInfo = getStoredScheduleInfo()
                     if schedule.count == 0 {
@@ -81,7 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         periodInfo = getScheduleInfo()
                     }
                 }else {
-                    //Get the data
+                    //B
                     schedule = getDatesInfo()
                     if schedule.count == 0 {
                         schedule = getStoredData()
@@ -94,7 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     deleteStoredData(iN: persistentContainer.viewContext)
                 }
             }else {
-                //get the data
+                //C
                 schedule = getDatesInfo()
                 periodInfo = getScheduleInfo()
                 UserDefaults.standard.setValue(rVersNum, forKey: "GHSSVERS")
@@ -200,6 +202,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         selectedMonth = ints.0
         selectedDay = ints.1
         selectedYear = ints.2
+        startUp()
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
 

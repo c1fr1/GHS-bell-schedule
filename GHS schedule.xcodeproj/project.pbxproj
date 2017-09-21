@@ -15,7 +15,7 @@
 		DF7D45E91F5F87BB00925D2E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF7D45E71F5F87BB00925D2E /* LaunchScreen.storyboard */; };
 		DF7D45F11F5F88CA00925D2E /* PeriodListClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45F01F5F88CA00925D2E /* PeriodListClasses.swift */; };
 		DF7D45F31F5FAD9B00925D2E /* calenderLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45F21F5FAD9B00925D2E /* calenderLayer.swift */; };
-		DF7D45F51F5FDAAB00925D2E /* dumbCalenderStuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45F41F5FDAAB00925D2E /* dumbCalenderStuff.swift */; };
+		DF7D45F51F5FDAAB00925D2E /* calenderStuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */; };
 		DFEBBFA21F6667F500046334 /* GHS logo.png in Resources */ = {isa = PBXBuildFile; fileRef = DFEBBFA11F6667F500046334 /* GHS logo.png */; };
 /* End PBXBuildFile section */
 
@@ -30,7 +30,7 @@
 		DF7D45EA1F5F87BB00925D2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF7D45F01F5F88CA00925D2E /* PeriodListClasses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodListClasses.swift; sourceTree = "<group>"; };
 		DF7D45F21F5FAD9B00925D2E /* calenderLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = calenderLayer.swift; sourceTree = "<group>"; };
-		DF7D45F41F5FDAAB00925D2E /* dumbCalenderStuff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dumbCalenderStuff.swift; sourceTree = "<group>"; };
+		DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = calenderStuff.swift; sourceTree = "<group>"; };
 		DFEBBFA11F6667F500046334 /* GHS logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GHS logo.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,7 +69,7 @@
 				DF7D45DD1F5F87BB00925D2E /* ViewController.swift */,
 				DF7D45F01F5F88CA00925D2E /* PeriodListClasses.swift */,
 				DF7D45F21F5FAD9B00925D2E /* calenderLayer.swift */,
-				DF7D45F41F5FDAAB00925D2E /* dumbCalenderStuff.swift */,
+				DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */,
 				DF7D45DF1F5F87BB00925D2E /* Main.storyboard */,
 				DF7D45E51F5F87BB00925D2E /* Assets.xcassets */,
 				DF7D45E71F5F87BB00925D2E /* LaunchScreen.storyboard */,
@@ -153,7 +153,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF7D45F51F5FDAAB00925D2E /* dumbCalenderStuff.swift in Sources */,
+				DF7D45F51F5FDAAB00925D2E /* calenderStuff.swift in Sources */,
 				DF7D45DE1F5F87BB00925D2E /* ViewController.swift in Sources */,
 				DF7D45F31F5FAD9B00925D2E /* calenderLayer.swift in Sources */,
 				DF7D45DC1F5F87BB00925D2E /* AppDelegate.swift in Sources */,

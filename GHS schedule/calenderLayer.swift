@@ -153,7 +153,7 @@ class CalendarLayer:CALayer {
             ctx.addArc(center: CGPoint(x: frm.midX + transl, y: dateTexts[selectedDay! - 1].frame.origin.y + 9), radius: 15, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: false)
             //ctx.move(to: CGPoint(x: dateTexts[selectedDay! - 1].frame.midX + 15, y: dateTexts[selectedDay! - 1].frame.origin.y + 9))
             //ctx.addArc(center: CGPoint(x: dateTexts[selectedDay! - 1].frame.midX, y: dateTexts[selectedDay! - 1].frame.origin.y + 9), radius: 15, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: false)
-            ctx.setFillColor(UIColor.black.cgColor)
+            ctx.setFillColor(UIColor.gray.cgColor)
             ctx.fillPath()
         }
         
