@@ -20,13 +20,28 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LwO-5Q-hPA">
+                                <rect key="frame" x="166" y="626" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="LwO-5Q-hPA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="KdK-2z-vDd"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="LwO-5Q-hPA" secondAttribute="bottom" constant="20" id="jz1-5D-ZVY"/>
+                        </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="AHp-et-g66" appends="YES" id="78V-rn-cM1"/>
                             <outletCollection property="gestureRecognizers" destination="sQV-Dc-Voy" appends="YES" id="Kwt-Oq-SYZ"/>
                         </connections>
                     </view>
+                    <connections>
+                        <outlet property="blayer" destination="LwO-5Q-hPA" id="snX-9z-PCJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="sQV-Dc-Voy">
@@ -40,7 +55,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="185" y="38"/>
+            <point key="canvasLocation" x="-351" y="29"/>
         </scene>
     </scenes>
 </document>

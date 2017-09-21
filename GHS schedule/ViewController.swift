@@ -8,6 +8,8 @@
 
 import UIKit
 
+var startupCode:String = "Unloaded"
+
 var translationCal:CGFloat?
 var translationPeriods:CGFloat?
 
@@ -15,11 +17,25 @@ var selectedMonth = getDateInts().0
 var selectedDay:Int? = getDateInts().1
 var selectedYear = getDateInts().2
 
+var vc:ViewController!
+
 class ViewController: UIViewController {
+    
+    @IBOutlet weak var blayer: UILabel!
     
     var startPoint:CGPoint?
     var pllayer:PeriodListLayer!
     var clayer:CalendarLayer!
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        vc = self
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        vc = self
+    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -161,7 +177,6 @@ class ViewController: UIViewController {
         pllayer.setNeedsDisplay()
         
         timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(start(_:)), userInfo: nil, repeats: false)
-        
     }
     func updateDisplay() {
         pllayer.setup()
@@ -170,6 +185,7 @@ class ViewController: UIViewController {
         pllayer.frame.origin.y = clayer.dframe.height
         pllayer.setNeedsDisplay()
         clayer.setNeedsDisplay()
+        blayer.text = startupCode
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

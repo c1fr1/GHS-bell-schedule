@@ -41,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let mins = Int(formatter.string(from: date))!
                 let day = getdayNum(from: (selectedMonth, selectedDay!, selectedYear))//change this to 5 or six to say it is a weekend and actually "getData"
                 if (((hrs > 8 && hrs < 16) || (mins >= 30 && hrs == 8)) && day < 5) || date.timeIntervalSince(curDate) < 180 {//any time after school, or any time during weekend
+                    startupCode = "D"
                     schedule = getStoredData()//D
                     periodInfo = getStoredScheduleInfo()
                     if schedule.count == 0 {
@@ -73,7 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let rVersNum = Int(obj!["VERSION"] as! String)!
             if versionNum != nil {
                 if rVersNum == versionNum! {
-                    //C
+                    startupCode = "C"//C
                     schedule = getStoredData()
                     periodInfo = getStoredScheduleInfo()
                     if schedule.count == 0 {
@@ -83,7 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         periodInfo = getScheduleInfo()
                     }
                 }else {
-                    //B
+                    startupCode = "B"//B
                     schedule = getDatesInfo()
                     if schedule.count == 0 {
                         schedule = getStoredData()
@@ -96,7 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     deleteStoredData(iN: persistentContainer.viewContext)
                 }
             }else {
-                //C
+                startupCode = "C"//C
                 schedule = getDatesInfo()
                 periodInfo = getScheduleInfo()
                 UserDefaults.standard.setValue(rVersNum, forKey: "GHSSVERS")
@@ -109,6 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     func getDatesInfo() -> [Date:String] {
+        startupCode = "\(startupCode)?"
         var retval:[Date:String] = [:]
         do {
             let scheduleData = try Data(contentsOf: URL(string: "http://www.grantcompsci.com/bellapp/schoolYearSchedule.json")!)
