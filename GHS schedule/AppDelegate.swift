@@ -9,8 +9,8 @@
 import UIKit
 import CoreData
 
-var schedule:[Date:String]!
-var periodInfo:[String:[[String:String]]]!
+var schedule:[Date:String]?
+var periodInfo:[String:[[String:String]]]?
 var periodInfoRawJson:Data!
 
 //A: it is not during the school day, checked version number and it is the same, so grabbing stored data
@@ -40,14 +40,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 formatter.dateFormat = "mm"
                 let mins = Int(formatter.string(from: date))!
                 let day = getdayNum(from: (selectedMonth, selectedDay!, selectedYear))//change this to 5 or six to say it is a weekend and actually "getData"
-                if (((hrs > 8 && hrs < 16) || (mins >= 30 && hrs == 8)) && day < 5) || date.timeIntervalSince(curDate) < 180 {//any time after school, or any time during weekend
+                if (((hrs > 8 && hrs < 16) || (mins >= 30 && hrs == 8)) && day != 6  && day != 0) || curDate.timeIntervalSince(date) < 180 {//any time after school, or any time during weekend
                     startupCode = "D"
                     schedule = getStoredData()//D
                     periodInfo = getStoredScheduleInfo()
-                    if schedule.count == 0 {
+                    if schedule!.count == 0 {
                         schedule = getDatesInfo()
                     }
-                    if periodInfo.count == 0 {
+                    if periodInfo!.count == 0 {
                         periodInfo = getScheduleInfo()
                     }
                 }else {
@@ -74,23 +74,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let rVersNum = Int(obj!["VERSION"] as! String)!
             if versionNum != nil {
                 if rVersNum == versionNum! {
-                    startupCode = "C"//C
+                    startupCode = "A"//A
                     schedule = getStoredData()
                     periodInfo = getStoredScheduleInfo()
-                    if schedule.count == 0 {
+                    if schedule!.count == 0 {
                         schedule = getDatesInfo()
                     }
-                    if periodInfo.count == 0 {
+                    if periodInfo!.count == 0 {
                         periodInfo = getScheduleInfo()
                     }
                 }else {
                     startupCode = "B"//B
                     schedule = getDatesInfo()
-                    if schedule.count == 0 {
+                    if schedule!.count == 0 {
                         schedule = getStoredData()
                     }
                     periodInfo = getScheduleInfo()
-                    if periodInfo.count == 0 {
+                    if periodInfo!.count == 0 {
                         periodInfo = getStoredScheduleInfo()
                     }
                     UserDefaults.standard.setValue(rVersNum, forKey: "GHSSVERS")
@@ -149,6 +149,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return retval
     }
     func getStoredScheduleInfo() -> [String:[[String:String]]] {
+        if periodInfo != nil {
+            if periodInfo!.count > 0 {
+                return periodInfo!
+            }
+        }
         var retval = [String:[[String:String]]]()
         let request = NSFetchRequest<NSManagedObject>(entityName:"GHSPeriodTimes")
         var data:Data!
@@ -176,6 +181,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return retval
     }
     func getStoredData() -> [Date:String] {
+        if schedule != nil {
+            if schedule!.count > 0 {
+                return schedule!
+            }
+        }
         let request = NSFetchRequest<NSManagedObject>(entityName:"GHSSchedule")
         do {
             var retVal:[Date:String] = [:]
@@ -197,6 +207,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        let request = NSFetchRequest<NSManagedObject>(entityName:"GHSSchedule")
+        let ctx = persistentContainer.viewContext
+        if schedule!.count > 0 && (try! ctx.fetch(request).count) < 1 {
+            //DOSTUFF
+            
+            let entity = NSEntityDescription.entity(forEntityName: "GHSSchedule", in: ctx)
+            for element in schedule! {
+                let obj = NSManagedObject(entity: entity!, insertInto: ctx)
+                obj.setValue(element.key, forKey: "date")
+                obj.setValue(element.value, forKey: "scheduleType")
+            }
+            let ent = NSEntityDescription.entity(forEntityName: "GHSPeriodTimes", in: ctx)!
+            let obj = NSManagedObject(entity: ent, insertInto: ctx)
+            obj.setValue(periodInfoRawJson, forKey: "rawJson")
+            // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+            // Saves changes in the application's managed object context before the application terminates.
+        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -205,6 +232,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         selectedDay = ints.1
         selectedYear = ints.2
         startUp()
+        vc.blayer.text = startupCode
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
 
@@ -216,11 +244,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let request = NSFetchRequest<NSManagedObject>(entityName:"GHSSchedule")
         let ctx = persistentContainer.viewContext
-        if schedule.count > 0 && (try! ctx.fetch(request).count) < 1 {
+        if schedule!.count > 0 && (try! ctx.fetch(request).count) < 1 {
             //DOSTUFF
             
             let entity = NSEntityDescription.entity(forEntityName: "GHSSchedule", in: ctx)
-            for element in schedule {
+            for element in schedule! {
                 let obj = NSManagedObject(entity: entity!, insertInto: ctx)
                 obj.setValue(element.key, forKey: "date")
                 obj.setValue(element.value, forKey: "scheduleType")
