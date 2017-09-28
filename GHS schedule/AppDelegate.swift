@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 var schedule:[Date:String]?
 var periodInfo:[String:[[String:String]]]?
@@ -41,7 +42,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let mins = Int(formatter.string(from: date))!
                 let day = getdayNum(from: (selectedMonth, selectedDay!, selectedYear))//change this to 5 or six to say it is a weekend and actually "getData"
                 if (((hrs > 8 && hrs < 16) || (mins >= 30 && hrs == 8)) && day != 6  && day != 0) || curDate.timeIntervalSince(date) < 180 {//any time after school, or any time during weekend
-                    startupCode = "D"
                     schedule = getStoredData()//D
                     periodInfo = getStoredScheduleInfo()
                     if schedule!.count == 0 {
@@ -74,7 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let rVersNum = Int(obj!["VERSION"] as! String)!
             if versionNum != nil {
                 if rVersNum == versionNum! {
-                    startupCode = "A"//A
+                    //A
                     schedule = getStoredData()
                     periodInfo = getStoredScheduleInfo()
                     if schedule!.count == 0 {
@@ -84,7 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         periodInfo = getScheduleInfo()
                     }
                 }else {
-                    startupCode = "B"//B
+                    //B
                     schedule = getDatesInfo()
                     if schedule!.count == 0 {
                         schedule = getStoredData()
@@ -97,10 +97,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     deleteStoredData(iN: persistentContainer.viewContext)
                 }
             }else {
-                startupCode = "C"//C
+                //C
                 schedule = getDatesInfo()
                 periodInfo = getScheduleInfo()
                 UserDefaults.standard.setValue(rVersNum, forKey: "GHSSVERS")
+                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound], completionHandler: {{ (completed, with) in
+                    print("handler")
+                }})
             }
         } catch _ as Error {
             if versionNum != nil {
@@ -110,7 +113,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     func getDatesInfo() -> [Date:String] {
-        startupCode = "\(startupCode)?"
         var retval:[Date:String] = [:]
         do {
             let scheduleData = try Data(contentsOf: URL(string: "http://www.grantcompsci.com/bellapp/schoolYearSchedule.json")!)
@@ -232,7 +234,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         selectedDay = ints.1
         selectedYear = ints.2
         startUp()
-        vc.blayer.text = startupCode
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
 

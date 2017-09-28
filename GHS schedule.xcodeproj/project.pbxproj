@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF0B3A151F7C6F8C003FEE7B /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0B3A141F7C6F8C003FEE7B /* NotificationViewController.swift */; };
 		DF7D45DC1F5F87BB00925D2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45DB1F5F87BB00925D2E /* AppDelegate.swift */; };
 		DF7D45DE1F5F87BB00925D2E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45DD1F5F87BB00925D2E /* ViewController.swift */; };
 		DF7D45E11F5F87BB00925D2E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF7D45DF1F5F87BB00925D2E /* Main.storyboard */; };
@@ -20,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DF0B3A141F7C6F8C003FEE7B /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		DF7D3BDD1F7DA9A800BC0752 /* GHS schedule.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GHS schedule.entitlements"; sourceTree = "<group>"; };
 		DF7D45D81F5F87BB00925D2E /* GHS schedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GHS schedule.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF7D45DB1F5F87BB00925D2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF7D45DD1F5F87BB00925D2E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -64,9 +67,11 @@
 		DF7D45DA1F5F87BB00925D2E /* GHS schedule */ = {
 			isa = PBXGroup;
 			children = (
+				DF7D3BDD1F7DA9A800BC0752 /* GHS schedule.entitlements */,
 				DFEBBFA11F6667F500046334 /* GHS logo.png */,
 				DF7D45DB1F5F87BB00925D2E /* AppDelegate.swift */,
 				DF7D45DD1F5F87BB00925D2E /* ViewController.swift */,
+				DF0B3A141F7C6F8C003FEE7B /* NotificationViewController.swift */,
 				DF7D45F01F5F88CA00925D2E /* PeriodListClasses.swift */,
 				DF7D45F21F5FAD9B00925D2E /* calenderLayer.swift */,
 				DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */,
@@ -111,8 +116,13 @@
 				TargetAttributes = {
 					DF7D45D71F5F87BB00925D2E = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 6PK2RKB3SK;
+						DevelopmentTeam = KAZ52S2JC2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -156,6 +166,7 @@
 				DF7D45F51F5FDAAB00925D2E /* calenderStuff.swift in Sources */,
 				DF7D45DE1F5F87BB00925D2E /* ViewController.swift in Sources */,
 				DF7D45F31F5FAD9B00925D2E /* calenderLayer.swift in Sources */,
+				DF0B3A151F7C6F8C003FEE7B /* NotificationViewController.swift in Sources */,
 				DF7D45DC1F5F87BB00925D2E /* AppDelegate.swift in Sources */,
 				DF7D45E41F5F87BB00925D2E /* GHS_schedule.xcdatamodeld in Sources */,
 				DF7D45F11F5F88CA00925D2E /* PeriodListClasses.swift in Sources */,
@@ -283,11 +294,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 6PK2RKB3SK;
+				CODE_SIGN_ENTITLEMENTS = "GHS schedule/GHS schedule.entitlements";
+				DEVELOPMENT_TEAM = KAZ52S2JC2;
 				INFOPLIST_FILE = "GHS schedule/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.catana-software.GHS-schedule";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.catana-software.ghsschedule";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -297,11 +309,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 6PK2RKB3SK;
+				CODE_SIGN_ENTITLEMENTS = "GHS schedule/GHS schedule.entitlements";
+				DEVELOPMENT_TEAM = KAZ52S2JC2;
 				INFOPLIST_FILE = "GHS schedule/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.catana-software.GHS-schedule";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.catana-software.ghsschedule";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
