@@ -58,7 +58,7 @@ class NotificationViewController: UIViewController, UITextFieldDelegate {
         }
         view.endEditing(true)
     }
-    func cleanup(field:UITextField) -> TimeInterval? {
+    @discardableResult func cleanup(field:UITextField) -> TimeInterval? {
         var time:Double?
         if field.text != nil {
             time = getInterval(from: field.text!)
