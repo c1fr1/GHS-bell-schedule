@@ -28,9 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         startUp()
-        if let notifOptions = launchOptions?[.remoteNotification] as? [String:AnyObject] {
-            print("launched from notification\(notifOptions)")
-        }
         return true
     }
     func startUp() {
@@ -97,11 +94,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         completionHandler(UNNotificationPresentationOptions.sound)
     }
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        let tokenParts = deviceToken.map { (data) -> String in
-            return String(format: "%02.2hhx", data)
-        }
-        let token = tokenParts.joined()
-        print(token)
         let generalCategory = UNNotificationCategory(identifier: "GENERAL", actions: [], intentIdentifiers: [], options: .customDismissAction)
         let center = UNUserNotificationCenter.current()
         center.setNotificationCategories([generalCategory])
@@ -303,7 +295,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
             // Saves changes in the application's managed object context before the application terminates.
         }
-        print(p4Duration)
         UserDefaults.standard.set(p1Duration, forKey: "GHSP1DURATION")
         UserDefaults.standard.set(p2Duration, forKey: "GHSP2DURATION")
         UserDefaults.standard.set(p3Duration, forKey: "GHSP3DURATION")

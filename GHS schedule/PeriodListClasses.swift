@@ -127,7 +127,6 @@ class PeriodTextLayer:CALayer {
         startLayer.string = period["START"]
         endLayer.string = period["END"]
         if period["NAME"]! != " " && period["NAME"]! != "" {
-            print("is\(period["NAME"]!)si")
             if selectedDay != nil {
                 if getDateInts() == (selectedMonth, selectedDay!, selectedYear) {
                     let startComp = gbtf(text: period)

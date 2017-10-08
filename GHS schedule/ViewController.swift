@@ -143,7 +143,7 @@ class ViewController: UIViewController {
         notificationsButton.isHidden = clayer.selected
     }
     var timer:Timer!
-    func start(_:Timer) {
+    @objc func start(_:Timer) {
         updateDisplay()
         clayer.layoutCalendar()
     }
