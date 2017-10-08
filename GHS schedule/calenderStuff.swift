@@ -41,6 +41,31 @@ func getDateInts() -> (Int, Int, Int) {
     year = Int(dateFormatter.string(from: currentDate))
     return (month!, day!, year!)
 }
+func getIntsFor(date:Date) -> (Int, Int, Int) {
+    let dateFormatter = DateFormatter()
+    dateFormatter.timeZone = TimeZone(abbreviation: "PST")
+    dateFormatter.dateStyle = DateFormatter.Style.short
+    let dateString = dateFormatter.string(from: date)
+    var currentString = ""
+    var month:Int?
+    var day:Int?
+    var year:Int?
+    for chr in dateString.characters {
+        if chr != "/" {
+            currentString += String(chr)
+        }else {
+            if month == nil  {
+                month = Int(currentString)
+            }else if day == nil {
+                day = Int(currentString)
+            }
+            currentString = ""
+        }
+    }
+    dateFormatter.dateFormat = "yyyy"
+    year = Int(dateFormatter.string(from: date))
+    return (month!, day!, year!)
+}
 func getDate(from:(Int, Int, Int)) -> Date {
     var comps:DateComponents = DateComponents()
     comps.month = from.0
@@ -199,4 +224,148 @@ func getGridFrom(width:CGFloat, date:(Int, Int, Int)) -> [CGRect] {
     }
     return retval
 }
-
+func getStartTimeFor(period:Int, on:(Int, Int, Int)) -> DateComponents? {
+    var comp = DateComponents()
+    comp.month = on.0
+    comp.day = on.1
+    comp.year = on.2
+    comp.calendar = Calendar(identifier: .gregorian)
+    comp.calendar!.timeZone = TimeZone(abbreviation: "PST")!
+    let stype = schedule![getDate(from: on)]
+    let daysInfo = periodInfo![stype!]
+    if daysInfo == nil { return nil }
+    var ptimeinfo:String = ""
+    for (num, info) in daysInfo!.enumerated() {
+        if info["NAME"] == "P\(period)" {
+            ptimeinfo = daysInfo![num]["START"]!
+            break
+        }
+    }
+    if ptimeinfo == "" {
+        return nil
+    }
+    var hourString:String = ""
+    var minuteString:String?
+    for char in ptimeinfo.characters {
+        if minuteString != nil {
+            if char == "p" || char == "P" {
+                hourString = String(Int(hourString)! + 12)
+                break
+            }else if char == "a" || char == "A" {
+                break
+            }else {
+                minuteString! += String(char)
+            }
+        }else {
+            if char == ":" {
+                minuteString = ""
+            }else {
+                hourString += String(char)
+            }
+        }
+    }
+    //comp.hour = Int(hourString)
+    //comp.minute = Int(minuteString!)
+    return comp
+}
+func getEndTimeFor(period:Int, on:(Int, Int, Int)) -> DateComponents? {
+    var comp = DateComponents()
+    comp.month = on.0
+    comp.day = on.1
+    comp.year = on.2
+    comp.calendar = Calendar(identifier: .gregorian)
+    comp.calendar!.timeZone = TimeZone(abbreviation: "PST")!
+    let stype = schedule![getDate(from: on)]
+    let daysInfo = periodInfo![stype!]!
+    var ptimeinfo:String = ""
+    for (num, info) in daysInfo.enumerated() {
+        if info["NAME"] == "P\(period)" {
+            ptimeinfo = daysInfo[num]["END"]!
+            break
+        }
+    }
+    if ptimeinfo == "" {
+        return nil
+    }
+    var hourString:String = ""
+    var minuteString:String?
+    for char in ptimeinfo.characters {
+        if minuteString != nil {
+            if char == "p" || char == "P" {
+                hourString = String(Int(hourString)! + 12)
+                break
+            }else if char == "a" || char == "A" {
+                break
+            }else {
+                minuteString! += String(char)
+            }
+        }else {
+            if char == ":" {
+                minuteString = ""
+            }else {
+                hourString += String(char)
+            }
+        }
+    }
+    comp.hour = Int(hourString)
+    comp.minute = Int(minuteString!)
+    return comp
+}
+func gbtf(text:[String:String]) -> DateComponents {
+    var comp = DateComponents()
+    comp.calendar = Calendar(identifier: .gregorian)
+    comp.calendar!.timeZone = TimeZone(abbreviation: "PST")!
+    var ptimeinfo = text["END"]!
+    var hourString:String = ""
+    var minuteString:String?
+    for char in ptimeinfo.characters {
+        if minuteString != nil {
+            if char == "p" || char == "P" {
+                hourString = String(Int(hourString)! + 12)
+                break
+            }else if char == "a" || char == "A" {
+                break
+            }else {
+                minuteString! += String(char)
+            }
+        }else {
+            if char == ":" {
+                minuteString = ""
+            }else {
+                hourString += String(char)
+            }
+        }
+    }
+    comp.hour = Int(hourString)
+    comp.minute = Int(minuteString!)
+    return comp
+}
+func getf(text:[String:String]) -> DateComponents {
+    var comp = DateComponents()
+    comp.calendar = Calendar(identifier: .gregorian)
+    comp.calendar!.timeZone = TimeZone(abbreviation: "PST")!
+    var ptimeinfo = text["END"]!
+    var hourString:String = ""
+    var minuteString:String?
+    for char in ptimeinfo.characters {
+        if minuteString != nil {
+            if char == "p" || char == "P" {
+                hourString = String(Int(hourString)! + 12)
+                break
+            }else if char == "a" || char == "A" {
+                break
+            }else {
+                minuteString! += String(char)
+            }
+        }else {
+            if char == ":" {
+                minuteString = ""
+            }else {
+                hourString += String(char)
+            }
+        }
+    }
+    comp.hour = Int(hourString)
+    comp.minute = Int(minuteString!)
+    return comp
+}

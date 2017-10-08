@@ -13,6 +13,7 @@ import UserNotifications
 var schedule:[Date:String]?
 var periodInfo:[String:[[String:String]]]?
 var periodInfoRawJson:Data!
+var notificationSettings:Bool?
 
 //A: it is not during the school day, checked version number and it is the same, so grabbing stored data
 //B: it is not during the school day, checked version number and it is not up to date, download schedule
@@ -20,12 +21,16 @@ var periodInfoRawJson:Data!
 //D: it is during the school day, download schedule
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
         startUp()
+        if let notifOptions = launchOptions?[.remoteNotification] as? [String:AnyObject] {
+            print("launched from notification\(notifOptions)")
+        }
         return true
     }
     func startUp() {
@@ -62,7 +67,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             getData()
             UserDefaults.standard.set(curDate, forKey: "GHSSDATE")
         }
+        UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { (settings) in
+            if settings.authorizationStatus == .authorized {
+                notificationSettings = true
+                DispatchQueue.main.async {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
+            }else if settings.authorizationStatus == .denied {
+                notificationSettings = false
+            }else if settings.authorizationStatus == .notDetermined {
+                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound], completionHandler: { (response, error) in
+                    notificationSettings = response
+                })
+            }
+        })
+        p1Duration = UserDefaults.standard.value(forKey: "GHSP1DURATION") as? Double
+        p2Duration = UserDefaults.standard.value(forKey: "GHSP2DURATION") as? Double
+        p3Duration = UserDefaults.standard.value(forKey: "GHSP3DURATION") as? Double
+        p4Duration = UserDefaults.standard.value(forKey: "GHSP4DURATION") as? Double
+        p5Duration = UserDefaults.standard.value(forKey: "GHSP5DURATION") as? Double
+        p6Duration = UserDefaults.standard.value(forKey: "GHSP6DURATION") as? Double
+        p7Duration = UserDefaults.standard.value(forKey: "GHSP7DURATION") as? Double
+        p8Duration = UserDefaults.standard.value(forKey: "GHSP8DURATION") as? Double
     }
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {//NOTIFICATIONSS
+        
+    }
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler(UNNotificationPresentationOptions.sound)
+    }
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let tokenParts = deviceToken.map { (data) -> String in
+            return String(format: "%02.2hhx", data)
+        }
+        let token = tokenParts.joined()
+        print(token)
+        let generalCategory = UNNotificationCategory(identifier: "GENERAL", actions: [], intentIdentifiers: [], options: .customDismissAction)
+        let center = UNUserNotificationCenter.current()
+        center.setNotificationCategories([generalCategory])
+    }//NOTIFICATIONE
     func getData() {
         let versionNumDefault = UserDefaults.standard.value(forKey: "GHSSVERS")
         let versionNum:Int? = versionNumDefault as? Int
@@ -101,9 +144,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 schedule = getDatesInfo()
                 periodInfo = getScheduleInfo()
                 UserDefaults.standard.setValue(rVersNum, forKey: "GHSSVERS")
-                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound], completionHandler: {{ (completed, with) in
-                    print("handler")
-                }})
+                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound], completionHandler: { (accepted, error) in
+                    print("acceptedNotifications:\(accepted)")
+                })
             }
         } catch _ as Error {
             if versionNum != nil {
@@ -242,7 +285,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        
+        notificationController?.saveAndSchedule()
         let request = NSFetchRequest<NSManagedObject>(entityName:"GHSSchedule")
         let ctx = persistentContainer.viewContext
         if schedule!.count > 0 && (try! ctx.fetch(request).count) < 1 {
@@ -260,6 +303,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
             // Saves changes in the application's managed object context before the application terminates.
         }
+        print(p4Duration)
+        UserDefaults.standard.set(p1Duration, forKey: "GHSP1DURATION")
+        UserDefaults.standard.set(p2Duration, forKey: "GHSP2DURATION")
+        UserDefaults.standard.set(p3Duration, forKey: "GHSP3DURATION")
+        UserDefaults.standard.set(p4Duration, forKey: "GHSP4DURATION")
+        UserDefaults.standard.set(p5Duration, forKey: "GHSP5DURATION")
+        UserDefaults.standard.set(p6Duration, forKey: "GHSP6DURATION")
+        UserDefaults.standard.set(p7Duration, forKey: "GHSP7DURATION")
+        UserDefaults.standard.set(p8Duration, forKey: "GHSP8DURATION")
+        
         self.saveContext()
     }
     func deleteStoredData(iN ctx:NSManagedObjectContext) {
@@ -328,5 +381,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+}
+
+let notificationIdentifier = "idforthign"
+
+func scheduleNotification(period:String, interval:TimeInterval, forDate:(Int, Int, Int)) {
+    let content = UNMutableNotificationContent()
+    content.sound = UNNotificationSound.default()
+    content.title = "\(period)"
+    let mins = Int(floor(interval/60))
+    let secs = Int(floor(interval)) - mins*60
+    if mins == 0 {
+        if secs == 0 {
+            content.body = "\(period) starts in... well it just started, idk why you made this..."
+        }else {
+            content.body = "\(period) starts in \(secs) seconds"
+        }
+    }else {
+        if secs == 0 {
+            content.body = "\(period) starts in \(mins) minutes"
+        }else {
+            content.body = "\(period) starts in \(mins) minutes and \(secs)"
+        }
+    }
+    
+    var pnum:Int!
+    for char in period.characters {
+        if let int = Int(String(char)) {
+            pnum = int
+            break
+        }
+    }
+    var comp = getStartTimeFor(period: pnum, on: forDate)
+    if comp != nil {
+        comp!.second = Int(-1*interval)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: comp!, repeats: false)
+        
+        
+        let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request) { (e) in
+            if let error = e {
+                print("error: \(error.localizedDescription)")
+            }
+        }
+    }
 }
 

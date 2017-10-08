@@ -122,9 +122,30 @@ class PeriodTextLayer:CALayer {
         endLayer.contentsScale = UIScreen.main.scale
     }
     func reuse(period:[String:String]) {
+        backgroundColor = nil
         nameLayer.string = period["NAME"]
         startLayer.string = period["START"]
         endLayer.string = period["END"]
+        if period["NAME"]! != " " && period["NAME"]! != "" {
+            print("is\(period["NAME"]!)si")
+            if selectedDay != nil {
+                if getDateInts() == (selectedMonth, selectedDay!, selectedYear) {
+                    let startComp = gbtf(text: period)
+                    let endComp = getf(text: period)
+                    let formatter = DateFormatter()
+                    formatter.calendar = Calendar(identifier: .gregorian)
+                    formatter.timeZone = TimeZone(identifier: "PST")
+                    formatter.dateFormat = "hh:mm aa"
+                    let curComp = getf(text: ["END":formatter.string(from: Date())])
+                    let isAfterStart:Bool = startComp.hour! < curComp.hour! || (startComp.hour! == curComp.hour! && startComp.minute! < curComp.minute!)
+                    let isBeforeEnd:Bool = endComp.hour! > curComp.hour! || (endComp.hour! == curComp.hour! && endComp.minute! > curComp.minute!)
+                    if isAfterStart && isBeforeEnd {
+                        backgroundColor = UIColor.blue.cgColor.copy(alpha: 0.5)
+                    }
+                }
+            }
+        }
+        
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
