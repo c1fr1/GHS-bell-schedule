@@ -383,10 +383,15 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
 func saveAndSchedule() {
     var count = 0
     var index = 0
-    while getDate(from: (selectedMonth, selectedDay!, selectedYear)).hashValue > orderedSchedule![index].0.hashValue {
-        index += 1
+    if orderedSchedule!.count > index {
+        while getDate(from: (selectedMonth, selectedDay!, selectedYear)).hashValue > orderedSchedule![index].0.hashValue {
+            index += 1
+        }
     }
     while count < 64 {
+        if orderedSchedule!.count <= index {
+            break
+        }
         let ints = getIntsFor(date: orderedSchedule![index].0)
         count += scheduleNotifications(forDate: ints, remaining: 63 - count)
         index += 1

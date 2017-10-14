@@ -28,10 +28,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         startUp()
-        let shit = UNUserNotificationCenter.getPendingNotificationRequests(UNUserNotificationCenter.current())
+        /*let shit = UNUserNotificationCenter.getPendingNotificationRequests(UNUserNotificationCenter.current())
         shit { (requests) in
             print("number of requests: \(requests.count)")
-        }
+        }*/
         UNUserNotificationCenter.current().delegate = self
         return true
     }

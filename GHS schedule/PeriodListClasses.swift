@@ -37,6 +37,11 @@ class PeriodListLayer:CALayer {
         fatalError("init(coder:) has not been implemented")
     }
     func setup() {
+        if schedule == nil {
+            orderedSchedule = []
+            schedule = [:]
+            periodInfo = [:]
+        }
         textlyr.frame = CGRect(x: 15, y: 12, width: frame.width, height: 38)
         if selectedDay != nil {
             let sType = schedule![getDate(from: (selectedMonth, selectedDay!, selectedYear))]
