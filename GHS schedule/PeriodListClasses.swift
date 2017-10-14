@@ -123,6 +123,9 @@ class PeriodTextLayer:CALayer {
     }
     func reuse(period:[String:String]) {
         backgroundColor = nil
+        nameLayer.foregroundColor = UIColor.darkGray.cgColor
+        startLayer.foregroundColor = UIColor.darkGray.cgColor
+        endLayer.foregroundColor = UIColor.darkGray.cgColor
         nameLayer.string = period["NAME"]
         startLayer.string = period["START"]
         endLayer.string = period["END"]
@@ -135,16 +138,20 @@ class PeriodTextLayer:CALayer {
                     formatter.calendar = Calendar(identifier: .gregorian)
                     formatter.timeZone = TimeZone(identifier: "PST")
                     formatter.dateFormat = "hh:mm aa"
-                    let curComp = getf(text: ["END":formatter.string(from: Date())])
-                    let isAfterStart:Bool = startComp.hour! < curComp.hour! || (startComp.hour! == curComp.hour! && startComp.minute! < curComp.minute!)
-                    let isBeforeEnd:Bool = endComp.hour! > curComp.hour! || (endComp.hour! == curComp.hour! && endComp.minute! > curComp.minute!)
-                    if isAfterStart && isBeforeEnd {
-                        backgroundColor = UIColor.blue.cgColor.copy(alpha: 0.5)
+                    let curComp = getf(text: ["END":formatter.string(from: curDate)])
+                    if startComp.hour != nil && startComp.minute != nil && endComp.hour != nil && endComp.minute != nil && curComp.hour != nil && curComp.minute != nil {
+                        let isAfterStart:Bool = startComp.hour! < curComp.hour! || (startComp.hour! == curComp.hour! && startComp.minute! < curComp.minute!)
+                        let isBeforeEnd:Bool = endComp.hour! > curComp.hour! || (endComp.hour! == curComp.hour! && endComp.minute! > curComp.minute!)
+                        if isAfterStart && isBeforeEnd {
+                            backgroundColor = UIColor(red: 0, green: 0.2, blue: 0.6, alpha: 1).cgColor
+                            nameLayer.foregroundColor = UIColor.white.cgColor
+                            startLayer.foregroundColor = UIColor.white.cgColor
+                            endLayer.foregroundColor = UIColor.white.cgColor
+                        }
                     }
                 }
             }
         }
-        
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

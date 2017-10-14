@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import UserNotifications
 
+var orderedSchedule:[(Date, String)]?
 var schedule:[Date:String]?
 var periodInfo:[String:[[String:String]]]?
 var periodInfoRawJson:Data!
@@ -26,8 +27,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
         startUp()
+        let shit = UNUserNotificationCenter.getPendingNotificationRequests(UNUserNotificationCenter.current())
+        shit { (requests) in
+            print("number of requests: \(requests.count)")
+        }
+        UNUserNotificationCenter.current().delegate = self
         return true
     }
     func startUp() {
@@ -44,10 +49,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 let mins = Int(formatter.string(from: date))!
                 let day = getdayNum(from: (selectedMonth, selectedDay!, selectedYear))//change this to 5 or six to say it is a weekend and actually "getData"
                 if (((hrs > 8 && hrs < 16) || (mins >= 30 && hrs == 8)) && day != 6  && day != 0) || curDate.timeIntervalSince(date) < 180 {//any time after school, or any time during weekend
-                    schedule = getStoredData()//D
+                    var t = getStoredData()//D
+                    schedule = t.0
+                    orderedSchedule = t.1
                     periodInfo = getStoredScheduleInfo()
                     if schedule!.count == 0 {
-                        schedule = getDatesInfo()
+                        t = getDatesInfo()
+                        schedule = t.0
+                        orderedSchedule = t.1
                     }
                     if periodInfo!.count == 0 {
                         periodInfo = getScheduleInfo()
@@ -86,12 +95,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         p6Duration = UserDefaults.standard.value(forKey: "GHSP6DURATION") as? Double
         p7Duration = UserDefaults.standard.value(forKey: "GHSP7DURATION") as? Double
         p8Duration = UserDefaults.standard.value(forKey: "GHSP8DURATION") as? Double
+        saveAndSchedule()
     }
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {//NOTIFICATIONSS
         
     }
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler(UNNotificationPresentationOptions.sound)
+    }
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print(response.notification.request.identifier)
     }
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let generalCategory = UNNotificationCategory(identifier: "GENERAL", actions: [], intentIdentifiers: [], options: .customDismissAction)
@@ -110,19 +123,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             if versionNum != nil {
                 if rVersNum == versionNum! {
                     //A
-                    schedule = getStoredData()
+                    var t = getStoredData()
+                    schedule = t.0
+                    orderedSchedule = t.1
                     periodInfo = getStoredScheduleInfo()
                     if schedule!.count == 0 {
-                        schedule = getDatesInfo()
+                        t = getDatesInfo()
+                        schedule = t.0
+                        orderedSchedule = t.1
                     }
                     if periodInfo!.count == 0 {
                         periodInfo = getScheduleInfo()
                     }
                 }else {
                     //B
-                    schedule = getDatesInfo()
+                    var t = getDatesInfo()
+                    schedule = t.0
+                    orderedSchedule = t.1
                     if schedule!.count == 0 {
-                        schedule = getStoredData()
+                        t = getStoredData()
+                        schedule = t.0
+                        orderedSchedule = t.1
                     }
                     periodInfo = getScheduleInfo()
                     if periodInfo!.count == 0 {
@@ -133,7 +154,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
             }else {
                 //C
-                schedule = getDatesInfo()
+                let t = getDatesInfo()
+                schedule = t.0
+                orderedSchedule = t.1
                 periodInfo = getScheduleInfo()
                 UserDefaults.standard.setValue(rVersNum, forKey: "GHSSVERS")
                 UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound], completionHandler: { (accepted, error) in
@@ -142,13 +165,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
         } catch _ as Error {
             if versionNum != nil {
-                schedule = getStoredData()
+                let t = getStoredData()
+                schedule = t.0
+                orderedSchedule = t.1
                 periodInfo = getStoredScheduleInfo()
             }
         }
     }
-    func getDatesInfo() -> [Date:String] {
-        var retval:[Date:String] = [:]
+    func getDatesInfo() -> ([Date:String], [(Date, String)]) {
+        var reetval:[Date:String] = [:]
+        var retval:[(Date, String)] = []
         do {
             let scheduleData = try Data(contentsOf: URL(string: "http://www.grantcompsci.com/bellapp/schoolYearSchedule.json")!)
             let scheduleStr = try JSONSerialization.jsonObject(with: scheduleData, options: .mutableContainers) as! [String:[[String:String]]]
@@ -163,11 +189,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         ndate += "\(char)"
                     }
                 }
-                retval[formatter.date(from: ndate)!] = dict["SUMMARY"]
+                reetval[formatter.date(from: ndate)!] = dict["SUMMARY"]
+                if dict["SUMMARY"] != nil {
+                    retval.append((formatter.date(from: ndate)!, dict["SUMMARY"]!))
+                }
             }
-            return retval
+            retval.sort(by: { (a, b) -> Bool in
+                return a.0 < b.0
+            })
+            return (reetval, retval)
         } catch _ as NSError {
-            return [:]
+            return ([:], [])
         }
     }
     func getScheduleInfo() -> [String:[[String:String]]] {
@@ -217,23 +249,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         return retval
     }
-    func getStoredData() -> [Date:String] {
+    func getStoredData() -> ([Date:String], [(Date, String)]) {
         if schedule != nil {
             if schedule!.count > 0 {
-                return schedule!
+                return (schedule!, orderedSchedule!)
             }
         }
         let request = NSFetchRequest<NSManagedObject>(entityName:"GHSSchedule")
         do {
-            var retVal:[Date:String] = [:]
+            var retVal:[(Date, String)] = []
+            var reetVal:[Date:String] = [:]
             let scheduleList = try persistentContainer.viewContext.fetch(request)
             for obj in scheduleList {
-                retVal[obj.value(forKey: "date") as! Date] = obj.value(forKey: "scheduleType") as? String
+                retVal.append((obj.value(forKey: "date") as! Date, obj.value(forKey: "scheduleType") as! String))
+                reetVal[obj.value(forKey: "date") as! Date] = obj.value(forKey: "scheduleType") as? String
             }
-            return retVal
+            retVal.sort(by: { (a, b) -> Bool in
+                return a.0 < b.0
+            })
+            return (reetVal, retVal)
         } catch let e {
-            print("dataMissing\(e.localizedDescription)")
-            return [:]
+            print("dataMissing: \(e.localizedDescription)")
+            return ([:], [])
         }
     }
     func applicationWillResignActive(_ application: UIApplication) {
@@ -277,7 +314,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        notificationController?.saveAndSchedule()
+        saveAndSchedule()
         let request = NSFetchRequest<NSManagedObject>(entityName:"GHSSchedule")
         let ctx = persistentContainer.viewContext
         if schedule!.count > 0 && (try! ctx.fetch(request).count) < 1 {
@@ -295,14 +332,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
             // Saves changes in the application's managed object context before the application terminates.
         }
-        UserDefaults.standard.set(p1Duration, forKey: "GHSP1DURATION")
-        UserDefaults.standard.set(p2Duration, forKey: "GHSP2DURATION")
-        UserDefaults.standard.set(p3Duration, forKey: "GHSP3DURATION")
-        UserDefaults.standard.set(p4Duration, forKey: "GHSP4DURATION")
-        UserDefaults.standard.set(p5Duration, forKey: "GHSP5DURATION")
-        UserDefaults.standard.set(p6Duration, forKey: "GHSP6DURATION")
-        UserDefaults.standard.set(p7Duration, forKey: "GHSP7DURATION")
-        UserDefaults.standard.set(p8Duration, forKey: "GHSP8DURATION")
         
         self.saveContext()
     }
@@ -373,10 +402,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
 }
-
-let notificationIdentifier = "idforthign"
-
-func scheduleNotification(period:String, interval:TimeInterval, forDate:(Int, Int, Int)) {
+@discardableResult func scheduleNotification(period:String, interval:TimeInterval, forDate:(Int, Int, Int), last:Bool = false) -> Bool {
     let content = UNMutableNotificationContent()
     content.sound = UNNotificationSound.default()
     content.title = "\(period)"
@@ -392,10 +418,12 @@ func scheduleNotification(period:String, interval:TimeInterval, forDate:(Int, In
         if secs == 0 {
             content.body = "\(period) starts in \(mins) minutes"
         }else {
-            content.body = "\(period) starts in \(mins) minutes and \(secs)"
+            content.body = "\(period) starts in \(mins) minutes and \(secs) seconds"
         }
     }
-    
+    if last {
+        content.body = "\(content.body) LAST NOTIFICATION open app to schedule more"
+    }
     var pnum:Int!
     for char in period.characters {
         if let int = Int(String(char)) {
@@ -406,15 +434,26 @@ func scheduleNotification(period:String, interval:TimeInterval, forDate:(Int, In
     var comp = getStartTimeFor(period: pnum, on: forDate)
     if comp != nil {
         comp!.second = Int(-1*interval)
+        while comp!.second! < 0 {
+            comp!.minute! -= 1
+            comp!.second! += 60
+        }
+        while comp!.minute! < 0 {
+            comp!.hour! -= 1
+            comp!.minute! += 60
+        }
         let trigger = UNCalendarNotificationTrigger(dateMatching: comp!, repeats: false)
         
-        
+        let notificationIdentifier = "ghsID\(period)\(forDate.0)\(forDate.1)\(forDate.2)"
         let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: trigger)
+        
         UNUserNotificationCenter.current().add(request) { (e) in
             if let error = e {
-                print("error: \(error.localizedDescription)")
+                print("error in adding request: \(error.localizedDescription)")
             }
         }
+        return true
     }
+    return false
 }
 

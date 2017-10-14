@@ -230,7 +230,7 @@ func getStartTimeFor(period:Int, on:(Int, Int, Int)) -> DateComponents? {
     comp.day = on.1
     comp.year = on.2
     comp.calendar = Calendar(identifier: .gregorian)
-    comp.calendar!.timeZone = TimeZone(abbreviation: "PST")!
+    comp.timeZone = TimeZone(abbreviation: "PST")!
     let stype = schedule![getDate(from: on)]
     let daysInfo = periodInfo![stype!]
     if daysInfo == nil { return nil }
@@ -264,8 +264,8 @@ func getStartTimeFor(period:Int, on:(Int, Int, Int)) -> DateComponents? {
             }
         }
     }
-    //comp.hour = Int(hourString)
-    //comp.minute = Int(minuteString!)
+    comp.hour = Int(hourString)
+    comp.minute = Int(minuteString!)
     return comp
 }
 func getEndTimeFor(period:Int, on:(Int, Int, Int)) -> DateComponents? {
@@ -315,7 +315,7 @@ func gbtf(text:[String:String]) -> DateComponents {
     var comp = DateComponents()
     comp.calendar = Calendar(identifier: .gregorian)
     comp.calendar!.timeZone = TimeZone(abbreviation: "PST")!
-    var ptimeinfo = text["END"]!
+    var ptimeinfo = text["START"]!
     var hourString:String = ""
     var minuteString:String?
     for char in ptimeinfo.characters {
@@ -336,8 +336,10 @@ func gbtf(text:[String:String]) -> DateComponents {
             }
         }
     }
-    comp.hour = Int(hourString)
-    comp.minute = Int(minuteString!)
+    if minuteString != nil {
+        comp.hour = Int(hourString)
+        comp.minute = Int(minuteString!)
+    }
     return comp
 }
 func getf(text:[String:String]) -> DateComponents {
@@ -350,7 +352,9 @@ func getf(text:[String:String]) -> DateComponents {
     for char in ptimeinfo.characters {
         if minuteString != nil {
             if char == "p" || char == "P" {
-                hourString = String(Int(hourString)! + 12)
+                if Int(hourString)! < 12 {
+                    hourString = String(Int(hourString)! + 12)
+                }
                 break
             }else if char == "a" || char == "A" {
                 break
@@ -365,7 +369,9 @@ func getf(text:[String:String]) -> DateComponents {
             }
         }
     }
-    comp.hour = Int(hourString)
-    comp.minute = Int(minuteString!)
+    if minuteString != nil {
+        comp.hour = Int(hourString)
+        comp.minute = Int(minuteString!)
+    }
     return comp
 }

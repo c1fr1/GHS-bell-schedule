@@ -18,9 +18,8 @@ var p6Duration:TimeInterval?
 var p7Duration:TimeInterval?
 var p8Duration:TimeInterval?
 
-var notificationController:NotificationViewController?
 
-class NotificationViewController: UIViewController, UITextFieldDelegate {
+class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserNotificationCenterDelegate {
     @IBOutlet weak var p1switch: UISwitch!
     @IBOutlet weak var p2switch: UISwitch!
     @IBOutlet weak var p3switch: UISwitch!
@@ -82,9 +81,12 @@ class NotificationViewController: UIViewController, UITextFieldDelegate {
         }
     }
     @IBAction func close(_ sender: Any) {
+        UNUserNotificationCenter.removeAllPendingNotificationRequests(UNUserNotificationCenter.current())()
         dismiss(animated: true) {
-            self.saveAndSchedule()
+            self.updateDurations()
+            saveAndSchedule()
         }
+        
     }
     func getInterval(from string:String) -> TimeInterval? {
         var startString:String = ""
@@ -186,42 +188,16 @@ class NotificationViewController: UIViewController, UITextFieldDelegate {
         }else {
             p8Duration = nil
         }
-    }
-    func scheduleNotifications(forDate:(Int, Int, Int)) {
-        if p1Duration != nil {
-            scheduleNotification(period: "P1", interval: p1Duration!, forDate: forDate)
-        }
-        if p2Duration != nil {
-            scheduleNotification(period: "P2", interval: p2Duration!, forDate: forDate)
-        }
-        if p3Duration != nil {
-            scheduleNotification(period: "P3", interval: p3Duration!, forDate: forDate)
-        }
-        if p4Duration != nil {
-            scheduleNotification(period: "P4", interval: p4Duration!, forDate: forDate)
-        }
-        if p5Duration != nil {
-            scheduleNotification(period: "P5", interval: p5Duration!, forDate: forDate)
-        }
-        if p6Duration != nil {
-            scheduleNotification(period: "P6", interval: p6Duration!, forDate: forDate)
-        }
-        if p7Duration != nil {
-            scheduleNotification(period: "P7", interval: p7Duration!, forDate: forDate)
-        }
-        if p8Duration != nil {
-            scheduleNotification(period: "P8", interval: p8Duration!, forDate: forDate)
-        }
-    }
-    func saveAndSchedule() {
-        UNUserNotificationCenter.removeAllPendingNotificationRequests(UNUserNotificationCenter.current())()
-        updateDurations()
-        for date in schedule!.keys {
-            scheduleNotifications(forDate: getIntsFor(date: date))
-        }
+        UserDefaults.standard.set(p1Duration, forKey: "GHSP1DURATION")
+        UserDefaults.standard.set(p2Duration, forKey: "GHSP2DURATION")
+        UserDefaults.standard.set(p3Duration, forKey: "GHSP3DURATION")
+        UserDefaults.standard.set(p4Duration, forKey: "GHSP4DURATION")
+        UserDefaults.standard.set(p5Duration, forKey: "GHSP5DURATION")
+        UserDefaults.standard.set(p6Duration, forKey: "GHSP6DURATION")
+        UserDefaults.standard.set(p7Duration, forKey: "GHSP7DURATION")
+        UserDefaults.standard.set(p8Duration, forKey: "GHSP8DURATION")
     }
     override func viewDidLoad() {
-        notificationController = self
         p1Field.delegate = self
         p2Field.delegate = self
         p3Field.delegate = self
@@ -317,5 +293,102 @@ class NotificationViewController: UIViewController, UITextFieldDelegate {
         }else {
             return false
         }
+    }
+}
+
+@discardableResult func scheduleNotifications(forDate:(Int, Int, Int), remaining:Int) -> Int {
+    var retval = 0
+    if p1Duration != nil {
+        if remaining == 0 {
+            if scheduleNotification(period: "P1", interval: p1Duration!, forDate: forDate, last: true) {
+                return retval + 1
+            }
+        }
+        if scheduleNotification(period: "P1", interval: p1Duration!, forDate: forDate) {
+            retval += 1
+        }
+    }
+    if p2Duration != nil {
+        if remaining - retval == 0 {
+            if scheduleNotification(period: "P2", interval: p1Duration!, forDate: forDate, last: true) {
+                return retval + 1
+            }
+        }
+        if scheduleNotification(period: "P2", interval: p2Duration!, forDate: forDate) {
+            retval += 1
+        }
+    }
+    if p3Duration != nil {
+        if remaining - retval == 0 {
+            if scheduleNotification(period: "P3", interval: p1Duration!, forDate: forDate, last: true) {
+                return retval + 1
+            }
+        }
+        if scheduleNotification(period: "P3", interval: p3Duration!, forDate: forDate) {
+            retval += 1
+        }
+    }
+    if p4Duration != nil {
+        if remaining - retval == 0 {
+            if scheduleNotification(period: "P4", interval: p1Duration!, forDate: forDate, last: true) {
+                return retval + 1
+            }
+        }
+        if scheduleNotification(period: "P4", interval: p4Duration!, forDate: forDate) {
+            retval += 1
+        }
+    }
+    if p5Duration != nil {
+        if remaining - retval == 0 {
+            if scheduleNotification(period: "P5", interval: p1Duration!, forDate: forDate, last: true) {
+                return retval + 1
+            }
+        }
+        if scheduleNotification(period: "P5", interval: p5Duration!, forDate: forDate) {
+            retval += 1
+        }
+    }
+    if p6Duration != nil {
+        if remaining - retval == 0 {
+            if scheduleNotification(period: "P6", interval: p1Duration!, forDate: forDate, last: true) {
+                return retval + 1
+            }
+        }
+        if scheduleNotification(period: "P6", interval: p6Duration!, forDate: forDate) {
+            retval += 1
+        }
+    }
+    if p7Duration != nil {
+        if remaining - retval == 0 {
+            if scheduleNotification(period: "P7", interval: p1Duration!, forDate: forDate, last: true) {
+                return retval + 1
+            }
+        }
+        if scheduleNotification(period: "P7", interval: p7Duration!, forDate: forDate) {
+            retval += 1
+        }
+    }
+    if p8Duration != nil {
+        if remaining - retval == 0 {
+            if scheduleNotification(period: "P8", interval: p1Duration!, forDate: forDate, last: true) {
+                return retval + 1
+            }
+        }
+        if scheduleNotification(period: "P8", interval: p8Duration!, forDate: forDate) {
+            retval += 1
+        }
+    }
+    return retval
+}
+func saveAndSchedule() {
+    var count = 0
+    var index = 0
+    while getDate(from: (selectedMonth, selectedDay!, selectedYear)).hashValue > orderedSchedule![index].0.hashValue {
+        index += 1
+    }
+    while count < 64 {
+        let ints = getIntsFor(date: orderedSchedule![index].0)
+        count += scheduleNotifications(forDate: ints, remaining: 63 - count)
+        index += 1
     }
 }
