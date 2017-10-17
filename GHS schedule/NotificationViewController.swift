@@ -310,7 +310,7 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
     }
     if p2Duration != nil {
         if remaining - retval == 0 {
-            if scheduleNotification(period: "P2", interval: p1Duration!, forDate: forDate, last: true) {
+            if scheduleNotification(period: "P2", interval: p2Duration!, forDate: forDate, last: true) {
                 return retval + 1
             }
         }
@@ -320,7 +320,7 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
     }
     if p3Duration != nil {
         if remaining - retval == 0 {
-            if scheduleNotification(period: "P3", interval: p1Duration!, forDate: forDate, last: true) {
+            if scheduleNotification(period: "P3", interval: p3Duration!, forDate: forDate, last: true) {
                 return retval + 1
             }
         }
@@ -330,7 +330,7 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
     }
     if p4Duration != nil {
         if remaining - retval == 0 {
-            if scheduleNotification(period: "P4", interval: p1Duration!, forDate: forDate, last: true) {
+            if scheduleNotification(period: "P4", interval: p4Duration!, forDate: forDate, last: true) {
                 return retval + 1
             }
         }
@@ -340,7 +340,7 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
     }
     if p5Duration != nil {
         if remaining - retval == 0 {
-            if scheduleNotification(period: "P5", interval: p1Duration!, forDate: forDate, last: true) {
+            if scheduleNotification(period: "P5", interval: p5Duration!, forDate: forDate, last: true) {
                 return retval + 1
             }
         }
@@ -350,7 +350,7 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
     }
     if p6Duration != nil {
         if remaining - retval == 0 {
-            if scheduleNotification(period: "P6", interval: p1Duration!, forDate: forDate, last: true) {
+            if scheduleNotification(period: "P6", interval: p6Duration!, forDate: forDate, last: true) {
                 return retval + 1
             }
         }
@@ -360,7 +360,7 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
     }
     if p7Duration != nil {
         if remaining - retval == 0 {
-            if scheduleNotification(period: "P7", interval: p1Duration!, forDate: forDate, last: true) {
+            if scheduleNotification(period: "P7", interval: p7Duration!, forDate: forDate, last: true) {
                 return retval + 1
             }
         }
@@ -370,7 +370,7 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
     }
     if p8Duration != nil {
         if remaining - retval == 0 {
-            if scheduleNotification(period: "P8", interval: p1Duration!, forDate: forDate, last: true) {
+            if scheduleNotification(period: "P8", interval: p8Duration!, forDate: forDate, last: true) {
                 return retval + 1
             }
         }
@@ -384,7 +384,7 @@ func saveAndSchedule() {
     var count = 0
     var index = 0
     if orderedSchedule!.count > index {
-        while getDate(from: (selectedMonth, selectedDay!, selectedYear)).hashValue > orderedSchedule![index].0.hashValue {
+        while getDate(from: (selectedMonth, selectedDay!, selectedYear)).hashValue >= orderedSchedule![index].0.hashValue {
             index += 1
         }
     }

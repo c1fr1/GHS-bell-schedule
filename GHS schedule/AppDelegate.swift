@@ -442,6 +442,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             comp!.hour! -= 1
             comp!.minute! += 60
         }
+        //cal.date(from: comp!)?.timeIntervalSince(curDate)
         let trigger = UNCalendarNotificationTrigger(dateMatching: comp!, repeats: false)
         
         let notificationIdentifier = "ghsID\(period)\(forDate.0)\(forDate.1)\(forDate.2)"

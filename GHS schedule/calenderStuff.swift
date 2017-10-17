@@ -8,12 +8,12 @@
 
 import UIKit
 
-var curDate = {() -> Date in
+var curDate:Date {
     var cal = Calendar(identifier: .gregorian)
     cal.timeZone = TimeZone(abbreviation: "PST")!
     let comp = cal.dateComponents(in: cal.timeZone, from: Date())
     return comp.date!
-}()
+}
 
 func getDateInts() -> (Int, Int, Int) {
     let currentDate = curDate
@@ -264,8 +264,10 @@ func getStartTimeFor(period:Int, on:(Int, Int, Int)) -> DateComponents? {
             }
         }
     }
-    comp.hour = Int(hourString)
-    comp.minute = Int(minuteString!)
+    if minuteString != nil {
+        comp.hour = Int(hourString)
+        comp.minute = Int(minuteString!)
+    }
     return comp
 }
 func getEndTimeFor(period:Int, on:(Int, Int, Int)) -> DateComponents? {
@@ -274,13 +276,14 @@ func getEndTimeFor(period:Int, on:(Int, Int, Int)) -> DateComponents? {
     comp.day = on.1
     comp.year = on.2
     comp.calendar = Calendar(identifier: .gregorian)
-    comp.calendar!.timeZone = TimeZone(abbreviation: "PST")!
+    comp.timeZone = TimeZone(abbreviation: "PST")!
     let stype = schedule![getDate(from: on)]
-    let daysInfo = periodInfo![stype!]!
+    let daysInfo = periodInfo![stype!]
+    if daysInfo == nil { return nil }
     var ptimeinfo:String = ""
-    for (num, info) in daysInfo.enumerated() {
+    for (num, info) in daysInfo!.enumerated() {
         if info["NAME"] == "P\(period)" {
-            ptimeinfo = daysInfo[num]["END"]!
+            ptimeinfo = daysInfo![num]["END"]!
             break
         }
     }
@@ -307,14 +310,16 @@ func getEndTimeFor(period:Int, on:(Int, Int, Int)) -> DateComponents? {
             }
         }
     }
-    comp.hour = Int(hourString)
-    comp.minute = Int(minuteString!)
+    if minuteString != nil {
+        comp.hour = Int(hourString)
+        comp.minute = Int(minuteString!)
+    }
     return comp
 }
 func gbtf(text:[String:String]) -> DateComponents {
     var comp = DateComponents()
     comp.calendar = Calendar(identifier: .gregorian)
-    comp.calendar!.timeZone = TimeZone(abbreviation: "PST")!
+    comp.timeZone = TimeZone(abbreviation: "PST")!
     var ptimeinfo = text["START"]!
     var hourString:String = ""
     var minuteString:String?
@@ -345,7 +350,7 @@ func gbtf(text:[String:String]) -> DateComponents {
 func getf(text:[String:String]) -> DateComponents {
     var comp = DateComponents()
     comp.calendar = Calendar(identifier: .gregorian)
-    comp.calendar!.timeZone = TimeZone(abbreviation: "PST")!
+    comp.timeZone = TimeZone(abbreviation: "PST")!
     var ptimeinfo = text["END"]!
     var hourString:String = ""
     var minuteString:String?
