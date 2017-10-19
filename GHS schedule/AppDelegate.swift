@@ -28,10 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         startUp()
-        /*let shit = UNUserNotificationCenter.getPendingNotificationRequests(UNUserNotificationCenter.current())
-        shit { (requests) in
-            print("number of requests: \(requests.count)")
-        }*/
         UNUserNotificationCenter.current().delegate = self
         return true
     }
@@ -96,6 +92,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         p7Duration = UserDefaults.standard.value(forKey: "GHSP7DURATION") as? Double
         p8Duration = UserDefaults.standard.value(forKey: "GHSP8DURATION") as? Double
         saveAndSchedule()
+        /*UNUserNotificationCenter.current().getPendingNotificationRequests { (requests) in
+            print("requestCount:", requests.count)
+            for request in requests {
+                print(request.identifier)
+            }
+        }*/
     }
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {//NOTIFICATIONSS
         
@@ -442,18 +444,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             comp!.hour! -= 1
             comp!.minute! += 60
         }
-        //cal.date(from: comp!)?.timeIntervalSince(curDate)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: comp!, repeats: false)
-        
-        let notificationIdentifier = "ghsID\(period)\(forDate.0)\(forDate.1)\(forDate.2)"
-        let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(request) { (e) in
-            if let error = e {
-                print("error in adding request: \(error.localizedDescription)")
-            }
+        let cal = Calendar(identifier: .gregorian)
+        let date = cal.date(from: comp!)
+        if date != nil {
+            if date! > curDate {
+                //print(date?.timeIntervalSince(curDate))
+                let trigger = UNCalendarNotificationTrigger(dateMatching: comp!, repeats: false)
+                
+                let notificationIdentifier = "ghsID\(period)\(forDate.0)\(forDate.1)\(forDate.2)"
+                let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: trigger)
+                
+                UNUserNotificationCenter.current().add(request) { (e) in
+                    if let error = e {
+                        print("error in adding request: \(error.localizedDescription)")
+                    }
+                }
+                return true
+            }/*else {
+                print("not", date)
+            }*/
         }
-        return true
     }
     return false
 }

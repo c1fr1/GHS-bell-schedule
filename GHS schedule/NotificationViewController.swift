@@ -384,10 +384,11 @@ func saveAndSchedule() {
     var count = 0
     var index = 0
     if orderedSchedule!.count > index {
-        while getDate(from: (selectedMonth, selectedDay!, selectedYear)).hashValue >= orderedSchedule![index].0.hashValue {
+        while getDate(from: getDateInts()) >= orderedSchedule![index].0 {
             index += 1
         }
     }
+    index -= 1
     while count < 64 {
         if orderedSchedule!.count <= index {
             break
