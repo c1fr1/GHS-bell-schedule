@@ -136,7 +136,7 @@ func getRowCount(forYear:Int, andMonth:Int) -> Int {
         }else {
             return 6
         }
-    }else if  andMonth == 2 {//28 or 29
+    }else if andMonth == 2 {//28 or 29
         if floor(Double(forYear)/4) == Double(forYear)/4 {
             return 5
         }else {
@@ -146,61 +146,61 @@ func getRowCount(forYear:Int, andMonth:Int) -> Int {
                 return 5
             }
         }
-    }else if  andMonth == 3 {//31
+    }else if andMonth == 3 {//31
         if getdayNum(from: (andMonth, 1, forYear)) <= 4 {
             return 5
         }else {
             return 6
         }
-    }else if  andMonth == 4 {//30
+    }else if andMonth == 4 {//30
         if getdayNum(from: (andMonth, 1, forYear)) <= 5 {
             return 5
         }else {
             return 6
         }
-    }else if  andMonth == 5 {//31
+    }else if andMonth == 5 {//31
         if getdayNum(from: (andMonth, 1, forYear)) <= 4 {
             return 5
         }else {
             return 6
         }
-    }else if  andMonth == 6 {//30
+    }else if andMonth == 6 {//30
         if getdayNum(from: (andMonth, 1, forYear)) <= 5 {
             return 5
         }else {
             return 6
         }
-    }else if  andMonth == 7 {//31
+    }else if andMonth == 7 {//31
         if getdayNum(from: (andMonth, 1, forYear)) <= 4 {
             return 5
         }else {
             return 6
         }
-    }else if  andMonth == 8 {//31
+    }else if andMonth == 8 {//31
         if getdayNum(from: (andMonth, 1, forYear)) <= 4 {
             return 5
         }else {
             return 6
         }
-    }else if  andMonth == 9 {//30
+    }else if andMonth == 9 {//30
         if getdayNum(from: (andMonth, 1, forYear)) <= 5 {
             return 5
         }else {
             return 6
         }
-    }else if  andMonth == 10 {//31
+    }else if andMonth == 10 {//31
         if getdayNum(from: (andMonth, 1, forYear)) <= 4 {
             return 5
         }else {
             return 6
         }
-    }else if  andMonth == 11 {//30
+    }else if andMonth == 11 {//30
         if getdayNum(from: (andMonth, 1, forYear)) <= 5 {
             return 5
         }else {
             return 6
         }
-    }else if  andMonth == 12 {//31
+    }else if andMonth == 12 {//31
         if getdayNum(from: (andMonth, 1, forYear)) <= 4 {
             return 5
         }else {
@@ -249,7 +249,9 @@ func getStartTimeFor(period:Int, on:(Int, Int, Int)) -> DateComponents? {
     for char in ptimeinfo.characters {
         if minuteString != nil {
             if char == "p" || char == "P" {
-                hourString = String(Int(hourString)! + 12)
+                if Int(hourString)! < 12 {
+                    hourString = String(Int(hourString)! + 12)
+                }
                 break
             }else if char == "a" || char == "A" {
                 break
@@ -295,7 +297,9 @@ func getEndTimeFor(period:Int, on:(Int, Int, Int)) -> DateComponents? {
     for char in ptimeinfo.characters {
         if minuteString != nil {
             if char == "p" || char == "P" {
-                hourString = String(Int(hourString)! + 12)
+                if Int(hourString)! < 12 {
+                    hourString = String(Int(hourString)! + 12)
+                }
                 break
             }else if char == "a" || char == "A" {
                 break
@@ -326,7 +330,9 @@ func gbtf(text:[String:String]) -> DateComponents {
     for char in ptimeinfo.characters {
         if minuteString != nil {
             if char == "p" || char == "P" {
-                hourString = String(Int(hourString)! + 12)
+                if Int(hourString)! < 12 {
+                    hourString = String(Int(hourString)! + 12)
+                }
                 break
             }else if char == "a" || char == "A" {
                 break

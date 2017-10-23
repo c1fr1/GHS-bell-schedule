@@ -53,6 +53,13 @@ class ViewController: UIViewController {
                         }
                         if selectedDay != nil {
                             selectedDay! -= 1
+                            if selectedDay! <= 0 {
+                                selectedMonth -= 1
+                                if selectedMonth <= 0 {
+                                    selectedYear -= 1
+                                }
+                                selectedDay = getDayCount(forMonth: selectedMonth, andYear: selectedYear)
+                            }
                         }
                     }
                 }else if startPoint!.x - sender.location(in: view).x > 50 {
@@ -77,6 +84,14 @@ class ViewController: UIViewController {
                         }
                         if selectedDay != nil {
                             selectedDay! += 1
+                            if selectedDay! > getDayCount(forMonth: selectedMonth, andYear: selectedYear) {
+                                selectedMonth += 1
+                                if selectedMonth > 12 {
+                                    selectedMonth = 1
+                                    selectedYear += 1
+                                }
+                                selectedDay = 1
+                            }
                         }
                     }
                 }

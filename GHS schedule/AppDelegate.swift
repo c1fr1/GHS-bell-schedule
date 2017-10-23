@@ -448,7 +448,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let date = cal.date(from: comp!)
         if date != nil {
             if date! > curDate {
-                //print(date?.timeIntervalSince(curDate))
                 let trigger = UNCalendarNotificationTrigger(dateMatching: comp!, repeats: false)
                 
                 let notificationIdentifier = "ghsID\(period)\(forDate.0)\(forDate.1)\(forDate.2)"
@@ -460,9 +459,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     }
                 }
                 return true
-            }/*else {
-                print("not", date)
-            }*/
+            }
         }
     }
     return false
