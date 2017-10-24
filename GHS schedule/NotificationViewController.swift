@@ -393,8 +393,12 @@ func saveAndSchedule() {
         if orderedSchedule!.count <= index {
             break
         }
-        let ints = getIntsFor(date: orderedSchedule![index].0)
-        count += scheduleNotifications(forDate: ints, remaining: 63 - count)
-        index += 1
+        if orderedSchedule!.count > 0 {
+            let ints = getIntsFor(date: orderedSchedule![index].0)
+            count += scheduleNotifications(forDate: ints, remaining: 63 - count)
+            index += 1
+        }else {
+            break
+        }
     }
 }

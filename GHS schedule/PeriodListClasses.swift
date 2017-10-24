@@ -43,22 +43,20 @@ class PeriodListLayer:CALayer {
             periodInfo = [:]
         }
         textlyr.frame = CGRect(x: 15, y: 12, width: frame.width, height: 38)
-        if selectedDay != nil {
-            let sType = schedule![getDate(from: (selectedMonth, selectedDay!, selectedYear))]
-            if sType != nil {
-                scheduleType = sType!
-                if scheduleType == "NOSCHOOL" {
-                    scheduleType = "NO SCHOOL"
-                }
-            }else {
+        let sType = schedule![getDate(from: (selectedMonth, selectedDay, selectedYear))]
+        if sType != nil {
+            scheduleType = sType!
+            if scheduleType == "NOSCHOOL" {
                 scheduleType = "NO SCHOOL"
             }
-            textlyr.string = scheduleType
-            if let schdle = periodInfo![scheduleType] {
-                setSchedule(schedule: schdle)
-            }else {
-                setSchedule(schedule: [])
-            }
+        }else {
+            scheduleType = "NO SCHOOL"
+        }
+        textlyr.string = scheduleType
+        if let schdle = periodInfo![scheduleType] {
+            setSchedule(schedule: schdle)
+        }else {
+            setSchedule(schedule: [])
         }
         if translationPeriods != nil {
             for p in periods {
@@ -135,24 +133,22 @@ class PeriodTextLayer:CALayer {
         startLayer.string = period["START"]
         endLayer.string = period["END"]
         if period["NAME"]! != " " && period["NAME"]! != "" && period["START"] != "" && period["START"] != " " && period["END"] != "" && period["END"] != " " {
-            if selectedDay != nil {
-                if getDateInts() == (selectedMonth, selectedDay!, selectedYear) {
-                    let startComp = gbtf(text: period)
-                    let endComp = getf(text: period)
-                    let formatter = DateFormatter()
-                    formatter.calendar = Calendar(identifier: .gregorian)
-                    formatter.timeZone = TimeZone(identifier: "PST")
-                    formatter.dateFormat = "hh:mm aa"
-                    let curComp = getf(text: ["END":formatter.string(from: curDate)])
-                    if startComp.hour != nil && startComp.minute != nil && endComp.hour != nil && endComp.minute != nil && curComp.hour != nil && curComp.minute != nil {
-                        let isAfterStart:Bool = startComp.hour! < curComp.hour! || (startComp.hour! == curComp.hour! && startComp.minute! < curComp.minute!)
-                        let isBeforeEnd:Bool = endComp.hour! > curComp.hour! || (endComp.hour! == curComp.hour! && endComp.minute! > curComp.minute!)
-                        if isAfterStart && isBeforeEnd {
-                            backgroundColor = UIColor(red: 0, green: 0.2, blue: 0.6, alpha: 1).cgColor
-                            nameLayer.foregroundColor = UIColor.white.cgColor
-                            startLayer.foregroundColor = UIColor.white.cgColor
-                            endLayer.foregroundColor = UIColor.white.cgColor
-                        }
+            if getDateInts() == (selectedMonth, selectedDay, selectedYear) {
+                let startComp = gbtf(text: period)
+                let endComp = getf(text: period)
+                let formatter = DateFormatter()
+                formatter.calendar = Calendar(identifier: .gregorian)
+                formatter.timeZone = TimeZone(identifier: "PST")
+                formatter.dateFormat = "hh:mm aa"
+                let curComp = getf(text: ["END":formatter.string(from: curDate)])
+                if startComp.hour != nil && startComp.minute != nil && endComp.hour != nil && endComp.minute != nil && curComp.hour != nil && curComp.minute != nil {
+                    let isAfterStart:Bool = startComp.hour! < curComp.hour! || (startComp.hour! == curComp.hour! && startComp.minute! < curComp.minute!)
+                    let isBeforeEnd:Bool = endComp.hour! > curComp.hour! || (endComp.hour! == curComp.hour! && endComp.minute! > curComp.minute!)
+                    if isAfterStart && isBeforeEnd {
+                        backgroundColor = UIColor(red: 0, green: 0.2, blue: 0.6, alpha: 1).cgColor
+                        nameLayer.foregroundColor = UIColor.white.cgColor
+                        startLayer.foregroundColor = UIColor.white.cgColor
+                        endLayer.foregroundColor = UIColor.white.cgColor
                     }
                 }
             }

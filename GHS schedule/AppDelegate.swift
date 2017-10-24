@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 let hrs = Int(formatter.string(from: date))!
                 formatter.dateFormat = "mm"
                 let mins = Int(formatter.string(from: date))!
-                let day = getdayNum(from: (selectedMonth, selectedDay!, selectedYear))//change this to 5 or six to say it is a weekend and actually "getData"
+                let day = getdayNum(from: (selectedMonth, selectedDay, selectedYear))//change this to 5 or six to say it is a weekend and actually "getData"
                 if (((hrs > 8 && hrs < 16) || (mins >= 30 && hrs == 8)) && day != 6  && day != 0) || curDate.timeIntervalSince(date) < 180 {//any time after school, or any time during weekend
                     var t = getStoredData()//D
                     schedule = t.0
@@ -98,6 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 print(request.identifier)
             }
         }*/
+        saveAndSchedule()
     }
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {//NOTIFICATIONSS
         
@@ -206,9 +207,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     func getScheduleInfo() -> [String:[[String:String]]] {
         var retval = [String:[[String:String]]]()
-        let data = try! Data(contentsOf: URL(string: "http://www.grantcompsci.com/bellapp/periodSchedule.json")!)
+        let data = try? Data(contentsOf: URL(string: "http://www.grantcompsci.com/bellapp/periodSchedule.json")!)
+        if data == nil {
+            periodInfoRawJson = Data()
+            return [:]
+        }
         periodInfoRawJson = data
-        if let lyr1 = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:Any] {
+        if let lyr1 = try? JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [String:Any] {
             for element in lyr1! {
                 if let lyr2 = element.value as? [[String:String]] {
                     retval[element.key] = lyr2
@@ -283,6 +288,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        saveAndSchedule()
         let request = NSFetchRequest<NSManagedObject>(entityName:"GHSSchedule")
         let ctx = persistentContainer.viewContext
         if schedule!.count > 0 && (try! ctx.fetch(request).count) < 1 {
@@ -308,6 +314,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         selectedDay = ints.1
         selectedYear = ints.2
         startUp()
+        UNUserNotificationCenter.current().delegate = self
+        if mainVC != nil {
+            mainVC!.updateDisplay()
+            mainVC!.clayer.layoutCalendar()
+        }
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
 

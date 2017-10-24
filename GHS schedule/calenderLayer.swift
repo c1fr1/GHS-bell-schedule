@@ -113,8 +113,8 @@ class CalendarLayer:CALayer {
         for l in dateTexts {
             addSublayer(l)
         }
-        dateTexts[selectedDay! - 1].font = UIFont.boldSystemFont(ofSize: 18)
-        dateTexts[selectedDay! - 1].foregroundColor = UIColor.lightGray.cgColor
+        dateTexts[selectedDay - 1].font = UIFont.boldSystemFont(ofSize: 18)
+        dateTexts[selectedDay - 1].foregroundColor = UIColor.lightGray.cgColor
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -124,15 +124,11 @@ class CalendarLayer:CALayer {
         ctx.setFillColor(UIColor(red: 0, green: 0.2, blue: 0.6, alpha: 1).cgColor)
         ctx.fill(dframe)
         
-        if selectedDay != nil {
-            let date = getDate(from: (selectedMonth, selectedDay!, selectedYear))
-            let formatter = DateFormatter()
-            formatter.dateStyle = DateFormatter.Style.full
-            let strg = formatter.string(from: date)
-            dateText.string = strg
-        }else {
-            dateText.string = getMonth(from: (selectedMonth, selectedYear))
-        }
+        let date = getDate(from: (selectedMonth, selectedDay, selectedYear))
+        let formatter = DateFormatter()
+        formatter.dateStyle = DateFormatter.Style.full
+        let strg = formatter.string(from: date)
+        dateText.string = strg
         
         for (num, _) in dateTexts.enumerated() {
             if selected {
@@ -143,14 +139,14 @@ class CalendarLayer:CALayer {
                 dateTexts[num].isHidden = true
             }
         }
-        if selectedDay != nil && selected {
-            let frm = getGridFrom(width: frame.width, date: (selectedMonth, selectedDay!, selectedYear))[selectedDay! - 1]
+        if selected {
+            let frm = getGridFrom(width: frame.width, date: (selectedMonth, selectedDay, selectedYear))[selectedDay - 1]
             var transl:CGFloat = 0
             if translationCal != nil {
                 transl += translationCal!
             }
-            ctx.move(to: CGPoint(x: frm.midX + 15 + transl, y: dateTexts[selectedDay! - 1].frame.origin.y + 9))
-            ctx.addArc(center: CGPoint(x: frm.midX + transl, y: dateTexts[selectedDay! - 1].frame.origin.y + 9), radius: 15, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: false)
+            ctx.move(to: CGPoint(x: frm.midX + 15 + transl, y: dateTexts[selectedDay - 1].frame.origin.y + 9))
+            ctx.addArc(center: CGPoint(x: frm.midX + transl, y: dateTexts[selectedDay - 1].frame.origin.y + 9), radius: 15, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: false)
             //ctx.move(to: CGPoint(x: dateTexts[selectedDay! - 1].frame.midX + 15, y: dateTexts[selectedDay! - 1].frame.origin.y + 9))
             //ctx.addArc(center: CGPoint(x: dateTexts[selectedDay! - 1].frame.midX, y: dateTexts[selectedDay! - 1].frame.origin.y + 9), radius: 15, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: false)
             ctx.setFillColor(UIColor.gray.cgColor)
