@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9716FA681FA2FFDC008D8B4A /* GHS_schedule_screenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9716FA671FA2FFDC008D8B4A /* GHS_schedule_screenshots.swift */; };
+		9716FA701FA3004D008D8B4A /* Snapfile in Resources */ = {isa = PBXBuildFile; fileRef = 9716FA6F1FA3004D008D8B4A /* Snapfile */; };
+		9716FA721FA3007C008D8B4A /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9716FA711FA3007C008D8B4A /* SnapshotHelper.swift */; };
 		DF0B3A151F7C6F8C003FEE7B /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0B3A141F7C6F8C003FEE7B /* NotificationViewController.swift */; };
 		DF7D45DC1F5F87BB00925D2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45DB1F5F87BB00925D2E /* AppDelegate.swift */; };
 		DF7D45DE1F5F87BB00925D2E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45DD1F5F87BB00925D2E /* ViewController.swift */; };
@@ -20,7 +23,22 @@
 		DFEBBFA21F6667F500046334 /* GHS logo.png in Resources */ = {isa = PBXBuildFile; fileRef = DFEBBFA11F6667F500046334 /* GHS logo.png */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		9716FA6A1FA2FFDC008D8B4A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DF7D45D01F5F87BB00925D2E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF7D45D71F5F87BB00925D2E;
+			remoteInfo = "GHS schedule";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		9716FA651FA2FFDC008D8B4A /* GHS schedule screenshots.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GHS schedule screenshots.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9716FA671FA2FFDC008D8B4A /* GHS_schedule_screenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHS_schedule_screenshots.swift; sourceTree = "<group>"; };
+		9716FA691FA2FFDC008D8B4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9716FA6F1FA3004D008D8B4A /* Snapfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Snapfile; sourceTree = SOURCE_ROOT; };
+		9716FA711FA3007C008D8B4A /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		DF0B3A141F7C6F8C003FEE7B /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		DF7D3BDD1F7DA9A800BC0752 /* GHS schedule.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GHS schedule.entitlements"; sourceTree = "<group>"; };
 		DF7D45D81F5F87BB00925D2E /* GHS schedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GHS schedule.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -38,6 +56,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		9716FA621FA2FFDC008D8B4A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DF7D45D51F5F87BB00925D2E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -48,10 +73,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9716FA661FA2FFDC008D8B4A /* GHS schedule screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				9716FA6F1FA3004D008D8B4A /* Snapfile */,
+				9716FA711FA3007C008D8B4A /* SnapshotHelper.swift */,
+				9716FA671FA2FFDC008D8B4A /* GHS_schedule_screenshots.swift */,
+				9716FA691FA2FFDC008D8B4A /* Info.plist */,
+			);
+			path = "GHS schedule screenshots";
+			sourceTree = "<group>";
+		};
 		DF7D45CF1F5F87BB00925D2E = {
 			isa = PBXGroup;
 			children = (
 				DF7D45DA1F5F87BB00925D2E /* GHS schedule */,
+				9716FA661FA2FFDC008D8B4A /* GHS schedule screenshots */,
 				DF7D45D91F5F87BB00925D2E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -60,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				DF7D45D81F5F87BB00925D2E /* GHS schedule.app */,
+				9716FA651FA2FFDC008D8B4A /* GHS schedule screenshots.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -87,6 +125,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		9716FA641FA2FFDC008D8B4A /* GHS schedule screenshots */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9716FA6C1FA2FFDC008D8B4A /* Build configuration list for PBXNativeTarget "GHS schedule screenshots" */;
+			buildPhases = (
+				9716FA611FA2FFDC008D8B4A /* Sources */,
+				9716FA621FA2FFDC008D8B4A /* Frameworks */,
+				9716FA631FA2FFDC008D8B4A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9716FA6B1FA2FFDC008D8B4A /* PBXTargetDependency */,
+			);
+			name = "GHS schedule screenshots";
+			productName = "GHS schedule screenshots";
+			productReference = 9716FA651FA2FFDC008D8B4A /* GHS schedule screenshots.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		DF7D45D71F5F87BB00925D2E /* GHS schedule */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DF7D45ED1F5F87BB00925D2E /* Build configuration list for PBXNativeTarget "GHS schedule" */;
@@ -110,10 +166,16 @@
 		DF7D45D01F5F87BB00925D2E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = 4inunison;
 				TargetAttributes = {
+					9716FA641FA2FFDC008D8B4A = {
+						CreatedOnToolsVersion = 9.0.1;
+						DevelopmentTeam = KAZ52S2JC2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = DF7D45D71F5F87BB00925D2E;
+					};
 					DF7D45D71F5F87BB00925D2E = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = KAZ52S2JC2;
@@ -141,11 +203,20 @@
 			projectRoot = "";
 			targets = (
 				DF7D45D71F5F87BB00925D2E /* GHS schedule */,
+				9716FA641FA2FFDC008D8B4A /* GHS schedule screenshots */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		9716FA631FA2FFDC008D8B4A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9716FA701FA3004D008D8B4A /* Snapfile in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DF7D45D61F5F87BB00925D2E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -160,6 +231,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		9716FA611FA2FFDC008D8B4A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9716FA681FA2FFDC008D8B4A /* GHS_schedule_screenshots.swift in Sources */,
+				9716FA721FA3007C008D8B4A /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DF7D45D41F5F87BB00925D2E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -175,6 +255,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9716FA6B1FA2FFDC008D8B4A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF7D45D71F5F87BB00925D2E /* GHS schedule */;
+			targetProxy = 9716FA6A1FA2FFDC008D8B4A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		DF7D45DF1F5F87BB00925D2E /* Main.storyboard */ = {
@@ -196,6 +284,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		9716FA6D1FA2FFDC008D8B4A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KAZ52S2JC2;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "GHS schedule screenshots/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.catana-software.GHS-schedule-screenshots";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "GHS schedule";
+			};
+			name = Debug;
+		};
+		9716FA6E1FA2FFDC008D8B4A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KAZ52S2JC2;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "GHS schedule screenshots/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.catana-software.GHS-schedule-screenshots";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "GHS schedule";
+			};
+			name = Release;
+		};
 		DF7D45EB1F5F87BB00925D2E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -338,6 +466,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9716FA6C1FA2FFDC008D8B4A /* Build configuration list for PBXNativeTarget "GHS schedule screenshots" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9716FA6D1FA2FFDC008D8B4A /* Debug */,
+				9716FA6E1FA2FFDC008D8B4A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DF7D45D31F5F87BB00925D2E /* Build configuration list for PBXProject "GHS schedule" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
