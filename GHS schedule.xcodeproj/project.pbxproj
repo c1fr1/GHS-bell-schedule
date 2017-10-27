@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF06EB8C1FA05DD3001F1D0C /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF06EB8B1FA05DD3001F1D0C /* NotificationCenter.framework */; };
+		DF06EB8F1FA05DD4001F1D0C /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF06EB8E1FA05DD4001F1D0C /* TodayViewController.swift */; };
+		DF06EB921FA05DD4001F1D0C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF06EB901FA05DD4001F1D0C /* MainInterface.storyboard */; };
+		DF06EB961FA05DD4001F1D0C /* GHSScheduleWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DF06EB891FA05DD3001F1D0C /* GHSScheduleWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DF06EB9F1FA06645001F1D0C /* GHS_schedule.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45E21F5F87BB00925D2E /* GHS_schedule.xcdatamodeld */; };
+		DF06EBA11FA0E16B001F1D0C /* CoreDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF06EBA01FA0E16B001F1D0C /* CoreDataContainer.swift */; };
+		DF06EBA21FA0E16B001F1D0C /* CoreDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF06EBA01FA0E16B001F1D0C /* CoreDataContainer.swift */; };
+		DF06EBA41FA164DF001F1D0C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF06EBA31FA164DF001F1D0C /* CoreData.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		DF06EBA51FA16E1C001F1D0C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF06EBA31FA164DF001F1D0C /* CoreData.framework */; };
 		DF0B3A151F7C6F8C003FEE7B /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0B3A141F7C6F8C003FEE7B /* NotificationViewController.swift */; };
 		DF7D45DC1F5F87BB00925D2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45DB1F5F87BB00925D2E /* AppDelegate.swift */; };
 		DF7D45DE1F5F87BB00925D2E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45DD1F5F87BB00925D2E /* ViewController.swift */; };
@@ -20,7 +29,38 @@
 		DFEBBFA21F6667F500046334 /* GHS logo.png in Resources */ = {isa = PBXBuildFile; fileRef = DFEBBFA11F6667F500046334 /* GHS logo.png */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		DF06EB941FA05DD4001F1D0C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DF7D45D01F5F87BB00925D2E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF06EB881FA05DD3001F1D0C;
+			remoteInfo = GHSScheduleWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DF06EB9A1FA05DD4001F1D0C /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DF06EB961FA05DD4001F1D0C /* GHSScheduleWidget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		DF06EB891FA05DD3001F1D0C /* GHSScheduleWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GHSScheduleWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF06EB8B1FA05DD3001F1D0C /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		DF06EB8E1FA05DD4001F1D0C /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		DF06EB911FA05DD4001F1D0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		DF06EB931FA05DD4001F1D0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF06EBA01FA0E16B001F1D0C /* CoreDataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataContainer.swift; sourceTree = "<group>"; };
+		DF06EBA31FA164DF001F1D0C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		DF0B3A141F7C6F8C003FEE7B /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		DF7D3BDD1F7DA9A800BC0752 /* GHS schedule.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GHS schedule.entitlements"; sourceTree = "<group>"; };
 		DF7D45D81F5F87BB00925D2E /* GHS schedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GHS schedule.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -35,23 +75,58 @@
 		DF7D45F21F5FAD9B00925D2E /* calenderLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = calenderLayer.swift; sourceTree = "<group>"; };
 		DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = calenderStuff.swift; sourceTree = "<group>"; };
 		DFEBBFA11F6667F500046334 /* GHS logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GHS logo.png"; sourceTree = "<group>"; };
+		DFF618C21FA1973D007375BB /* GHSScheduleWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GHSScheduleWidget.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		DF06EB861FA05DD3001F1D0C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF06EBA41FA164DF001F1D0C /* CoreData.framework in Frameworks */,
+				DF06EB8C1FA05DD3001F1D0C /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DF7D45D51F5F87BB00925D2E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF06EBA51FA16E1C001F1D0C /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DF06EB8A1FA05DD3001F1D0C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DF06EBA31FA164DF001F1D0C /* CoreData.framework */,
+				DF06EB8B1FA05DD3001F1D0C /* NotificationCenter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DF06EB8D1FA05DD3001F1D0C /* GHSScheduleWidget */ = {
+			isa = PBXGroup;
+			children = (
+				DFF618C21FA1973D007375BB /* GHSScheduleWidget.entitlements */,
+				DF06EB8E1FA05DD4001F1D0C /* TodayViewController.swift */,
+				DF06EB901FA05DD4001F1D0C /* MainInterface.storyboard */,
+				DF06EB931FA05DD4001F1D0C /* Info.plist */,
+			);
+			path = GHSScheduleWidget;
+			sourceTree = "<group>";
+		};
 		DF7D45CF1F5F87BB00925D2E = {
 			isa = PBXGroup;
 			children = (
+				DF7D45E21F5F87BB00925D2E /* GHS_schedule.xcdatamodeld */,
+				DF06EBA01FA0E16B001F1D0C /* CoreDataContainer.swift */,
 				DF7D45DA1F5F87BB00925D2E /* GHS schedule */,
+				DF06EB8D1FA05DD3001F1D0C /* GHSScheduleWidget */,
+				DF06EB8A1FA05DD3001F1D0C /* Frameworks */,
 				DF7D45D91F5F87BB00925D2E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -60,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				DF7D45D81F5F87BB00925D2E /* GHS schedule.app */,
+				DF06EB891FA05DD3001F1D0C /* GHSScheduleWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -79,7 +155,6 @@
 				DF7D45E51F5F87BB00925D2E /* Assets.xcassets */,
 				DF7D45E71F5F87BB00925D2E /* LaunchScreen.storyboard */,
 				DF7D45EA1F5F87BB00925D2E /* Info.plist */,
-				DF7D45E21F5F87BB00925D2E /* GHS_schedule.xcdatamodeld */,
 			);
 			path = "GHS schedule";
 			sourceTree = "<group>";
@@ -87,6 +162,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		DF06EB881FA05DD3001F1D0C /* GHSScheduleWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF06EB991FA05DD4001F1D0C /* Build configuration list for PBXNativeTarget "GHSScheduleWidget" */;
+			buildPhases = (
+				DF06EB851FA05DD3001F1D0C /* Sources */,
+				DF06EB861FA05DD3001F1D0C /* Frameworks */,
+				DF06EB871FA05DD3001F1D0C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GHSScheduleWidget;
+			productName = GHSScheduleWidget;
+			productReference = DF06EB891FA05DD3001F1D0C /* GHSScheduleWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		DF7D45D71F5F87BB00925D2E /* GHS schedule */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DF7D45ED1F5F87BB00925D2E /* Build configuration list for PBXNativeTarget "GHS schedule" */;
@@ -94,10 +186,12 @@
 				DF7D45D41F5F87BB00925D2E /* Sources */,
 				DF7D45D51F5F87BB00925D2E /* Frameworks */,
 				DF7D45D61F5F87BB00925D2E /* Resources */,
+				DF06EB9A1FA05DD4001F1D0C /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				DF06EB951FA05DD4001F1D0C /* PBXTargetDependency */,
 			);
 			name = "GHS schedule";
 			productName = "GHS schedule";
@@ -110,16 +204,29 @@
 		DF7D45D01F5F87BB00925D2E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = 4inunison;
 				TargetAttributes = {
+					DF06EB881FA05DD3001F1D0C = {
+						CreatedOnToolsVersion = 9.0;
+						DevelopmentTeam = KAZ52S2JC2;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
 					DF7D45D71F5F87BB00925D2E = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = KAZ52S2JC2;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -141,11 +248,20 @@
 			projectRoot = "";
 			targets = (
 				DF7D45D71F5F87BB00925D2E /* GHS schedule */,
+				DF06EB881FA05DD3001F1D0C /* GHSScheduleWidget */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		DF06EB871FA05DD3001F1D0C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF06EB921FA05DD4001F1D0C /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DF7D45D61F5F87BB00925D2E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -160,6 +276,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		DF06EB851FA05DD3001F1D0C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF06EB8F1FA05DD4001F1D0C /* TodayViewController.swift in Sources */,
+				DF06EBA21FA0E16B001F1D0C /* CoreDataContainer.swift in Sources */,
+				DF06EB9F1FA06645001F1D0C /* GHS_schedule.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DF7D45D41F5F87BB00925D2E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -169,6 +295,7 @@
 				DF7D45F31F5FAD9B00925D2E /* calenderLayer.swift in Sources */,
 				DF0B3A151F7C6F8C003FEE7B /* NotificationViewController.swift in Sources */,
 				DF7D45DC1F5F87BB00925D2E /* AppDelegate.swift in Sources */,
+				DF06EBA11FA0E16B001F1D0C /* CoreDataContainer.swift in Sources */,
 				DF7D45E41F5F87BB00925D2E /* GHS_schedule.xcdatamodeld in Sources */,
 				DF7D45F11F5F88CA00925D2E /* PeriodListClasses.swift in Sources */,
 			);
@@ -176,7 +303,23 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		DF06EB951FA05DD4001F1D0C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF06EB881FA05DD3001F1D0C /* GHSScheduleWidget */;
+			targetProxy = DF06EB941FA05DD4001F1D0C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		DF06EB901FA05DD4001F1D0C /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DF06EB911FA05DD4001F1D0C /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		DF7D45DF1F5F87BB00925D2E /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -196,6 +339,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		DF06EB971FA05DD4001F1D0C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = GHSScheduleWidget/GHSScheduleWidget.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KAZ52S2JC2;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = GHSScheduleWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.catana-software.ghsschedule.GHSScheduleWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DF06EB981FA05DD4001F1D0C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = GHSScheduleWidget/GHSScheduleWidget.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KAZ52S2JC2;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = GHSScheduleWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.catana-software.ghsschedule.GHSScheduleWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		DF7D45EB1F5F87BB00925D2E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -306,8 +491,10 @@
 		DF7D45EE1F5F87BB00925D2E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "GHS schedule/GHS schedule.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = KAZ52S2JC2;
 				INFOPLIST_FILE = "GHS schedule/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -322,8 +509,10 @@
 		DF7D45EF1F5F87BB00925D2E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "GHS schedule/GHS schedule.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = KAZ52S2JC2;
 				INFOPLIST_FILE = "GHS schedule/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -338,6 +527,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		DF06EB991FA05DD4001F1D0C /* Build configuration list for PBXNativeTarget "GHSScheduleWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF06EB971FA05DD4001F1D0C /* Debug */,
+				DF06EB981FA05DD4001F1D0C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DF7D45D31F5F87BB00925D2E /* Build configuration list for PBXProject "GHS schedule" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
