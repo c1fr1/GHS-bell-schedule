@@ -156,3 +156,100 @@ class CalendarLayer:CALayer {
     }
 }
 var pt = CGPoint(x:0, y:0)
+
+func getStartTimeFor(period:Int, on:(Int, Int, Int)) -> DateComponents? {
+	var comp = DateComponents()
+	comp.month = on.0
+	comp.day = on.1
+	comp.year = on.2
+	comp.calendar = Calendar(identifier: .gregorian)
+	comp.timeZone = TimeZone(abbreviation: "PST")!
+	let stype = schedule![getDate(from: on)]
+	let daysInfo = periodInfo![stype!]
+	if daysInfo == nil { return nil }
+	var ptimeinfo:String = ""
+	for (num, info) in daysInfo!.enumerated() {
+		if info["NAME"] == "P\(period)" {
+			ptimeinfo = daysInfo![num]["START"]!
+			break
+		}
+	}
+	if ptimeinfo == "" {
+		return nil
+	}
+	var hourString:String = ""
+	var minuteString:String?
+	for char in ptimeinfo.characters {
+		if minuteString != nil {
+			if char == "p" || char == "P" {
+				if Int(hourString)! < 12 {
+					hourString = String(Int(hourString)! + 12)
+				}
+				break
+			}else if char == "a" || char == "A" {
+				break
+			}else {
+				minuteString! += String(char)
+			}
+		}else {
+			if char == ":" {
+				minuteString = ""
+			}else {
+				hourString += String(char)
+			}
+		}
+	}
+	if minuteString != nil {
+		comp.hour = Int(hourString)
+		comp.minute = Int(minuteString!)
+	}
+	return comp
+}
+func getEndTimeFor(period:Int, on:(Int, Int, Int)) -> DateComponents? {
+	var comp = DateComponents()
+	comp.month = on.0
+	comp.day = on.1
+	comp.year = on.2
+	comp.calendar = Calendar(identifier: .gregorian)
+	comp.timeZone = TimeZone(abbreviation: "PST")!
+	let stype = schedule![getDate(from: on)]
+	let daysInfo = periodInfo![stype!]
+	if daysInfo == nil { return nil }
+	var ptimeinfo:String = ""
+	for (num, info) in daysInfo!.enumerated() {
+		if info["NAME"] == "P\(period)" {
+			ptimeinfo = daysInfo![num]["END"]!
+			break
+		}
+	}
+	if ptimeinfo == "" {
+		return nil
+	}
+	var hourString:String = ""
+	var minuteString:String?
+	for char in ptimeinfo.characters {
+		if minuteString != nil {
+			if char == "p" || char == "P" {
+				if Int(hourString)! < 12 {
+					hourString = String(Int(hourString)! + 12)
+				}
+				break
+			}else if char == "a" || char == "A" {
+				break
+			}else {
+				minuteString! += String(char)
+			}
+		}else {
+			if char == ":" {
+				minuteString = ""
+			}else {
+				hourString += String(char)
+			}
+		}
+	}
+	if minuteString != nil {
+		comp.hour = Int(hourString)
+		comp.minute = Int(minuteString!)
+	}
+	return comp
+}

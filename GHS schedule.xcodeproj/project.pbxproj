@@ -11,22 +11,21 @@
 		DF06EB8F1FA05DD4001F1D0C /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF06EB8E1FA05DD4001F1D0C /* TodayViewController.swift */; };
 		DF06EB921FA05DD4001F1D0C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF06EB901FA05DD4001F1D0C /* MainInterface.storyboard */; };
 		DF06EB961FA05DD4001F1D0C /* GHSScheduleWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DF06EB891FA05DD3001F1D0C /* GHSScheduleWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		DF06EB9F1FA06645001F1D0C /* GHS_schedule.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45E21F5F87BB00925D2E /* GHS_schedule.xcdatamodeld */; };
-		DF06EBA11FA0E16B001F1D0C /* CoreDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF06EBA01FA0E16B001F1D0C /* CoreDataContainer.swift */; };
-		DF06EBA21FA0E16B001F1D0C /* CoreDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF06EBA01FA0E16B001F1D0C /* CoreDataContainer.swift */; };
+		DF06EBA11FA0E16B001F1D0C /* SharedDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF06EBA01FA0E16B001F1D0C /* SharedDataContainer.swift */; };
+		DF06EBA21FA0E16B001F1D0C /* SharedDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF06EBA01FA0E16B001F1D0C /* SharedDataContainer.swift */; };
 		DF06EBA41FA164DF001F1D0C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF06EBA31FA164DF001F1D0C /* CoreData.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		DF06EBA51FA16E1C001F1D0C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF06EBA31FA164DF001F1D0C /* CoreData.framework */; };
 		DF0B3A151F7C6F8C003FEE7B /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0B3A141F7C6F8C003FEE7B /* NotificationViewController.swift */; };
 		DF7D45DC1F5F87BB00925D2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45DB1F5F87BB00925D2E /* AppDelegate.swift */; };
 		DF7D45DE1F5F87BB00925D2E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45DD1F5F87BB00925D2E /* ViewController.swift */; };
 		DF7D45E11F5F87BB00925D2E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF7D45DF1F5F87BB00925D2E /* Main.storyboard */; };
-		DF7D45E41F5F87BB00925D2E /* GHS_schedule.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45E21F5F87BB00925D2E /* GHS_schedule.xcdatamodeld */; };
 		DF7D45E61F5F87BB00925D2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF7D45E51F5F87BB00925D2E /* Assets.xcassets */; };
 		DF7D45E91F5F87BB00925D2E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF7D45E71F5F87BB00925D2E /* LaunchScreen.storyboard */; };
 		DF7D45F11F5F88CA00925D2E /* PeriodListClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45F01F5F88CA00925D2E /* PeriodListClasses.swift */; };
 		DF7D45F31F5FAD9B00925D2E /* calenderLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45F21F5FAD9B00925D2E /* calenderLayer.swift */; };
 		DF7D45F51F5FDAAB00925D2E /* calenderStuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */; };
 		DFEBBFA21F6667F500046334 /* GHS logo.png in Resources */ = {isa = PBXBuildFile; fileRef = DFEBBFA11F6667F500046334 /* GHS logo.png */; };
+		DFF618C31FA70A4C007375BB /* calenderStuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,7 +58,7 @@
 		DF06EB8E1FA05DD4001F1D0C /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		DF06EB911FA05DD4001F1D0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		DF06EB931FA05DD4001F1D0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DF06EBA01FA0E16B001F1D0C /* CoreDataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataContainer.swift; sourceTree = "<group>"; };
+		DF06EBA01FA0E16B001F1D0C /* SharedDataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDataContainer.swift; sourceTree = "<group>"; };
 		DF06EBA31FA164DF001F1D0C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		DF0B3A141F7C6F8C003FEE7B /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		DF7D3BDD1F7DA9A800BC0752 /* GHS schedule.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GHS schedule.entitlements"; sourceTree = "<group>"; };
@@ -67,7 +66,6 @@
 		DF7D45DB1F5F87BB00925D2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF7D45DD1F5F87BB00925D2E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DF7D45E01F5F87BB00925D2E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		DF7D45E31F5F87BB00925D2E /* GHS_schedule.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GHS_schedule.xcdatamodel; sourceTree = "<group>"; };
 		DF7D45E51F5F87BB00925D2E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DF7D45E81F5F87BB00925D2E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DF7D45EA1F5F87BB00925D2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -122,8 +120,8 @@
 		DF7D45CF1F5F87BB00925D2E = {
 			isa = PBXGroup;
 			children = (
-				DF7D45E21F5F87BB00925D2E /* GHS_schedule.xcdatamodeld */,
-				DF06EBA01FA0E16B001F1D0C /* CoreDataContainer.swift */,
+				DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */,
+				DF06EBA01FA0E16B001F1D0C /* SharedDataContainer.swift */,
 				DF7D45DA1F5F87BB00925D2E /* GHS schedule */,
 				DF06EB8D1FA05DD3001F1D0C /* GHSScheduleWidget */,
 				DF06EB8A1FA05DD3001F1D0C /* Frameworks */,
@@ -150,7 +148,6 @@
 				DF0B3A141F7C6F8C003FEE7B /* NotificationViewController.swift */,
 				DF7D45F01F5F88CA00925D2E /* PeriodListClasses.swift */,
 				DF7D45F21F5FAD9B00925D2E /* calenderLayer.swift */,
-				DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */,
 				DF7D45DF1F5F87BB00925D2E /* Main.storyboard */,
 				DF7D45E51F5F87BB00925D2E /* Assets.xcassets */,
 				DF7D45E71F5F87BB00925D2E /* LaunchScreen.storyboard */,
@@ -281,8 +278,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF06EB8F1FA05DD4001F1D0C /* TodayViewController.swift in Sources */,
-				DF06EBA21FA0E16B001F1D0C /* CoreDataContainer.swift in Sources */,
-				DF06EB9F1FA06645001F1D0C /* GHS_schedule.xcdatamodeld in Sources */,
+				DFF618C31FA70A4C007375BB /* calenderStuff.swift in Sources */,
+				DF06EBA21FA0E16B001F1D0C /* SharedDataContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,8 +292,7 @@
 				DF7D45F31F5FAD9B00925D2E /* calenderLayer.swift in Sources */,
 				DF0B3A151F7C6F8C003FEE7B /* NotificationViewController.swift in Sources */,
 				DF7D45DC1F5F87BB00925D2E /* AppDelegate.swift in Sources */,
-				DF06EBA11FA0E16B001F1D0C /* CoreDataContainer.swift in Sources */,
-				DF7D45E41F5F87BB00925D2E /* GHS_schedule.xcdatamodeld in Sources */,
+				DF06EBA11FA0E16B001F1D0C /* SharedDataContainer.swift in Sources */,
 				DF7D45F11F5F88CA00925D2E /* PeriodListClasses.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -555,19 +551,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		DF7D45E21F5F87BB00925D2E /* GHS_schedule.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				DF7D45E31F5F87BB00925D2E /* GHS_schedule.xcdatamodel */,
-			);
-			currentVersion = DF7D45E31F5F87BB00925D2E /* GHS_schedule.xcdatamodel */;
-			path = GHS_schedule.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = DF7D45D01F5F87BB00925D2E /* Project object */;
 }

@@ -12,39 +12,76 @@ import NotificationCenter
 
 class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var periodInfo: UILabel!
-    @IBOutlet weak var timeTill: UILabel!
+	@IBOutlet weak var timeLabel: UILabel!
+	@IBOutlet weak var timeTill: UILabel!
     
     override func viewDidLoad() {
         let data = getStoredScheduleInfo()
-        periodInfo.text = "\(data.count)"
+		let dayType = getStoredData()[getDate(from: getDateInts())]
+		if dayType != nil {
+			let dayInfo = data[dayType!]
+			if dayInfo != nil {
+				var curPeriod:[String:String]?
+				let cal = Calendar(identifier: .gregorian)
+				let curDate = Date()
+				for period in dayInfo! {
+					if cal.date(from: gbtf(text: period))! < curDate && cal.date(from: getf(text: period))! > curDate {
+						curPeriod = period
+						break
+					}
+				}
+				if curPeriod != nil {
+					periodInfo.text = curPeriod!["NAME"]!
+					timeLabel.text = "from \(curPeriod!["START"]!) to \(curPeriod!["END"]!)"
+					let seconds = cal.date(from: getf(text: curPeriod!))!.timeIntervalSinceNow
+					let mins = Int(floor(seconds/60))
+					timeTill.text = "Ends in \(mins) minutes"
+				}else {
+					periodInfo.text = "no current period"
+					timeLabel.text = ""
+					timeTill.text = ""
+				}
+			}else {
+				periodInfo.text = "no current period"
+				timeLabel.text = ""
+				timeTill.text = ""
+			}
+		}else {
+			periodInfo.text = "no current period"
+			timeLabel.text = ""
+			timeTill.text = ""
+		}
         super.viewDidLoad()
     }
     func getStoredScheduleInfo() -> [String:[[String:String]]] {
-        var retval = [String:[[String:String]]]()
-        let request = NSFetchRequest<NSManagedObject>(entityName:"GHSPeriodTimes")
-        var data:Data!
-        do {
-            let obj = try persistentContainer.viewContext.fetch(request)
-            if obj.count == 0 {
-                return [:]
-            }
-            data = obj.first!.value(forKey: "rawJson") as! Data
-        } catch _ as NSError {
-            print("dataMissing")
-            return [:]
-        }
-        if let lyr1 = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:Any] {
-            for element in lyr1! {
-                if let lyr2 = element.value as? [[String:String]] {
-                    retval[element.key] = lyr2
-                }
-            }
-        }else {
-            print("notWorking")
-            return [:]
-        }
-        return retval
+		let retval = groupDefaults.value(forKey: Keys.PERIODINFOKEY)
+		if retval != nil {
+			if let info = retval as? [String:[[String:String]]] {
+				return info
+			}else {
+				print("Failure to recognize Period info")
+				return [:]
+			}
+		}else {
+			print("Period info missing")
+			return [:]
+		}
     }
+	func getStoredData() -> [Date:String] {
+		let ds = groupDefaults.value(forKey: Keys.FULLSCHEDULEDATESKEY)
+		if let dinfo = ds as? [Date] {
+			let ss = groupDefaults.value(forKey: Keys.FULLSCHEDULESTRINGSSKEY)
+			if let sinfo = ss as? [String] {
+				var dictRVal:[Date:String] = [:]
+				for (num, d) in dinfo.enumerated() {
+					dictRVal[d] = sinfo[num]
+				}
+				return (dictRVal)
+			}
+		}
+		print("Failed to get valid schedule info")
+		return ([:])
+	}
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         // Perform any setup necessary in order to update the view.
         
