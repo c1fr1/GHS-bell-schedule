@@ -68,7 +68,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 							}
 						}else {
 							let mins = Int(floor(cal.date(from: gbtf(text: curPeriod!))!.timeIntervalSince(curDat)/60))
-							periodInfo.text = "\(pnum!)"
+							periodInfo.text = pnum
 							timeLabel.text = "from \(curPeriod!["START"]!) to \(curPeriod!["END"]!)"
 							if mins > 0 {
 								timeTill.text = "Starts in \(mins)"
