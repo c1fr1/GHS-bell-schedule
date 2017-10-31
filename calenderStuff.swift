@@ -26,7 +26,7 @@ func getDateInts() -> (Int, Int, Int) {
     var day:Int?
     var year:Int?
     for chr in dateString.characters {
-        if chr != "/" {
+        if chr != "/" && chr != "-" {
             currentString += String(chr)
         }else {
             if month == nil  {
@@ -51,7 +51,7 @@ func getIntsFor(date:Date) -> (Int, Int, Int) {
     var day:Int?
     var year:Int?
     for chr in dateString.characters {
-        if chr != "/" {
+        if chr != "/" && chr != "-" {
             currentString += String(chr)
         }else {
             if month == nil  {

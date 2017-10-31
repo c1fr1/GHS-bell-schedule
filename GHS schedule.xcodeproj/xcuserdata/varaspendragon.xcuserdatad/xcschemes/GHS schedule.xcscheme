@@ -29,6 +29,16 @@
       language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DFF618C71FA84517007375BB"
+               BuildableName = "GHS scheduleUITests.xctest"
+               BlueprintName = "GHS scheduleUITests"
+               ReferencedContainer = "container:GHS schedule.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

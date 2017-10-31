@@ -13,8 +13,6 @@
 		DF06EB961FA05DD4001F1D0C /* GHSScheduleWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DF06EB891FA05DD3001F1D0C /* GHSScheduleWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DF06EBA11FA0E16B001F1D0C /* SharedDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF06EBA01FA0E16B001F1D0C /* SharedDataContainer.swift */; };
 		DF06EBA21FA0E16B001F1D0C /* SharedDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF06EBA01FA0E16B001F1D0C /* SharedDataContainer.swift */; };
-		DF06EBA41FA164DF001F1D0C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF06EBA31FA164DF001F1D0C /* CoreData.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		DF06EBA51FA16E1C001F1D0C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF06EBA31FA164DF001F1D0C /* CoreData.framework */; };
 		DF0B3A151F7C6F8C003FEE7B /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0B3A141F7C6F8C003FEE7B /* NotificationViewController.swift */; };
 		DF7D45DC1F5F87BB00925D2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45DB1F5F87BB00925D2E /* AppDelegate.swift */; };
 		DF7D45DE1F5F87BB00925D2E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45DD1F5F87BB00925D2E /* ViewController.swift */; };
@@ -26,6 +24,9 @@
 		DF7D45F51F5FDAAB00925D2E /* calenderStuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */; };
 		DFEBBFA21F6667F500046334 /* GHS logo.png in Resources */ = {isa = PBXBuildFile; fileRef = DFEBBFA11F6667F500046334 /* GHS logo.png */; };
 		DFF618C31FA70A4C007375BB /* calenderStuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */; };
+		DFF618CB1FA84517007375BB /* GHS_scheduleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF618CA1FA84517007375BB /* GHS_scheduleUITests.swift */; };
+		DFF618D31FA845EA007375BB /* Snapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF618D21FA845EA007375BB /* Snapshots.swift */; };
+		DFF618D51FA84713007375BB /* Snapfile in Resources */ = {isa = PBXBuildFile; fileRef = DFF618D41FA84713007375BB /* Snapfile */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = DF06EB881FA05DD3001F1D0C;
 			remoteInfo = GHSScheduleWidget;
+		};
+		DFF618CD1FA84517007375BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DF7D45D01F5F87BB00925D2E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF7D45D71F5F87BB00925D2E;
+			remoteInfo = "GHS schedule";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -59,7 +67,6 @@
 		DF06EB911FA05DD4001F1D0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		DF06EB931FA05DD4001F1D0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF06EBA01FA0E16B001F1D0C /* SharedDataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDataContainer.swift; sourceTree = "<group>"; };
-		DF06EBA31FA164DF001F1D0C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		DF0B3A141F7C6F8C003FEE7B /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		DF7D3BDD1F7DA9A800BC0752 /* GHS schedule.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GHS schedule.entitlements"; sourceTree = "<group>"; };
 		DF7D45D81F5F87BB00925D2E /* GHS schedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GHS schedule.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,6 +81,11 @@
 		DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = calenderStuff.swift; sourceTree = "<group>"; };
 		DFEBBFA11F6667F500046334 /* GHS logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GHS logo.png"; sourceTree = "<group>"; };
 		DFF618C21FA1973D007375BB /* GHSScheduleWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GHSScheduleWidget.entitlements; sourceTree = "<group>"; };
+		DFF618C81FA84517007375BB /* GHS scheduleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GHS scheduleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFF618CA1FA84517007375BB /* GHS_scheduleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHS_scheduleUITests.swift; sourceTree = "<group>"; };
+		DFF618CC1FA84517007375BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DFF618D21FA845EA007375BB /* Snapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshots.swift; sourceTree = "<group>"; };
+		DFF618D41FA84713007375BB /* Snapfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Snapfile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +93,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF06EBA41FA164DF001F1D0C /* CoreData.framework in Frameworks */,
 				DF06EB8C1FA05DD3001F1D0C /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,7 +101,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF06EBA51FA16E1C001F1D0C /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFF618C51FA84517007375BB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +117,6 @@
 		DF06EB8A1FA05DD3001F1D0C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DF06EBA31FA164DF001F1D0C /* CoreData.framework */,
 				DF06EB8B1FA05DD3001F1D0C /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
@@ -124,6 +140,7 @@
 				DF06EBA01FA0E16B001F1D0C /* SharedDataContainer.swift */,
 				DF7D45DA1F5F87BB00925D2E /* GHS schedule */,
 				DF06EB8D1FA05DD3001F1D0C /* GHSScheduleWidget */,
+				DFF618C91FA84517007375BB /* GHS scheduleUITests */,
 				DF06EB8A1FA05DD3001F1D0C /* Frameworks */,
 				DF7D45D91F5F87BB00925D2E /* Products */,
 			);
@@ -134,6 +151,7 @@
 			children = (
 				DF7D45D81F5F87BB00925D2E /* GHS schedule.app */,
 				DF06EB891FA05DD3001F1D0C /* GHSScheduleWidget.appex */,
+				DFF618C81FA84517007375BB /* GHS scheduleUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -154,6 +172,17 @@
 				DF7D45EA1F5F87BB00925D2E /* Info.plist */,
 			);
 			path = "GHS schedule";
+			sourceTree = "<group>";
+		};
+		DFF618C91FA84517007375BB /* GHS scheduleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				DFF618D41FA84713007375BB /* Snapfile */,
+				DFF618D21FA845EA007375BB /* Snapshots.swift */,
+				DFF618CA1FA84517007375BB /* GHS_scheduleUITests.swift */,
+				DFF618CC1FA84517007375BB /* Info.plist */,
+			);
+			path = "GHS scheduleUITests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,6 +224,24 @@
 			productReference = DF7D45D81F5F87BB00925D2E /* GHS schedule.app */;
 			productType = "com.apple.product-type.application";
 		};
+		DFF618C71FA84517007375BB /* GHS scheduleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DFF618CF1FA84518007375BB /* Build configuration list for PBXNativeTarget "GHS scheduleUITests" */;
+			buildPhases = (
+				DFF618C41FA84517007375BB /* Sources */,
+				DFF618C51FA84517007375BB /* Frameworks */,
+				DFF618C61FA84517007375BB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DFF618CE1FA84517007375BB /* PBXTargetDependency */,
+			);
+			name = "GHS scheduleUITests";
+			productName = "GHS scheduleUITests";
+			productReference = DFF618C81FA84517007375BB /* GHS scheduleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -229,6 +276,12 @@
 							};
 						};
 					};
+					DFF618C71FA84517007375BB = {
+						CreatedOnToolsVersion = 9.0;
+						DevelopmentTeam = KAZ52S2JC2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = DF7D45D71F5F87BB00925D2E;
+					};
 				};
 			};
 			buildConfigurationList = DF7D45D31F5F87BB00925D2E /* Build configuration list for PBXProject "GHS schedule" */;
@@ -246,6 +299,7 @@
 			targets = (
 				DF7D45D71F5F87BB00925D2E /* GHS schedule */,
 				DF06EB881FA05DD3001F1D0C /* GHSScheduleWidget */,
+				DFF618C71FA84517007375BB /* GHS scheduleUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -267,6 +321,14 @@
 				DF7D45E91F5F87BB00925D2E /* LaunchScreen.storyboard in Resources */,
 				DF7D45E61F5F87BB00925D2E /* Assets.xcassets in Resources */,
 				DF7D45E11F5F87BB00925D2E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFF618C61FA84517007375BB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFF618D51FA84713007375BB /* Snapfile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +359,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DFF618C41FA84517007375BB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFF618CB1FA84517007375BB /* GHS_scheduleUITests.swift in Sources */,
+				DFF618D31FA845EA007375BB /* Snapshots.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -304,6 +375,11 @@
 			isa = PBXTargetDependency;
 			target = DF06EB881FA05DD3001F1D0C /* GHSScheduleWidget */;
 			targetProxy = DF06EB941FA05DD4001F1D0C /* PBXContainerItemProxy */;
+		};
+		DFF618CE1FA84517007375BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF7D45D71F5F87BB00925D2E /* GHS schedule */;
+			targetProxy = DFF618CD1FA84517007375BB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -520,6 +596,46 @@
 			};
 			name = Release;
 		};
+		DFF618D01FA84518007375BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KAZ52S2JC2;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "GHS scheduleUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.catana-software.GHS-scheduleUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "GHS schedule";
+			};
+			name = Debug;
+		};
+		DFF618D11FA84518007375BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KAZ52S2JC2;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "GHS scheduleUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.catana-software.GHS-scheduleUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "GHS schedule";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -546,6 +662,15 @@
 			buildConfigurations = (
 				DF7D45EE1F5F87BB00925D2E /* Debug */,
 				DF7D45EF1F5F87BB00925D2E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DFF618CF1FA84518007375BB /* Build configuration list for PBXNativeTarget "GHS scheduleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFF618D01FA84518007375BB /* Debug */,
+				DFF618D11FA84518007375BB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

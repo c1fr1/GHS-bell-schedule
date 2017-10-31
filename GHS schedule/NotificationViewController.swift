@@ -188,14 +188,14 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
         }else {
             p8Duration = nil
         }
-        UserDefaults.standard.set(p1Duration, forKey: "GHSP1DURATION")
-        UserDefaults.standard.set(p2Duration, forKey: "GHSP2DURATION")
-        UserDefaults.standard.set(p3Duration, forKey: "GHSP3DURATION")
-        UserDefaults.standard.set(p4Duration, forKey: "GHSP4DURATION")
-        UserDefaults.standard.set(p5Duration, forKey: "GHSP5DURATION")
-        UserDefaults.standard.set(p6Duration, forKey: "GHSP6DURATION")
-        UserDefaults.standard.set(p7Duration, forKey: "GHSP7DURATION")
-        UserDefaults.standard.set(p8Duration, forKey: "GHSP8DURATION")
+        groupDefaults.set(p1Duration, forKey: "GHSP1DURATION")
+        groupDefaults.set(p2Duration, forKey: "GHSP2DURATION")
+        groupDefaults.set(p3Duration, forKey: "GHSP3DURATION")
+        groupDefaults.set(p4Duration, forKey: "GHSP4DURATION")
+        groupDefaults.set(p5Duration, forKey: "GHSP5DURATION")
+        groupDefaults.set(p6Duration, forKey: "GHSP6DURATION")
+        groupDefaults.set(p7Duration, forKey: "GHSP7DURATION")
+        groupDefaults.set(p8Duration, forKey: "GHSP8DURATION")
     }
     override func viewDidLoad() {
         p1Field.delegate = self
@@ -383,10 +383,12 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
 func saveAndSchedule() {
     var count = 0
     var index = 0
-    if orderedSchedule!.count > index {
-        while getDate(from: getDateInts()) >= orderedSchedule![index].0 {
+    while orderedSchedule!.count > index {
+        if getDate(from: getDateInts()) >= orderedSchedule![index].0 {
             index += 1
-        }
+		}else {
+			break
+		}
     }
     index -= 1
     while count < 64 {

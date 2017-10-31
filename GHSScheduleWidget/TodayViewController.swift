@@ -21,21 +21,72 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 		if dayType != nil {
 			let dayInfo = data[dayType!]
 			if dayInfo != nil {
+				var beforePeriod = false
 				var curPeriod:[String:String]?
 				let cal = Calendar(identifier: .gregorian)
-				let curDate = Date()
+				let formatter = DateFormatter()
+				formatter.calendar = Calendar(identifier: .gregorian)
+				formatter.timeZone = TimeZone(identifier: "PST")
+				formatter.dateFormat = "hh:mm aa"
+				let curDat = cal.date(from: getf(text: ["END":formatter.string(from: Date())]))!
 				for period in dayInfo! {
-					if cal.date(from: gbtf(text: period))! < curDate && cal.date(from: getf(text: period))! > curDate {
+					let startTime = cal.date(from: gbtf(text: period))!
+					let endTime = cal.date(from: getf(text: period))!
+					if startTime > curDat {
+						if let pnum = period["NAME"] {
+							if pnum == "P1" || pnum == "P5" {
+								let intv = startTime.timeIntervalSince(curDat)
+								if intv < 3600 || intv >= 0 {
+									beforePeriod = true
+									curPeriod = period
+									break
+								}
+							}
+						}
+						let intv = startTime.timeIntervalSince(curDat)
+						if intv < 300 && intv >= 0 {
+							beforePeriod = true
+							curPeriod = period
+							break
+						}
+					}else if endTime > curDat {
 						curPeriod = period
 						break
 					}
 				}
 				if curPeriod != nil {
-					periodInfo.text = curPeriod!["NAME"]!
-					timeLabel.text = "from \(curPeriod!["START"]!) to \(curPeriod!["END"]!)"
-					let seconds = cal.date(from: getf(text: curPeriod!))!.timeIntervalSinceNow
-					let mins = Int(floor(seconds/60))
-					timeTill.text = "Ends in \(mins) minutes"
+					if beforePeriod {
+						let pnum = curPeriod!["NAME"]
+						if pnum == "P1" || pnum == "P5" {
+							let mins = Int(floor(cal.date(from: gbtf(text: curPeriod!))!.timeIntervalSince(curDat)/60))
+							periodInfo.text = "Before school on \(dayType!) day"
+							timeLabel.text = ""
+							if mins > 0 {
+								timeTill.text = "Starts in \(mins)"
+							}else {
+								timeTill.text = "Starts in less than a minute"
+							}
+						}else {
+							let mins = Int(floor(cal.date(from: gbtf(text: curPeriod!))!.timeIntervalSince(curDat)/60))
+							periodInfo.text = "\(pnum!)"
+							timeLabel.text = "from \(curPeriod!["START"]!) to \(curPeriod!["END"]!)"
+							if mins > 0 {
+								timeTill.text = "Starts in \(mins)"
+							}else {
+								timeTill.text = "Starts in less than a minute"
+							}
+						}
+					}else {
+						periodInfo.text = curPeriod!["NAME"]!
+						timeLabel.text = "from \(curPeriod!["START"]!) to \(curPeriod!["END"]!)"
+						let seconds = cal.date(from: getf(text: curPeriod!))!.timeIntervalSince(curDat)
+						let mins = Int(floor(seconds/60))
+						if mins < 0 {
+							timeTill.text = "Ends in less than a minute"
+						}else {
+							timeTill.text = "Ends in \(mins) minutes"
+						}
+					}
 				}else {
 					periodInfo.text = "no current period"
 					timeLabel.text = ""

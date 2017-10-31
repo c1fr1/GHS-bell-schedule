@@ -151,10 +151,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		p7Duration = groupDefaults.value(forKey: Keys.P7DURATIONKEY) as? Double
 		p8Duration = groupDefaults.value(forKey: Keys.P8DURATIONKEY) as? Double
 		/*UNUserNotificationCenter.current().getPendingNotificationRequests { (requests) in
-		print("requestCount:", requests.count)
-		for request in requests {
-		print(request.identifier)
-		}
+			print("requestCount:", requests.count)
+			for request in requests {
+				print(request.identifier)
+			}
 		}*/
 		saveAndSchedule()
 	}
