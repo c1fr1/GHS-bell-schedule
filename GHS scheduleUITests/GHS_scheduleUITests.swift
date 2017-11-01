@@ -40,9 +40,7 @@ class GHS_scheduleUITests: XCTestCase {
 		XCUIDevice.shared.orientation = .faceUp
 		
 		let element = XCUIApplication().children(matching: .window).element(boundBy: 0).children(matching: .other).element
-		// element.tap()
-		// element.tap()
-		element.swipeLeft()
+		element.swipeRight()
 		
 		snapshot("0 A")
 		element.swipeLeft()
@@ -56,5 +54,8 @@ class GHS_scheduleUITests: XCTestCase {
 		}
 		tapCoordinate(x: 10, y: 25)
 		snapshot("2 Cal")
+		tapCoordinate(x: 10, y: 25)
+		XCUIApplication().buttons["Notifications"].tap()
+		snapshot("3 Notifications")
 	}
 }

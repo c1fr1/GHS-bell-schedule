@@ -61,8 +61,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 							let mins = Int(floor(cal.date(from: gbtf(text: curPeriod!))!.timeIntervalSince(curDat)/60))
 							periodInfo.text = "Before school on \(dayType!) day"
 							timeLabel.text = ""
-							if mins > 0 {
-								timeTill.text = "Starts in \(mins)"
+							if mins > 1 {
+								timeTill.text = "Starts in \(mins) minutes"
+							}else if mins == 1 {
+								timeTill.text = "Starts in a minute"
 							}else {
 								timeTill.text = "Starts in less than a minute"
 							}
@@ -70,8 +72,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 							let mins = Int(floor(cal.date(from: gbtf(text: curPeriod!))!.timeIntervalSince(curDat)/60))
 							periodInfo.text = pnum
 							timeLabel.text = "from \(curPeriod!["START"]!) to \(curPeriod!["END"]!)"
-							if mins > 0 {
-								timeTill.text = "Starts in \(mins)"
+							if mins > 1 {
+								timeTill.text = "Starts in \(mins) minutes"
+							}else if mins == 1 {
+								timeTill.text = "Starts in a minute"
 							}else {
 								timeTill.text = "Starts in less than a minute"
 							}
@@ -81,10 +85,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 						timeLabel.text = "from \(curPeriod!["START"]!) to \(curPeriod!["END"]!)"
 						let seconds = cal.date(from: getf(text: curPeriod!))!.timeIntervalSince(curDat)
 						let mins = Int(floor(seconds/60))
-						if mins < 0 {
-							timeTill.text = "Ends in less than a minute"
-						}else {
+						if mins > 1 {
 							timeTill.text = "Ends in \(mins) minutes"
+						}else if mins == 1 {
+							timeTill.text = "Ends in a minute"
+						}else {
+							timeTill.text = "Ends in less than a minute"
 						}
 					}
 				}else {
