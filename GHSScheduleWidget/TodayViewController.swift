@@ -17,7 +17,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     override func viewDidLoad() {
         let data = getStoredScheduleInfo()
-		let dayType = getStoredData()[getDate(from: getDateInts())]
+ 		let dayType = getStoredData()[getDate(from: getDateInts())]
 		if dayType != nil {
 			let dayInfo = data[dayType!]
 			if dayInfo != nil {
@@ -44,7 +44,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 							}
 						}
 						let intv = startTime.timeIntervalSince(curDat)
-						if intv < 300 && intv >= 0 {
+						if intv < 600 && intv >= 0 {
 							beforePeriod = true
 							curPeriod = period
 							break

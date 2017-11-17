@@ -142,14 +142,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 				})
 			}
 		})
-		p1Duration = groupDefaults.value(forKey: Keys.P1DURATIONKEY) as? Double
-		p2Duration = groupDefaults.value(forKey: Keys.P2DURATIONKEY) as? Double
-		p3Duration = groupDefaults.value(forKey: Keys.P3DURATIONKEY) as? Double
-		p4Duration = groupDefaults.value(forKey: Keys.P4DURATIONKEY) as? Double
-		p5Duration = groupDefaults.value(forKey: Keys.P5DURATIONKEY) as? Double
-		p6Duration = groupDefaults.value(forKey: Keys.P6DURATIONKEY) as? Double
-		p7Duration = groupDefaults.value(forKey: Keys.P7DURATIONKEY) as? Double
-		p8Duration = groupDefaults.value(forKey: Keys.P8DURATIONKEY) as? Double
 		/*UNUserNotificationCenter.current().getPendingNotificationRequests { (requests) in
 			print("requestCount:", requests.count)
 			for request in requests {
@@ -232,9 +224,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 			formatter.timeZone = TimeZone(abbreviation: "PST")
 			formatter.dateFormat = "yyyyMMdd"
 			for dict in scheduleStr["VEVENT"]! {
-				var date = dict["DTSTART;VALUE=DATE"]
+				let date = dict["DTSTART;VALUE=DATE"]
 				var ndate = ""
-				for char in date!.characters {
+				for char in date! {
 					if Int("\(char)") != nil {
 						ndate += "\(char)"
 					}
@@ -328,36 +320,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		groupDefaults.setValuesForKeys([Keys.FULLSCHEDULEDATESKEY : dates as Any, Keys.FULLSCHEDULESTRINGSSKEY : strings as Any, Keys.PERIODINFOKEY: periodInfo as Any])
     }
 }
-@discardableResult func scheduleNotification(period:String, interval:TimeInterval, forDate:(Int, Int, Int), last:Bool = false) -> Bool {
+@discardableResult func scheduleNotification(period:String, interval:TimeInterval, forDate:(Int, Int, Int), last:Bool = false, start:Bool = true) -> Bool {
     let content = UNMutableNotificationContent()
     content.sound = UNNotificationSound.default()
-    content.title = "\(period)"
+	let ptype = PeriodTypeE(with: period)
+	var rPeriod = getAttrib(ind: 0, fer: ptype).0
+	if rPeriod == nil {
+		rPeriod = period
+	}
+    content.title = "\(rPeriod!)"
+	
     let mins = Int(floor(interval/60))
     let secs = Int(floor(interval)) - mins*60
     if mins == 0 {
         if secs == 0 {
-            content.body = "\(period) starts in... well it just started, idk why you made this..."
+            content.body = "\(rPeriod!) starts in... well it just started, idk why you made this..."
         }else {
-            content.body = "\(period) starts in \(secs) seconds"
+            content.body = "\(rPeriod!) starts in \(secs) seconds"
         }
     }else {
         if secs == 0 {
-            content.body = "\(period) starts in \(mins) minutes"
+            content.body = "\(rPeriod!) starts in \(mins) minutes"
         }else {
-            content.body = "\(period) starts in \(mins) minutes and \(secs) seconds"
+            content.body = "\(rPeriod!) starts in \(mins) minutes and \(secs) seconds"
         }
     }
+	if let room = getAttrib(ind: 3, fer: ptype).3 {
+		content.body = "\(content.body)\n\(rPeriod!) is in \(room)"
+	}
     if last {
         content.body = "\(content.body) LAST NOTIFICATION open app to schedule more"
     }
     var pnum:Int!
-    for char in period.characters {
+    for char in period {
         if let int = Int(String(char)) {
             pnum = int
             break
         }
     }
+	if period == "FLEX" {
+		pnum = 9
+	}else if period == "LUNCH" {
+		pnum = 10
+	}
     var comp = getStartTimeFor(period: pnum, on: forDate)
+	if !start {
+		comp = getEndTimeFor(period: pnum, on: forDate)
+	}
     if comp != nil {
         comp!.second = Int(-1*interval)
         while comp!.second! < 0 {

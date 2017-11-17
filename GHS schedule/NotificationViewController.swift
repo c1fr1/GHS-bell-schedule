@@ -9,7 +9,7 @@
 import UIKit
 import UserNotifications
 
-var p1Duration:TimeInterval?
+/*var p1Duration:TimeInterval?
 var p2Duration:TimeInterval?
 var p3Duration:TimeInterval?
 var p4Duration:TimeInterval?
@@ -17,7 +17,10 @@ var p5Duration:TimeInterval?
 var p6Duration:TimeInterval?
 var p7Duration:TimeInterval?
 var p8Duration:TimeInterval?
+var flexDuration:TimeInterval?
+var lunchDuration:TimeInterval?*/
 
+var beforeStart:Bool = false
 
 class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserNotificationCenterDelegate {
     @IBOutlet weak var p1switch: UISwitch!
@@ -28,7 +31,10 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
     @IBOutlet weak var p6switch: UISwitch!
     @IBOutlet weak var p7switch: UISwitch!
     @IBOutlet weak var p8switch: UISwitch!
-    @IBOutlet weak var p1Field: UITextField!
+	@IBOutlet weak var flexswitch: UISwitch!
+	@IBOutlet weak var lunchswitch: UISwitch!
+	
+	@IBOutlet weak var p1Field: UITextField!
     @IBOutlet weak var p2Field: UITextField!
     @IBOutlet weak var p3Field: UITextField!
     @IBOutlet weak var p4Field: UITextField!
@@ -36,7 +42,9 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
     @IBOutlet weak var p6Field: UITextField!
     @IBOutlet weak var p7Field: UITextField!
     @IBOutlet weak var p8Field: UITextField!
-    var savingTimer:Timer!
+	@IBOutlet weak var flexField: UITextField!
+	@IBOutlet weak var lunchField: UITextField!
+	var savingTimer:Timer!
     @IBAction func tap(_ sender: Any) {
         if p1Field.isFirstResponder {
             cleanup(field: p1Field)
@@ -54,7 +62,11 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
             cleanup(field: p7Field)
         }else if p8Field.isFirstResponder {
             cleanup(field: p8Field)
-        }
+		}else if flexField.isFirstResponder {
+			cleanup(field: flexField)
+		}else if lunchField.isFirstResponder {
+			cleanup(field: lunchField)
+		}
         view.endEditing(true)
     }
     @discardableResult func cleanup(field:UITextField) -> TimeInterval? {
@@ -66,11 +78,11 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
             let mins = Int(floor(time!/60))
             let secs = Int(time!) - mins*60
             var minsString = String(mins)
-            while minsString.characters.count < 2 {
+            while minsString.count < 2 {
                 minsString = "0\(minsString)"
             }
             var secString = String(secs)
-            while secString.characters.count < 2 {
+            while secString.count < 2 {
                 secString = "0\(secString)"
             }
             field.text = "\(minsString):\(secString)"
@@ -81,7 +93,7 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
         }
     }
     @IBAction func close(_ sender: Any) {
-        UNUserNotificationCenter.removeAllPendingNotificationRequests(UNUserNotificationCenter.current())()
+	UNUserNotificationCenter.removeAllPendingNotificationRequests(UNUserNotificationCenter.current())()
         dismiss(animated: true) {
             self.updateDurations()
             saveAndSchedule()
@@ -91,7 +103,7 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
     func getInterval(from string:String) -> TimeInterval? {
         var startString:String = ""
         var secString:String?
-        for char in string.characters {
+        for char in string {
             if char != ":" {
                 if secString == nil {
                     startString += String(char)
@@ -124,6 +136,16 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
         return retval
     }
     func updateDurations() {
+		var p1Duration:TimeInterval?
+		var p2Duration:TimeInterval?
+		var p3Duration:TimeInterval?
+		var p4Duration:TimeInterval?
+		var p5Duration:TimeInterval?
+		var p6Duration:TimeInterval?
+		var p7Duration:TimeInterval?
+		var p8Duration:TimeInterval?
+		var flexDuration:TimeInterval?
+		var lunchDuration:TimeInterval?
         if p1switch.isOn {
             p1Duration = cleanup(field: p1Field)
             if p1Duration == nil {
@@ -188,14 +210,45 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
         }else {
             p8Duration = nil
         }
-        groupDefaults.set(p1Duration, forKey: "GHSP1DURATION")
-        groupDefaults.set(p2Duration, forKey: "GHSP2DURATION")
-        groupDefaults.set(p3Duration, forKey: "GHSP3DURATION")
-        groupDefaults.set(p4Duration, forKey: "GHSP4DURATION")
-        groupDefaults.set(p5Duration, forKey: "GHSP5DURATION")
-        groupDefaults.set(p6Duration, forKey: "GHSP6DURATION")
-        groupDefaults.set(p7Duration, forKey: "GHSP7DURATION")
-        groupDefaults.set(p8Duration, forKey: "GHSP8DURATION")
+		if flexswitch.isOn {
+			flexDuration = cleanup(field: flexField)
+			if flexDuration == nil {
+				flexDuration = 10*60
+			}
+		}else {
+			flexDuration = nil
+		}
+		if lunchswitch.isOn {
+			lunchDuration = cleanup(field: lunchField)
+			if lunchDuration == nil {
+				lunchDuration = 10*60
+			}
+		}else {
+			lunchDuration = nil
+		}
+		if beforeStart {
+			p1BeforeClassDuration = p1Duration
+			p2BeforeClassDuration = p2Duration
+			p3BeforeClassDuration = p3Duration
+			p4BeforeClassDuration = p4Duration
+			p5BeforeClassDuration = p5Duration
+			p6BeforeClassDuration = p6Duration
+			p7BeforeClassDuration = p7Duration
+			p8BeforeClassDuration = p8Duration
+			flexBeforeClassDuration = flexDuration
+			lunchBeforeClassDuration = lunchDuration
+		}else {
+			p1EndClassDuration = p1Duration
+			p2EndClassDuration = p2Duration
+			p3EndClassDuration = p3Duration
+			p4EndClassDuration = p4Duration
+			p5EndClassDuration = p5Duration
+			p6EndClassDuration = p6Duration
+			p7EndClassDuration = p7Duration
+			p8EndClassDuration = p8Duration
+			flexEndClassDuration = flexDuration
+			lunchEndClassDuration = lunchDuration
+		}
     }
     override func viewDidLoad() {
         p1Field.delegate = self
@@ -206,6 +259,44 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
         p6Field.delegate = self
         p7Field.delegate = self
         p8Field.delegate = self
+		flexField.delegate = self
+		lunchField.delegate = self
+		
+		var p1Duration:TimeInterval?
+		var p2Duration:TimeInterval?
+		var p3Duration:TimeInterval?
+		var p4Duration:TimeInterval?
+		var p5Duration:TimeInterval?
+		var p6Duration:TimeInterval?
+		var p7Duration:TimeInterval?
+		var p8Duration:TimeInterval?
+		var flexDuration:TimeInterval?
+		var lunchDuration:TimeInterval?
+		
+		if beforeStart {
+			p1Duration = p1BeforeClassDuration
+			p2Duration = p2BeforeClassDuration
+			p3Duration = p3BeforeClassDuration
+			p4Duration = p4BeforeClassDuration
+			p5Duration = p5BeforeClassDuration
+			p6Duration = p6BeforeClassDuration
+			p7Duration = p7BeforeClassDuration
+			p8Duration = p8BeforeClassDuration
+			flexDuration = flexBeforeClassDuration
+			lunchDuration = lunchBeforeClassDuration
+		}else {
+			p1Duration = p1EndClassDuration
+			p2Duration = p2EndClassDuration
+			p3Duration = p3EndClassDuration
+			p4Duration = p4EndClassDuration
+			p5Duration = p5EndClassDuration
+			p6Duration = p6EndClassDuration
+			p7Duration = p7EndClassDuration
+			p8Duration = p8EndClassDuration
+			flexDuration = flexEndClassDuration
+			lunchDuration = lunchEndClassDuration
+		}
+		
         var mins:Int?
         var secs:Int?
         if p1Duration != nil {
@@ -264,12 +355,26 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
             p8switch.isOn = true
             cleanup(field: p8Field)
         }
+		if flexDuration != nil {
+			mins = Int(floor(flexDuration!/60))
+			secs = Int(flexDuration!) - mins!*60
+			flexField.text = "\(mins!):\(secs!)"
+			flexswitch.isOn = true
+			cleanup(field: flexField)
+		}
+		if lunchDuration != nil {
+			mins = Int(floor(lunchDuration!/60))
+			secs = Int(lunchDuration!) - mins!*60
+			lunchField.text = "\(mins!):\(secs!)"
+			lunchswitch.isOn = true
+			cleanup(field: lunchField)
+		}
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let cCount = textField.text!.characters.count
+        let cCount = textField.text!.count
         if string == "" {
             if cCount == 3 {
-                textField.text?.characters.removeLast()
+                textField.text?.removeLast()
             }
             return true
         }
@@ -295,89 +400,68 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
         }
     }
 }
-
+func scheduleForPeriod(period: String, date:(Int, Int, Int), duration:TimeInterval?, last:Bool, start:Bool) -> Bool {
+	if duration != nil {
+		if last {
+			if scheduleNotification(period: period, interval: duration!, forDate: date, last: true, start: start) {
+				return true
+			}
+		}
+		if scheduleNotification(period: period, interval: duration!, forDate: date, start: start) {
+			return true
+		}
+	}
+	return false
+}
 @discardableResult func scheduleNotifications(forDate:(Int, Int, Int), remaining:Int) -> Int {
     var retval = 0
-    if p1Duration != nil {
-        if remaining == 0 {
-            if scheduleNotification(period: "P1", interval: p1Duration!, forDate: forDate, last: true) {
-                return retval + 1
-            }
-        }
-        if scheduleNotification(period: "P1", interval: p1Duration!, forDate: forDate) {
-            retval += 1
-        }
-    }
-    if p2Duration != nil {
-        if remaining - retval == 0 {
-            if scheduleNotification(period: "P2", interval: p2Duration!, forDate: forDate, last: true) {
-                return retval + 1
-            }
-        }
-        if scheduleNotification(period: "P2", interval: p2Duration!, forDate: forDate) {
-            retval += 1
-        }
-    }
-    if p3Duration != nil {
-        if remaining - retval == 0 {
-            if scheduleNotification(period: "P3", interval: p3Duration!, forDate: forDate, last: true) {
-                return retval + 1
-            }
-        }
-        if scheduleNotification(period: "P3", interval: p3Duration!, forDate: forDate) {
-            retval += 1
-        }
-    }
-    if p4Duration != nil {
-        if remaining - retval == 0 {
-            if scheduleNotification(period: "P4", interval: p4Duration!, forDate: forDate, last: true) {
-                return retval + 1
-            }
-        }
-        if scheduleNotification(period: "P4", interval: p4Duration!, forDate: forDate) {
-            retval += 1
-        }
-    }
-    if p5Duration != nil {
-        if remaining - retval == 0 {
-            if scheduleNotification(period: "P5", interval: p5Duration!, forDate: forDate, last: true) {
-                return retval + 1
-            }
-        }
-        if scheduleNotification(period: "P5", interval: p5Duration!, forDate: forDate) {
-            retval += 1
-        }
-    }
-    if p6Duration != nil {
-        if remaining - retval == 0 {
-            if scheduleNotification(period: "P6", interval: p6Duration!, forDate: forDate, last: true) {
-                return retval + 1
-            }
-        }
-        if scheduleNotification(period: "P6", interval: p6Duration!, forDate: forDate) {
-            retval += 1
-        }
-    }
-    if p7Duration != nil {
-        if remaining - retval == 0 {
-            if scheduleNotification(period: "P7", interval: p7Duration!, forDate: forDate, last: true) {
-                return retval + 1
-            }
-        }
-        if scheduleNotification(period: "P7", interval: p7Duration!, forDate: forDate) {
-            retval += 1
-        }
-    }
-    if p8Duration != nil {
-        if remaining - retval == 0 {
-            if scheduleNotification(period: "P8", interval: p8Duration!, forDate: forDate, last: true) {
-                return retval + 1
-            }
-        }
-        if scheduleNotification(period: "P8", interval: p8Duration!, forDate: forDate) {
-            retval += 1
-        }
-    }
+	var durations:[TimeInterval?] = [p1BeforeClassDuration, p2BeforeClassDuration, p3BeforeClassDuration, p4BeforeClassDuration, p5BeforeClassDuration, p6BeforeClassDuration, p7BeforeClassDuration, p8BeforeClassDuration]
+	var dureetions:[TimeInterval?] = [p1EndClassDuration, p2EndClassDuration, p3EndClassDuration, p4EndClassDuration, p5EndClassDuration, p6EndClassDuration, p7EndClassDuration, p8EndClassDuration]
+	var duration = durations[0]
+	for i in 1...8 {
+		duration = durations[i - 1]
+		if scheduleForPeriod(period: "P\(i)", date: forDate, duration: duration, last: remaining - retval == 0, start: true) {
+			retval += 1
+		}
+		if remaining - retval == -1 {
+			return retval
+		}
+		duration = dureetions[i - 1]
+		if scheduleForPeriod(period: "P\(i)", date: forDate, duration: duration, last: remaining - retval == 0, start: false) {
+			retval += 1
+		}
+		if remaining - retval == -1 {
+			return retval
+		}
+	}
+	duration = flexBeforeClassDuration
+	if scheduleForPeriod(period: "FLEX", date: forDate, duration: duration, last: remaining - retval == 0, start: true) {
+		retval += 1
+	}
+	if remaining - retval == -1 {
+		return retval
+	}
+	duration = flexEndClassDuration
+	if scheduleForPeriod(period: "FLEX", date: forDate, duration: duration, last: remaining - retval == 0, start: false) {
+		retval += 1
+	}
+	if remaining - retval == -1 {
+		return retval
+	}
+	duration = lunchBeforeClassDuration
+	if scheduleForPeriod(period: "LUNCH", date: forDate, duration: duration, last: remaining - retval == 0, start: true) {
+		retval += 1
+	}
+	if remaining - retval == -1 {
+		return retval
+	}
+	duration = lunchEndClassDuration
+	if scheduleForPeriod(period: "LUNCH", date: forDate, duration: duration, last: remaining - retval == 0, start: false) {
+		retval += 1
+	}
+	if remaining - retval == -1 {
+		return retval
+	}
     return retval
 }
 func saveAndSchedule() {

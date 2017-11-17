@@ -14,6 +14,8 @@
 		DF06EBA11FA0E16B001F1D0C /* SharedDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF06EBA01FA0E16B001F1D0C /* SharedDataContainer.swift */; };
 		DF06EBA21FA0E16B001F1D0C /* SharedDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF06EBA01FA0E16B001F1D0C /* SharedDataContainer.swift */; };
 		DF0B3A151F7C6F8C003FEE7B /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0B3A141F7C6F8C003FEE7B /* NotificationViewController.swift */; };
+		DF1DF10F1FAF8E7000DA6679 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1DF10E1FAF8E7000DA6679 /* SettingsVC.swift */; };
+		DF1DF1111FB38ABA00DA6679 /* ScheduleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1DF1101FB38ABA00DA6679 /* ScheduleVC.swift */; };
 		DF7D45DC1F5F87BB00925D2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45DB1F5F87BB00925D2E /* AppDelegate.swift */; };
 		DF7D45DE1F5F87BB00925D2E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45DD1F5F87BB00925D2E /* ViewController.swift */; };
 		DF7D45E11F5F87BB00925D2E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF7D45DF1F5F87BB00925D2E /* Main.storyboard */; };
@@ -22,6 +24,7 @@
 		DF7D45F11F5F88CA00925D2E /* PeriodListClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45F01F5F88CA00925D2E /* PeriodListClasses.swift */; };
 		DF7D45F31F5FAD9B00925D2E /* calenderLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45F21F5FAD9B00925D2E /* calenderLayer.swift */; };
 		DF7D45F51F5FDAAB00925D2E /* calenderStuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */; };
+		DF8433F81FB531D200F8763C /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8433F71FB531D200F8763C /* Period.swift */; };
 		DFEBBFA21F6667F500046334 /* GHS logo.png in Resources */ = {isa = PBXBuildFile; fileRef = DFEBBFA11F6667F500046334 /* GHS logo.png */; };
 		DFF618C31FA70A4C007375BB /* calenderStuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */; };
 		DFF618CB1FA84517007375BB /* GHS_scheduleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF618CA1FA84517007375BB /* GHS_scheduleUITests.swift */; };
@@ -68,6 +71,8 @@
 		DF06EB931FA05DD4001F1D0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF06EBA01FA0E16B001F1D0C /* SharedDataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDataContainer.swift; sourceTree = "<group>"; };
 		DF0B3A141F7C6F8C003FEE7B /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		DF1DF10E1FAF8E7000DA6679 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		DF1DF1101FB38ABA00DA6679 /* ScheduleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleVC.swift; sourceTree = "<group>"; };
 		DF7D3BDD1F7DA9A800BC0752 /* GHS schedule.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GHS schedule.entitlements"; sourceTree = "<group>"; };
 		DF7D45D81F5F87BB00925D2E /* GHS schedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GHS schedule.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF7D45DB1F5F87BB00925D2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +84,7 @@
 		DF7D45F01F5F88CA00925D2E /* PeriodListClasses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodListClasses.swift; sourceTree = "<group>"; };
 		DF7D45F21F5FAD9B00925D2E /* calenderLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = calenderLayer.swift; sourceTree = "<group>"; };
 		DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = calenderStuff.swift; sourceTree = "<group>"; };
+		DF8433F71FB531D200F8763C /* Period.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
 		DFEBBFA11F6667F500046334 /* GHS logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GHS logo.png"; sourceTree = "<group>"; };
 		DFF618C21FA1973D007375BB /* GHSScheduleWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GHSScheduleWidget.entitlements; sourceTree = "<group>"; };
 		DFF618C81FA84517007375BB /* GHS scheduleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GHS scheduleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,6 +135,7 @@
 				DF06EB8E1FA05DD4001F1D0C /* TodayViewController.swift */,
 				DF06EB901FA05DD4001F1D0C /* MainInterface.storyboard */,
 				DF06EB931FA05DD4001F1D0C /* Info.plist */,
+				DFF618C91FA84517007375BB /* GHS scheduleUITests */,
 			);
 			path = GHSScheduleWidget;
 			sourceTree = "<group>";
@@ -140,7 +147,6 @@
 				DF06EBA01FA0E16B001F1D0C /* SharedDataContainer.swift */,
 				DF7D45DA1F5F87BB00925D2E /* GHS schedule */,
 				DF06EB8D1FA05DD3001F1D0C /* GHSScheduleWidget */,
-				DFF618C91FA84517007375BB /* GHS scheduleUITests */,
 				DF06EB8A1FA05DD3001F1D0C /* Frameworks */,
 				DF7D45D91F5F87BB00925D2E /* Products */,
 			);
@@ -159,17 +165,20 @@
 		DF7D45DA1F5F87BB00925D2E /* GHS schedule */ = {
 			isa = PBXGroup;
 			children = (
-				DF7D3BDD1F7DA9A800BC0752 /* GHS schedule.entitlements */,
-				DFEBBFA11F6667F500046334 /* GHS logo.png */,
 				DF7D45DB1F5F87BB00925D2E /* AppDelegate.swift */,
-				DF7D45DD1F5F87BB00925D2E /* ViewController.swift */,
+				DF1DF10E1FAF8E7000DA6679 /* SettingsVC.swift */,
+				DF1DF1101FB38ABA00DA6679 /* ScheduleVC.swift */,
 				DF0B3A141F7C6F8C003FEE7B /* NotificationViewController.swift */,
+				DF7D45DD1F5F87BB00925D2E /* ViewController.swift */,
+				DF8433F71FB531D200F8763C /* Period.swift */,
 				DF7D45F01F5F88CA00925D2E /* PeriodListClasses.swift */,
 				DF7D45F21F5FAD9B00925D2E /* calenderLayer.swift */,
 				DF7D45DF1F5F87BB00925D2E /* Main.storyboard */,
 				DF7D45E51F5F87BB00925D2E /* Assets.xcassets */,
 				DF7D45E71F5F87BB00925D2E /* LaunchScreen.storyboard */,
 				DF7D45EA1F5F87BB00925D2E /* Info.plist */,
+				DF7D3BDD1F7DA9A800BC0752 /* GHS schedule.entitlements */,
+				DFEBBFA11F6667F500046334 /* GHS logo.png */,
 			);
 			path = "GHS schedule";
 			sourceTree = "<group>";
@@ -349,10 +358,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF8433F81FB531D200F8763C /* Period.swift in Sources */,
 				DF7D45F51F5FDAAB00925D2E /* calenderStuff.swift in Sources */,
 				DF7D45DE1F5F87BB00925D2E /* ViewController.swift in Sources */,
+				DF1DF10F1FAF8E7000DA6679 /* SettingsVC.swift in Sources */,
 				DF7D45F31F5FAD9B00925D2E /* calenderLayer.swift in Sources */,
 				DF0B3A151F7C6F8C003FEE7B /* NotificationViewController.swift in Sources */,
+				DF1DF1111FB38ABA00DA6679 /* ScheduleVC.swift in Sources */,
 				DF7D45DC1F5F87BB00925D2E /* AppDelegate.swift in Sources */,
 				DF06EBA11FA0E16B001F1D0C /* SharedDataContainer.swift in Sources */,
 				DF7D45F11F5F88CA00925D2E /* PeriodListClasses.swift in Sources */,

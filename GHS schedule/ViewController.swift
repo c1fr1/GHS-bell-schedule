@@ -176,10 +176,12 @@ class ViewController: UIViewController {
         notificationsButton.isHidden = clayer.selected
     }
     var timer:Timer!
+	
     @objc func start(_:Timer) {
         updateDisplay()
         clayer.layoutCalendar()
     }
+	
     override func awakeFromNib() {
         clayer = CalendarLayer()
         view.layer.addSublayer(clayer)
@@ -195,6 +197,7 @@ class ViewController: UIViewController {
         timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(start(_:)), userInfo: nil, repeats: false)
         mainVC = self
     }
+	
     func updateDisplay() {
         pllayer.setup()
         

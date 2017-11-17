@@ -169,7 +169,17 @@ func getStartTimeFor(period:Int, on:(Int, Int, Int)) -> DateComponents? {
 	if daysInfo == nil { return nil }
 	var ptimeinfo:String = ""
 	for (num, info) in daysInfo!.enumerated() {
-		if info["NAME"] == "P\(period)" {
+		if period == 9 {
+			if info["NAME"] == "FLEX" {
+				ptimeinfo = daysInfo![num]["START"]!
+				break
+			}
+		}else if period == 10 {
+			if info["NAME"] == "LUNCH" {
+				ptimeinfo = daysInfo![num]["START"]!
+				break
+			}
+		}else if info["NAME"] == "P\(period)" {
 			ptimeinfo = daysInfo![num]["START"]!
 			break
 		}
@@ -179,7 +189,7 @@ func getStartTimeFor(period:Int, on:(Int, Int, Int)) -> DateComponents? {
 	}
 	var hourString:String = ""
 	var minuteString:String?
-	for char in ptimeinfo.characters {
+	for char in ptimeinfo {
 		if minuteString != nil {
 			if char == "p" || char == "P" {
 				if Int(hourString)! < 12 {
@@ -217,7 +227,17 @@ func getEndTimeFor(period:Int, on:(Int, Int, Int)) -> DateComponents? {
 	if daysInfo == nil { return nil }
 	var ptimeinfo:String = ""
 	for (num, info) in daysInfo!.enumerated() {
-		if info["NAME"] == "P\(period)" {
+		if period == 9 {
+			if info["NAME"] == "FLEX" {
+				ptimeinfo = daysInfo![num]["END"]!
+				break
+			}
+		}else if period == 10 {
+			if info["NAME"] == "LUNCH" {
+				ptimeinfo = daysInfo![num]["END"]!
+				break
+			}
+		}else if info["NAME"] == "P\(period)" {
 			ptimeinfo = daysInfo![num]["END"]!
 			break
 		}
@@ -227,7 +247,7 @@ func getEndTimeFor(period:Int, on:(Int, Int, Int)) -> DateComponents? {
 	}
 	var hourString:String = ""
 	var minuteString:String?
-	for char in ptimeinfo.characters {
+	for char in ptimeinfo {
 		if minuteString != nil {
 			if char == "p" || char == "P" {
 				if Int(hourString)! < 12 {

@@ -25,7 +25,7 @@ func getDateInts() -> (Int, Int, Int) {
     var month:Int?
     var day:Int?
     var year:Int?
-    for chr in dateString.characters {
+    for chr in dateString {
         if chr != "/" && chr != "-" {
             currentString += String(chr)
         }else {
@@ -50,7 +50,7 @@ func getIntsFor(date:Date) -> (Int, Int, Int) {
     var month:Int?
     var day:Int?
     var year:Int?
-    for chr in dateString.characters {
+    for chr in dateString {
         if chr != "/" && chr != "-" {
             currentString += String(chr)
         }else {
@@ -228,10 +228,10 @@ func gbtf(text:[String:String]) -> DateComponents {
     var comp = DateComponents()
     comp.calendar = Calendar(identifier: .gregorian)
     comp.timeZone = TimeZone(abbreviation: "PST")!
-    var ptimeinfo = text["START"]!
+    let ptimeinfo = text["START"]!
     var hourString:String = ""
     var minuteString:String?
-    for char in ptimeinfo.characters {
+    for char in ptimeinfo {
         if minuteString != nil {
             if char == "p" || char == "P" {
                 if Int(hourString)! < 12 {
@@ -261,10 +261,10 @@ func getf(text:[String:String]) -> DateComponents {
     var comp = DateComponents()
     comp.calendar = Calendar(identifier: .gregorian)
     comp.timeZone = TimeZone(abbreviation: "PST")!
-    var ptimeinfo = text["END"]!
+    let ptimeinfo = text["END"]!
     var hourString:String = ""
     var minuteString:String?
-    for char in ptimeinfo.characters {
+    for char in ptimeinfo {
         if minuteString != nil {
             if char == "p" || char == "P" {
                 if Int(hourString)! < 12 {
