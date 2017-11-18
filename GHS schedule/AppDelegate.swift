@@ -323,8 +323,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 @discardableResult func scheduleNotification(period:String, interval:TimeInterval, forDate:(Int, Int, Int), last:Bool = false, start:Bool = true) -> Bool {
     let content = UNMutableNotificationContent()
     content.sound = UNNotificationSound.default()
+	print(period)
 	let ptype = PeriodTypeE(with: period)
+	print(ptype)
 	var rPeriod = getAttrib(ind: 0, fer: ptype).0
+	print(rPeriod)
+	print("\n\n")
 	if rPeriod == nil {
 		rPeriod = period
 	}
@@ -334,15 +338,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     let secs = Int(floor(interval)) - mins*60
     if mins == 0 {
         if secs == 0 {
-            content.body = "\(rPeriod!) starts in... well it just started, idk why you made this..."
+			if start {
+            	content.body = "\(rPeriod!) starts in... well it just started, idk why you made this..."
+			}else {
+				content.body = "\(rPeriod!) ends in... oh thats the bell, idk why you made this..."
+			}
         }else {
-            content.body = "\(rPeriod!) starts in \(secs) seconds"
+			if start {
+            	content.body = "\(rPeriod!) starts in \(secs) seconds"
+			}else {
+				content.body = "\(rPeriod!) ends in \(secs) seconds"
+			}
         }
     }else {
         if secs == 0 {
-            content.body = "\(rPeriod!) starts in \(mins) minutes"
+			if start {
+            	content.body = "\(rPeriod!) starts in \(mins) minutes"
+			}else {
+				content.body = "\(rPeriod!) ends in \(mins) minutes"
+			}
         }else {
-            content.body = "\(rPeriod!) starts in \(mins) minutes and \(secs) seconds"
+			if start {
+            	content.body = "\(rPeriod!) starts in \(mins) minutes and \(secs) seconds"
+			}else {
+				content.body = "\(rPeriod!) ends in \(mins) minutes and \(secs) seconds"
+			}
         }
     }
 	if let room = getAttrib(ind: 3, fer: ptype).3 {
@@ -383,9 +403,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             if date! > curDate {
                 let trigger = UNCalendarNotificationTrigger(dateMatching: comp!, repeats: false)
                 
-                let notificationIdentifier = "ghsID\(period)\(forDate.0)\(forDate.1)\(forDate.2)"
+                var notificationIdentifier = "ghsID\(period)\(forDate.0)\(forDate.1)\(forDate.2)"
+				if !start {
+					notificationIdentifier = "\(notificationIdentifier)E"
+				}
+				//print("text: \(content.body)")
+				//print("notificationID: \(notificationIdentifier)")
                 let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: trigger)
-                
+				
                 UNUserNotificationCenter.current().add(request) { (e) in
                     if let error = e {
                         print("error in adding request: \(error.localizedDescription)")

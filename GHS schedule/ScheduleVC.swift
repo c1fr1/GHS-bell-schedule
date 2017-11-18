@@ -11,13 +11,13 @@ import UIKit
 class ScheduleVC: UIViewController {
 	@IBAction func tap(_ sender: Any) {
 		p1UserClass = self.p1Field.text!
-		p2UserClass = self.p1Field.text!
-		p3UserClass = self.p1Field.text!
-		p4UserClass = self.p1Field.text!
-		p5UserClass = self.p1Field.text!
-		p6UserClass = self.p1Field.text!
-		p7UserClass = self.p1Field.text!
-		p8UserClass = self.p1Field.text!
+		p2UserClass = self.p2Field.text!
+		p3UserClass = self.p3Field.text!
+		p4UserClass = self.p4Field.text!
+		p5UserClass = self.p5Field.text!
+		p6UserClass = self.p6Field.text!
+		p7UserClass = self.p7Field.text!
+		p8UserClass = self.p8Field.text!
 		
 		p1UserRoom = self.room1.text!
 		p2UserRoom = self.room2.text!
