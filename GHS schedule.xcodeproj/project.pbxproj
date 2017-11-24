@@ -135,7 +135,6 @@
 				DF06EB8E1FA05DD4001F1D0C /* TodayViewController.swift */,
 				DF06EB901FA05DD4001F1D0C /* MainInterface.storyboard */,
 				DF06EB931FA05DD4001F1D0C /* Info.plist */,
-				DFF618C91FA84517007375BB /* GHS scheduleUITests */,
 			);
 			path = GHSScheduleWidget;
 			sourceTree = "<group>";
@@ -147,6 +146,7 @@
 				DF06EBA01FA0E16B001F1D0C /* SharedDataContainer.swift */,
 				DF7D45DA1F5F87BB00925D2E /* GHS schedule */,
 				DF06EB8D1FA05DD3001F1D0C /* GHSScheduleWidget */,
+				DFF618C91FA84517007375BB /* GHS scheduleUITests */,
 				DF06EB8A1FA05DD3001F1D0C /* Frameworks */,
 				DF7D45D91F5F87BB00925D2E /* Products */,
 			);
