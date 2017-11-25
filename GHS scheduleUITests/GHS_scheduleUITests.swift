@@ -36,16 +36,16 @@ class GHS_scheduleUITests: XCTestCase {
 		let app = XCUIApplication()
 		
 		XCUIDevice.shared.orientation = .portrait
-		XCUIDevice.shared.orientation = .portrait
 		XCUIDevice.shared.orientation = .faceUp
 		
-		let element = XCUIApplication().children(matching: .window).element(boundBy: 0).children(matching: .other).element
-		element.swipeRight()
-		
-		snapshot("0 A")
-		element.swipeLeft()
-		snapshot("1 B")
-		
+        
+        let reminderSettingsElement = XCUIApplication().otherElements.containing(.button, identifier:"Reminder Settings").element
+        reminderSettingsElement.swipeRight()
+        reminderSettingsElement.swipeRight()
+        reminderSettingsElement.swipeRight()
+        snapshot("1 B")
+        reminderSettingsElement.swipeLeft()
+        snapshot("0 A")
 		func tapCoordinate(x xCoordinate: Double, y yCoordinate: Double)
 		{
 			let normalized = app.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0))
@@ -55,7 +55,16 @@ class GHS_scheduleUITests: XCTestCase {
 		tapCoordinate(x: 10, y: 25)
 		snapshot("2 Cal")
 		tapCoordinate(x: 10, y: 25)
-		XCUIApplication().buttons["Notifications"].tap()
-		snapshot("3 Notifications")
+        
+        XCUIApplication().buttons["Reminder Settings"].tap()
+        snapshot("3 Settings")
+        
+        app.buttons["Before the period ends"].tap()
+        snapshot("4 Reminders")
+        let backButton = app.buttons["Back"]
+        backButton.tap()
+        app.buttons["Add Schedule"].tap()
+        snapshot("5 Schedule")
+        
 	}
 }

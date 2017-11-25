@@ -323,12 +323,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 @discardableResult func scheduleNotification(period:String, interval:TimeInterval, forDate:(Int, Int, Int), last:Bool = false, start:Bool = true) -> Bool {
     let content = UNMutableNotificationContent()
     content.sound = UNNotificationSound.default()
-	print(period)
 	let ptype = PeriodTypeE(with: period)
-	print(ptype)
 	var rPeriod = getAttrib(ind: 0, fer: ptype).0
-	print(rPeriod)
-	print("\n\n")
 	if rPeriod == nil {
 		rPeriod = period
 	}
