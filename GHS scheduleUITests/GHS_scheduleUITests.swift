@@ -34,18 +34,16 @@ class GHS_scheduleUITests: XCTestCase {
 		// Use XCTAssert and related functions to verify your tests produce the correct results.
 		
 		let app = XCUIApplication()
-		
-		XCUIDevice.shared.orientation = .portrait
+        
 		XCUIDevice.shared.orientation = .faceUp
 		
-        
         let reminderSettingsElement = XCUIApplication().otherElements.containing(.button, identifier:"Reminder Settings").element
-        reminderSettingsElement.swipeRight()
-        reminderSettingsElement.swipeRight()
-        reminderSettingsElement.swipeRight()
-        snapshot("1 B")
         reminderSettingsElement.swipeLeft()
+        reminderSettingsElement.swipeLeft()
+        
         snapshot("0 A")
+        reminderSettingsElement.swipeLeft()
+        snapshot("1 B")
 		func tapCoordinate(x xCoordinate: Double, y yCoordinate: Double)
 		{
 			let normalized = app.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0))
