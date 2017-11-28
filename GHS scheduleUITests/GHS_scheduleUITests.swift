@@ -38,8 +38,8 @@ class GHS_scheduleUITests: XCTestCase {
 		XCUIDevice.shared.orientation = .faceUp
 		
         let reminderSettingsElement = XCUIApplication().otherElements.containing(.button, identifier:"Reminder Settings").element
-        reminderSettingsElement.swipeLeft()
-        reminderSettingsElement.swipeLeft()
+        // reminderSettingsElement.swipeLeft()
+        // reminderSettingsElement.swipeLeft()
         
         snapshot("0 A")
         reminderSettingsElement.swipeLeft()

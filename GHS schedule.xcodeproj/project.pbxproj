@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		97BEBB231FCCE40E00DED1B9 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BEBB221FCCE40E00DED1B9 /* SnapshotHelper.swift */; };
 		DF06EB8C1FA05DD3001F1D0C /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF06EB8B1FA05DD3001F1D0C /* NotificationCenter.framework */; };
 		DF06EB8F1FA05DD4001F1D0C /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF06EB8E1FA05DD4001F1D0C /* TodayViewController.swift */; };
 		DF06EB921FA05DD4001F1D0C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF06EB901FA05DD4001F1D0C /* MainInterface.storyboard */; };
@@ -28,7 +29,6 @@
 		DFEBBFA21F6667F500046334 /* GHS logo.png in Resources */ = {isa = PBXBuildFile; fileRef = DFEBBFA11F6667F500046334 /* GHS logo.png */; };
 		DFF618C31FA70A4C007375BB /* calenderStuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */; };
 		DFF618CB1FA84517007375BB /* GHS_scheduleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF618CA1FA84517007375BB /* GHS_scheduleUITests.swift */; };
-		DFF618D31FA845EA007375BB /* Snapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF618D21FA845EA007375BB /* Snapshots.swift */; };
 		DFF618D51FA84713007375BB /* Snapfile in Resources */ = {isa = PBXBuildFile; fileRef = DFF618D41FA84713007375BB /* Snapfile */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +64,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		97BEBB221FCCE40E00DED1B9 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		DF06EB891FA05DD3001F1D0C /* GHSScheduleWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GHSScheduleWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF06EB8B1FA05DD3001F1D0C /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		DF06EB8E1FA05DD4001F1D0C /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -90,7 +91,6 @@
 		DFF618C81FA84517007375BB /* GHS scheduleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GHS scheduleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFF618CA1FA84517007375BB /* GHS_scheduleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHS_scheduleUITests.swift; sourceTree = "<group>"; };
 		DFF618CC1FA84517007375BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DFF618D21FA845EA007375BB /* Snapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshots.swift; sourceTree = "<group>"; };
 		DFF618D41FA84713007375BB /* Snapfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Snapfile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,8 +186,8 @@
 		DFF618C91FA84517007375BB /* GHS scheduleUITests */ = {
 			isa = PBXGroup;
 			children = (
+				97BEBB221FCCE40E00DED1B9 /* SnapshotHelper.swift */,
 				DFF618D41FA84713007375BB /* Snapfile */,
-				DFF618D21FA845EA007375BB /* Snapshots.swift */,
 				DFF618CA1FA84517007375BB /* GHS_scheduleUITests.swift */,
 				DFF618CC1FA84517007375BB /* Info.plist */,
 			);
@@ -376,7 +376,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DFF618CB1FA84517007375BB /* GHS_scheduleUITests.swift in Sources */,
-				DFF618D31FA845EA007375BB /* Snapshots.swift in Sources */,
+				97BEBB231FCCE40E00DED1B9 /* SnapshotHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
