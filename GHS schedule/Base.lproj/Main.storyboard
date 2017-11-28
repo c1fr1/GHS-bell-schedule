@@ -140,9 +140,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Schedule" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ohf-AP-D8X">
-                                <rect key="frame" x="117" y="20" width="86" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Schedule" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ohf-AP-D8X">
+                                <rect key="frame" x="119.5" y="20" width="81" height="22"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -359,9 +358,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="jks-nr-zak" firstAttribute="top" secondItem="x4r-7p-glK" secondAttribute="bottom" constant="8" id="38c-yr-K3d"/>
-                            <constraint firstItem="x4r-7p-glK" firstAttribute="top" secondItem="iV0-wt-qkt" secondAttribute="top" constant="16" id="4SU-d4-6LB"/>
+                            <constraint firstItem="Ohf-AP-D8X" firstAttribute="top" secondItem="VfJ-pM-R8x" secondAttribute="bottom" id="5YP-EF-c6r"/>
+                            <constraint firstItem="Ohf-AP-D8X" firstAttribute="centerX" secondItem="iV0-wt-qkt" secondAttribute="centerX" id="9On-Ap-f2p"/>
                             <constraint firstItem="jks-nr-zak" firstAttribute="centerX" secondItem="iV0-wt-qkt" secondAttribute="centerX" id="JkY-w6-bJz"/>
+                            <constraint firstItem="jks-nr-zak" firstAttribute="top" secondItem="Ohf-AP-D8X" secondAttribute="bottom" constant="12" id="jhx-6g-lsY"/>
+                            <constraint firstItem="jks-nr-zak" firstAttribute="top" secondItem="x4r-7p-glK" secondAttribute="bottom" constant="8" id="kgZ-Qq-QIa"/>
                             <constraint firstItem="x4r-7p-glK" firstAttribute="leading" secondItem="iV0-wt-qkt" secondAttribute="leading" constant="16" id="zPW-Tm-Rm9"/>
                         </constraints>
                         <connections>
@@ -692,12 +693,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="NDC-Oj-LWC" firstAttribute="top" secondItem="39X-PH-tt0" secondAttribute="bottom" constant="8" id="7Di-s4-X0H"/>
                             <constraint firstItem="NDC-Oj-LWC" firstAttribute="centerX" secondItem="sCV-94-tYw" secondAttribute="centerX" id="HJ2-af-VAc"/>
                             <constraint firstItem="QWO-KF-MKh" firstAttribute="top" secondItem="Naf-SP-B4m" secondAttribute="bottom" id="UqJ-dX-Wde"/>
                             <constraint firstItem="QWO-KF-MKh" firstAttribute="centerX" secondItem="sCV-94-tYw" secondAttribute="centerX" id="hOB-ub-a99"/>
-                            <constraint firstItem="NDC-Oj-LWC" firstAttribute="top" secondItem="39X-PH-tt0" secondAttribute="bottom" constant="8" id="oMO-ux-Hq8"/>
+                            <constraint firstItem="NDC-Oj-LWC" firstAttribute="top" secondItem="QWO-KF-MKh" secondAttribute="bottom" constant="11.5" id="jOW-0p-7te"/>
                             <constraint firstItem="39X-PH-tt0" firstAttribute="leading" secondItem="sCV-94-tYw" secondAttribute="leadingMargin" id="u2d-Xv-6dh"/>
-                            <constraint firstItem="39X-PH-tt0" firstAttribute="top" secondItem="sCV-94-tYw" secondAttribute="top" constant="15" id="yJR-u9-zo3"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="fZn-tx-Gct" appends="YES" id="OX2-Wv-l0c"/>

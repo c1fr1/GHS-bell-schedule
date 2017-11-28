@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -14,12 +14,12 @@
             <objects>
                 <viewController id="M4Y-Lb-cyx" customClass="TodayViewController" customModule="GHSScheduleWidget" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Period" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDy-xM-Bhe">
-                                <rect key="frame" x="135" y="20" width="50" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="133.5" y="8" width="53" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -31,13 +31,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ynt-pD-Njh">
-                                <rect key="frame" x="16" y="109" width="42" height="21"/>
+                                <rect key="frame" x="16" y="63" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cwc-eF-BBy">
-                                <rect key="frame" x="16" y="50" width="38" height="21"/>
+                                <rect key="frame" x="16" y="30" width="38" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -45,17 +45,17 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="ynt-pD-Njh" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" constant="16" id="Idb-wz-1fG"/>
+                            <constraint firstItem="ynt-pD-Njh" firstAttribute="top" secondItem="cwc-eF-BBy" secondAttribute="bottom" constant="12" id="Y1Q-CR-fX1"/>
                             <constraint firstItem="cwc-eF-BBy" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" constant="16" id="Zuj-fY-nnr"/>
                             <constraint firstItem="eDy-xM-Bhe" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="cPa-xW-qsL"/>
-                            <constraint firstItem="cwc-eF-BBy" firstAttribute="top" secondItem="ssy-KU-ocm" secondAttribute="top" constant="50" id="fXB-lR-Z2B"/>
-                            <constraint firstItem="eDy-xM-Bhe" firstAttribute="top" secondItem="ssy-KU-ocm" secondAttribute="top" constant="20" id="oVb-Iw-Acx"/>
-                            <constraint firstItem="ssy-KU-ocm" firstAttribute="bottom" secondItem="ynt-pD-Njh" secondAttribute="bottom" constant="20" id="z8J-yn-D3m"/>
+                            <constraint firstItem="eDy-xM-Bhe" firstAttribute="top" secondItem="ssy-KU-ocm" secondAttribute="top" constant="8" id="oVb-Iw-Acx"/>
+                            <constraint firstItem="ssy-KU-ocm" firstAttribute="bottom" secondItem="ynt-pD-Njh" secondAttribute="bottom" constant="16" id="z8J-yn-D3m"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ssy-KU-ocm"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="150"/>
+                    <size key="freeformSize" width="320" height="100"/>
                     <connections>
                         <outlet property="periodInfo" destination="eDy-xM-Bhe" id="VLi-pw-7dU"/>
                         <outlet property="timeLabel" destination="cwc-eF-BBy" id="Kkb-Tu-LeZ"/>

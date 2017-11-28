@@ -17,7 +17,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     override func viewDidLoad() {
         let data = getStoredScheduleInfo()
- 		let dayType = getStoredData()[getDate(from: getDateInts())]
+        let dayType = getStoredData()[getDate(from: getDateInts())]
 		if dayType != nil {
 			let dayInfo = data[dayType!]
 			if dayInfo != nil {
