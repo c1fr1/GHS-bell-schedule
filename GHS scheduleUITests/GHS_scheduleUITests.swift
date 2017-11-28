@@ -37,8 +37,10 @@ class GHS_scheduleUITests: XCTestCase {
         
 		XCUIDevice.shared.orientation = .faceUp
 		
+        // XCUIApplication().alerts["“GHS schedule” Would Like to Send You Notifications"].buttons["Allow"].tap()
+        
         let reminderSettingsElement = XCUIApplication().otherElements.containing(.button, identifier:"Reminder Settings").element
-        // reminderSettingsElement.swipeLeft()
+        reminderSettingsElement.swipeRight()
         // reminderSettingsElement.swipeLeft()
         
         snapshot("0 A")
