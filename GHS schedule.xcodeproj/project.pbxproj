@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		97BEBB231FCCE40E00DED1B9 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BEBB221FCCE40E00DED1B9 /* SnapshotHelper.swift */; };
+		97BEBB881FCF6EEF00DED1B9 /* CSViewControllerWithKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BEBB871FCF6EEF00DED1B9 /* CSViewControllerWithKeyboard.swift */; };
 		DF06EB8C1FA05DD3001F1D0C /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF06EB8B1FA05DD3001F1D0C /* NotificationCenter.framework */; };
 		DF06EB8F1FA05DD4001F1D0C /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF06EB8E1FA05DD4001F1D0C /* TodayViewController.swift */; };
 		DF06EB921FA05DD4001F1D0C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF06EB901FA05DD4001F1D0C /* MainInterface.storyboard */; };
@@ -65,6 +66,7 @@
 
 /* Begin PBXFileReference section */
 		97BEBB221FCCE40E00DED1B9 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
+		97BEBB871FCF6EEF00DED1B9 /* CSViewControllerWithKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CSViewControllerWithKeyboard.swift; path = Import/CSViewControllerWithKeyboard.swift; sourceTree = SOURCE_ROOT; };
 		DF06EB891FA05DD3001F1D0C /* GHSScheduleWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GHSScheduleWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF06EB8B1FA05DD3001F1D0C /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		DF06EB8E1FA05DD4001F1D0C /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				DF8433F71FB531D200F8763C /* Period.swift */,
 				DF7D45F01F5F88CA00925D2E /* PeriodListClasses.swift */,
 				DF7D45F21F5FAD9B00925D2E /* calenderLayer.swift */,
+				97BEBB871FCF6EEF00DED1B9 /* CSViewControllerWithKeyboard.swift */,
 				DF7D45DF1F5F87BB00925D2E /* Main.storyboard */,
 				DF7D45E51F5F87BB00925D2E /* Assets.xcassets */,
 				DF7D45E71F5F87BB00925D2E /* LaunchScreen.storyboard */,
@@ -366,6 +369,7 @@
 				DF0B3A151F7C6F8C003FEE7B /* NotificationViewController.swift in Sources */,
 				DF1DF1111FB38ABA00DA6679 /* ScheduleVC.swift in Sources */,
 				DF7D45DC1F5F87BB00925D2E /* AppDelegate.swift in Sources */,
+				97BEBB881FCF6EEF00DED1B9 /* CSViewControllerWithKeyboard.swift in Sources */,
 				DF06EBA11FA0E16B001F1D0C /* SharedDataContainer.swift in Sources */,
 				DF7D45F11F5F88CA00925D2E /* PeriodListClasses.swift in Sources */,
 			);

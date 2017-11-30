@@ -22,7 +22,10 @@ var lunchDuration:TimeInterval?*/
 
 var beforeStart:Bool = false
 
-class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserNotificationCenterDelegate {
+class NotificationViewController: CSViewControllerWithKeyboard, UITextFieldDelegate, UNUserNotificationCenterDelegate {
+
+    @IBOutlet var containerView : UIView!
+
     @IBOutlet weak var p1switch: UISwitch!
     @IBOutlet weak var p2switch: UISwitch!
     @IBOutlet weak var p3switch: UISwitch!
@@ -45,6 +48,7 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
 	@IBOutlet weak var flexField: UITextField!
 	@IBOutlet weak var lunchField: UITextField!
 	var savingTimer:Timer!
+
     @IBAction func tap(_ sender: Any) {
         if p1Field.isFirstResponder {
             cleanup(field: p1Field)
@@ -251,16 +255,14 @@ class NotificationViewController: UIViewController, UITextFieldDelegate, UNUserN
 		}
     }
     override func viewDidLoad() {
-        p1Field.delegate = self
-        p2Field.delegate = self
-        p3Field.delegate = self
-        p4Field.delegate = self
-        p5Field.delegate = self
-        p6Field.delegate = self
-        p7Field.delegate = self
-        p8Field.delegate = self
-		flexField.delegate = self
-		lunchField.delegate = self
+        super.viewDidLoad()
+
+        for view in containerView.subviews {
+            if let field = view as? UITextField {
+                field.delegate = self
+                field.addDoneButton()
+            }
+        }
 		
 		var p1Duration:TimeInterval?
 		var p2Duration:TimeInterval?
@@ -486,5 +488,17 @@ func saveAndSchedule() {
         }else {
             break
         }
+    }
+}
+
+extension UITextField
+{
+    func addDoneButton() {
+        let keyboardToolbar = UIToolbar()
+        keyboardToolbar.sizeToFit()
+        let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: superview, action: #selector(UIView.endEditing(_:)))
+        keyboardToolbar.items = [flexBarButton, doneBarButton]
+        inputAccessoryView = keyboardToolbar
     }
 }
