@@ -8,7 +8,23 @@
 
 import UIKit
 
-class ScheduleVC: UIViewController {
+class ScheduleVC: CSViewControllerWithKeyboard {
+    @IBOutlet var scrollView : UIScrollView!
+    @IBOutlet var bottomSpaceConstraint : NSLayoutConstraint!
+
+    override func keyboardWillShow(_ size: CGSize) {
+        let viewPoint = scrollView.convert(scrollView.frame.origin, to: view)
+        let scrollExtent = view.frame.origin.y + view.frame.size.height - (viewPoint.y + scrollView.frame.size.height)
+        if size.height > scrollExtent
+        {
+            bottomSpaceConstraint?.constant = size.height - scrollExtent
+        }
+    }
+
+    override func keyboardWillHide() {
+        bottomSpaceConstraint?.constant = 0
+    }
+
 	@IBAction func tap(_ sender: Any) {
 		p1UserClass = self.p1Field.text!
 		p2UserClass = self.p2Field.text!
@@ -30,6 +46,8 @@ class ScheduleVC: UIViewController {
 		view.endEditing(true)
 	}
 	override func viewDidLoad() {
+        super.viewDidLoad()
+
 		p1Field.text = p1UserClass
 		p2Field.text = p2UserClass
 		p3Field.text = p3UserClass

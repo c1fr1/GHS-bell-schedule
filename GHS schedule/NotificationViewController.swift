@@ -25,6 +25,7 @@ var beforeStart:Bool = false
 class NotificationViewController: CSViewControllerWithKeyboard, UITextFieldDelegate, UNUserNotificationCenterDelegate {
 
     @IBOutlet var containerView : UIView!
+    @IBOutlet var bottomSpaceConstraint : NSLayoutConstraint!
 
     @IBOutlet weak var p1switch: UISwitch!
     @IBOutlet weak var p2switch: UISwitch!
@@ -48,6 +49,14 @@ class NotificationViewController: CSViewControllerWithKeyboard, UITextFieldDeleg
 	@IBOutlet weak var flexField: UITextField!
 	@IBOutlet weak var lunchField: UITextField!
 	var savingTimer:Timer!
+
+    override func keyboardWillShow(_ size: CGSize) {
+        bottomSpaceConstraint?.constant = size.height
+    }
+
+    override func keyboardWillHide() {
+        bottomSpaceConstraint?.constant = 0
+    }
 
     @IBAction func tap(_ sender: Any) {
         if p1Field.isFirstResponder {
