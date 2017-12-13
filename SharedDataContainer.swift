@@ -10,6 +10,7 @@ import UIKit
 
 class Keys {
 	static let DATEKEY = "GHSSDATE"
+    static let VERSIONDATEKEY = "GHSSVERSD"
 	static let VERSIONKEY = "GHSSVERS"
 	
 	static let P1DURATIONKEY = "GHSP1DURATION"

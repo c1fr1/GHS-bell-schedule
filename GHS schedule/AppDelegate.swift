@@ -153,6 +153,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 	
 	func getData() {
 		let versionNumDefault = groupDefaults.value(forKey: Keys.VERSIONKEY)
+        let currScheduleDate = groupDefaults.value(forKey: Keys.VERSIONDATEKEY) as? Int
 		let versionNum:Int? = versionNumDefault as? Int
 		var data:Data?
 		var obj:[String:Any]?
@@ -160,23 +161,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 			data = try Data(contentsOf: URL(string: "http://www.grantcompsci.com/bellapp/versionNumber.json")!)
 			obj = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [String:Any]
 			let rVersNum = Int(obj!["VERSION"] as! String)!
-			if versionNum != nil {
-				if rVersNum == versionNum! {
-					//A
-					var t = getStoredData()
-					schedule = t.0
-					orderedSchedule = t.1
-					periodInfo = getStoredScheduleInfo()
-					if schedule!.count == 0 {
-						t = getDatesInfo()
-						schedule = t.0
-						orderedSchedule = t.1
-					}
-					if periodInfo!.count == 0 {
-						periodInfo = getScheduleInfo()
-					}
+            let rDate = Int(obj!["DATE"] as! String)!
+			if versionNum != nil && currScheduleDate != nil {
+				if rDate <= currScheduleDate! {
+                    if rVersNum <= versionNum! {
+                        //A
+                        var t = getStoredData()
+                        schedule = t.0
+                        orderedSchedule = t.1
+                        periodInfo = getStoredScheduleInfo()
+                        if schedule!.count == 0 {
+                            t = getDatesInfo()
+                            schedule = t.0
+                            orderedSchedule = t.1
+                        }
+                        if periodInfo!.count == 0 {
+                            periodInfo = getScheduleInfo()
+                        }
+                    }else {
+                        //B old
+                        var t = getDatesInfo()
+                        schedule = t.0
+                        orderedSchedule = t.1
+                        if schedule!.count == 0 {
+                            t = getStoredData()
+                            schedule = t.0
+                            orderedSchedule = t.1
+                        }
+                        periodInfo = getScheduleInfo()
+                        if periodInfo!.count == 0 {
+                            periodInfo = getStoredScheduleInfo()
+                        }
+                        groupDefaults.setValue(rVersNum, forKey: Keys.VERSIONKEY)
+                        groupDefaults.setValue(rDate, forKey: Keys.VERSIONDATEKEY)
+                    }
 				}else {
-					//B
+					//B new
 					var t = getDatesInfo()
 					schedule = t.0
 					orderedSchedule = t.1
@@ -190,6 +210,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 						periodInfo = getStoredScheduleInfo()
 					}
 					groupDefaults.setValue(rVersNum, forKey: Keys.VERSIONKEY)
+                    groupDefaults.setValue(rDate, forKey: Keys.VERSIONDATEKEY)
 				}
 			}else {
 				//C
@@ -198,6 +219,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 				orderedSchedule = t.1
 				periodInfo = getScheduleInfo()
 				groupDefaults.setValue(rVersNum, forKey: Keys.VERSIONKEY)
+                groupDefaults.setValue(rDate, forKey: Keys.VERSIONDATEKEY)
 				UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound], completionHandler: { (accepted, error) in
 					print("acceptedNotifications:\(accepted)")
 				})
@@ -215,6 +237,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 	//Load remote content
 	
 	func getDatesInfo() -> ([Date:String], [(Date, String)]) {
+        print("loding remote")
 		var reetval:[Date:String] = [:]
 		var retval:[(Date, String)] = []
 		do {
@@ -287,6 +310,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 	}
 	
 	func getStoredData() -> ([Date:String], [(Date, String)]) {//STOREDGET
+        print("storedDataGotten")
 		if schedule != nil {
 			if schedule!.count > 0 {
 				return (schedule!, orderedSchedule!)

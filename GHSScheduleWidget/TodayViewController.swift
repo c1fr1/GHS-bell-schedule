@@ -55,9 +55,29 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 					}
 				}
 				if curPeriod != nil {
+                    var pnum = curPeriod!["NAME"]
+                    if pnum == "P1" {
+                        pnum = groupDefaults.value(forKey: Keys.P1CLASSKEY) as? String
+                    }else if pnum == "P2" {
+                        pnum = groupDefaults.value(forKey: Keys.P2CLASSKEY) as? String
+                    }else if pnum == "P3" {
+                        pnum = groupDefaults.value(forKey: Keys.P3CLASSKEY) as? String
+                    }else if pnum == "P4" {
+                        pnum = groupDefaults.value(forKey: Keys.P4CLASSKEY) as? String
+                    }else if pnum == "P5" {
+                        pnum = groupDefaults.value(forKey: Keys.P5CLASSKEY) as? String
+                    }else if pnum == "P6" {
+                        pnum = groupDefaults.value(forKey: Keys.P6CLASSKEY) as? String
+                    }else if pnum == "P7" {
+                        pnum = groupDefaults.value(forKey: Keys.P7CLASSKEY) as? String
+                    }else if pnum == "P8" {
+                        pnum = groupDefaults.value(forKey: Keys.P8CLASSKEY) as? String
+                    }
+                    if pnum == nil {
+                        pnum = curPeriod!["NAME"]
+                    }
 					if beforePeriod {
-						let pnum = curPeriod!["NAME"]
-						if pnum == "P1" || pnum == "P5" {
+						if curPeriod!["NAME"] == "P1" || curPeriod!["NAME"] == "P5" {
 							let mins = Int(floor(cal.date(from: gbtf(text: curPeriod!))!.timeIntervalSince(curDat)/60))
 							periodInfo.text = "Before school on \(dayType!) day"
 							timeLabel.text = ""
@@ -81,7 +101,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 							}
 						}
 					}else {
-						periodInfo.text = curPeriod!["NAME"]!
+						periodInfo.text = pnum
 						timeLabel.text = "from \(curPeriod!["START"]!) to \(curPeriod!["END"]!)"
 						let seconds = cal.date(from: getf(text: curPeriod!))!.timeIntervalSince(curDat)
 						let mins = Int(floor(seconds/60))
