@@ -58,28 +58,10 @@ class NotificationViewController: CSViewControllerWithKeyboard, UITextFieldDeleg
         bottomSpaceConstraint?.constant = 0
     }
 
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        cleanup(field: textField)
+    }
     @IBAction func tap(_ sender: Any) {
-        if p1Field.isFirstResponder {
-            cleanup(field: p1Field)
-        }else if p2Field.isFirstResponder {
-            cleanup(field: p2Field)
-        }else if p3Field.isFirstResponder {
-            cleanup(field: p3Field)
-        }else if p4Field.isFirstResponder {
-            cleanup(field: p4Field)
-        }else if p5Field.isFirstResponder {
-            cleanup(field: p5Field)
-        }else if p6Field.isFirstResponder {
-            cleanup(field: p6Field)
-        }else if p7Field.isFirstResponder {
-            cleanup(field: p7Field)
-        }else if p8Field.isFirstResponder {
-            cleanup(field: p8Field)
-		}else if flexField.isFirstResponder {
-			cleanup(field: flexField)
-		}else if lunchField.isFirstResponder {
-			cleanup(field: lunchField)
-		}
         view.endEditing(true)
     }
     @discardableResult func cleanup(field:UITextField) -> TimeInterval? {
