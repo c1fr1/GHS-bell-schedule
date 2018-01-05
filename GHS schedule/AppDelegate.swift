@@ -9,9 +9,9 @@
 import UIKit
 import UserNotifications
 
-var orderedSchedule:[(Date, String)]?
-var schedule:[Date:String]?
-var periodInfo:[String:[[String:String]]]?
+var orderedSchedule:[(Date, String)] = []
+var schedule:[Date:String] = [:]
+var periodInfo:[String:[[String:String]]] = [:] // TODO: Is this the same as our `periods'??
 var notificationSettings:Bool?
 
 //A: it is not during the school day, checked version number and it is the same, so grabbing stored data
@@ -102,17 +102,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 				formatter.dateFormat = "mm"
 				let mins = Int(formatter.string(from: date))!
 				let day = getdayNum(from: (selectedMonth, selectedDay, selectedYear))//change this to 5 or six to say it is a weekend and actually "getData"
-				if (((hrs > 8 && hrs < 16) || (mins >= 30 && hrs == 8)) && day != 6  && day != 0) || curDate.timeIntervalSince(date) < 180 {//any time after school, or any time during weekend
+                if (((hrs > 8 && hrs < 16) || (mins >= 30 && hrs == 8)) && day != 6  && day != 0) || curDate.timeIntervalSince(date) < 180 {//any time after school, or any time during weekend
 					var t = getStoredData()//D
 					schedule = t.0
 					orderedSchedule = t.1
 					periodInfo = getStoredScheduleInfo()
-					if schedule!.count == 0 {
+					if schedule.count == 0 {
 						t = getDatesInfo()
 						schedule = t.0
 						orderedSchedule = t.1
 					}
-					if periodInfo!.count == 0 {
+					if periodInfo.count == 0 {
 						periodInfo = getScheduleInfo()
 					}
 				}else {
@@ -170,12 +170,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         schedule = t.0
                         orderedSchedule = t.1
                         periodInfo = getStoredScheduleInfo()
-                        if schedule!.count == 0 {
+                        if schedule.count == 0 {
                             t = getDatesInfo()
                             schedule = t.0
                             orderedSchedule = t.1
                         }
-                        if periodInfo!.count == 0 {
+                        if periodInfo.count == 0 {
                             periodInfo = getScheduleInfo()
                         }
                     }else {
@@ -183,13 +183,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         var t = getDatesInfo()
                         schedule = t.0
                         orderedSchedule = t.1
-                        if schedule!.count == 0 {
+                        if schedule.count == 0 {
                             t = getStoredData()
                             schedule = t.0
                             orderedSchedule = t.1
                         }
                         periodInfo = getScheduleInfo()
-                        if periodInfo!.count == 0 {
+                        if periodInfo.count == 0 {
                             periodInfo = getStoredScheduleInfo()
                         }
                         groupDefaults.setValue(rVersNum, forKey: Keys.VERSIONKEY)
@@ -200,13 +200,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 					var t = getDatesInfo()
 					schedule = t.0
 					orderedSchedule = t.1
-					if schedule!.count == 0 {
+					if schedule.count == 0 {
 						t = getStoredData()
 						schedule = t.0
 						orderedSchedule = t.1
 					}
 					periodInfo = getScheduleInfo()
-					if periodInfo!.count == 0 {
+					if periodInfo.count == 0 {
 						periodInfo = getStoredScheduleInfo()
 					}
 					groupDefaults.setValue(rVersNum, forKey: Keys.VERSIONKEY)
@@ -224,7 +224,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 					print("acceptedNotifications:\(accepted)")
 				})
 			}
-		} catch _ as Error {
+		} catch _ {
 			if versionNum != nil {
 				let t = getStoredData()
 				schedule = t.0
@@ -289,11 +289,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 	//Load/save stored content
 	
 	func getStoredScheduleInfo() -> [String:[[String:String]]] {//STOREDGET
-		if periodInfo != nil {
-			if periodInfo!.count > 0 {
-				return periodInfo!
-			}
-		}
+        if periodInfo.count > 0 {
+            return periodInfo
+        }
 		
 		let retval = groupDefaults.value(forKey: Keys.PERIODINFOKEY)
 		if retval != nil {
@@ -311,11 +309,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 	
 	func getStoredData() -> ([Date:String], [(Date, String)]) {//STOREDGET
         print("storedDataGotten")
-		if schedule != nil {
-			if schedule!.count > 0 {
-				return (schedule!, orderedSchedule!)
-			}
-		}
+        if schedule.count > 0 {
+            return (schedule, orderedSchedule)
+        }
 		
 		let ds = groupDefaults.value(forKey: Keys.FULLSCHEDULEDATESKEY)
 		if let dinfo = ds as? [Date] {
@@ -337,60 +333,59 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func storeInfo() {
 		var dates:[Date] = []
 		var strings:[String] = []
-		for obj in orderedSchedule! {
+		for obj in orderedSchedule {
 			dates.append(obj.0)
 			strings.append(obj.1)
 		}
 		groupDefaults.setValuesForKeys([Keys.FULLSCHEDULEDATESKEY : dates as Any, Keys.FULLSCHEDULESTRINGSSKEY : strings as Any, Keys.PERIODINFOKEY: periodInfo as Any])
     }
 }
-@discardableResult func scheduleNotification(period:String, interval:TimeInterval, forDate:(Int, Int, Int), last:Bool = false, start:Bool = true) -> Bool {
+@discardableResult func scheduleNotification(period : Period, interval:TimeInterval, forDate:(Int, Int, Int), last:Bool = false, start:Bool = true) -> Bool {
     let content = UNMutableNotificationContent()
     content.sound = UNNotificationSound.default()
-	let ptype = PeriodTypeE(with: period)
-	var rPeriod = getAttrib(ind: 0, fer: ptype).0
-	if rPeriod == nil {
-		rPeriod = period
-	}
-    content.title = "\(rPeriod!)"
+    guard let info = periods[period]
+        else { return false }
+    let rPeriod = info.name
+    content.title = rPeriod
 	
     let mins = Int(floor(interval/60))
     let secs = Int(floor(interval)) - mins*60
     if mins == 0 {
         if secs == 0 {
 			if start {
-            	content.body = "\(rPeriod!) starts in... well it just started, idk why you made this..."
+            	content.body = "\(rPeriod) starts in... well it just started, idk why you made this..."
 			}else {
-				content.body = "\(rPeriod!) ends in... oh thats the bell, idk why you made this..."
+				content.body = "\(rPeriod) ends in... oh thats the bell, idk why you made this..."
 			}
         }else {
 			if start {
-            	content.body = "\(rPeriod!) starts in \(secs) seconds"
+            	content.body = "\(rPeriod) starts in \(secs) seconds"
 			}else {
-				content.body = "\(rPeriod!) ends in \(secs) seconds"
+				content.body = "\(rPeriod) ends in \(secs) seconds"
 			}
         }
     }else {
         if secs == 0 {
 			if start {
-            	content.body = "\(rPeriod!) starts in \(mins) minutes"
+            	content.body = "\(rPeriod) starts in \(mins) minutes"
 			}else {
-				content.body = "\(rPeriod!) ends in \(mins) minutes"
+				content.body = "\(rPeriod) ends in \(mins) minutes"
 			}
         }else {
 			if start {
-            	content.body = "\(rPeriod!) starts in \(mins) minutes and \(secs) seconds"
+            	content.body = "\(rPeriod) starts in \(mins) minutes and \(secs) seconds"
 			}else {
-				content.body = "\(rPeriod!) ends in \(mins) minutes and \(secs) seconds"
+				content.body = "\(rPeriod) ends in \(mins) minutes and \(secs) seconds"
 			}
         }
     }
-	if let room = getAttrib(ind: 3, fer: ptype).3 {
-		content.body = "\(content.body)\n\(rPeriod!) is in \(room)"
+    if let room = info.room {
+		content.body = "\(content.body)\n\(rPeriod) is in \(room)"
 	}
     if last {
         content.body = "\(content.body) LAST NOTIFICATION open app to schedule more"
     }
+    /*
     var pnum:Int!
     for char in period {
         if let int = Int(String(char)) {
@@ -402,10 +397,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		pnum = 9
 	}else if period == "LUNCH" {
 		pnum = 10
-	}
-    var comp = getStartTimeFor(period: pnum, on: forDate)
+	} */
+    var comp = getStartTimeFor(period: period, on: forDate)
 	if !start {
-		comp = getEndTimeFor(period: pnum, on: forDate)
+		comp = getEndTimeFor(period: period, on: forDate)
 	}
     if comp != nil {
         comp!.second = Int(-1*interval)
@@ -439,6 +434,63 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 return true
             }
         }
+    }
+    return false
+}
+
+func saveAndSchedule(clearExisting : Bool = false) {
+    if clearExisting {
+        UNUserNotificationCenter.removeAllPendingNotificationRequests(UNUserNotificationCenter.current())()
+    }
+    var count = 0
+    var index = 0
+    while orderedSchedule.count > index {
+        if getDate(from: getDateInts()) >= orderedSchedule[index].0 {
+            index += 1
+        }else {
+            break
+        }
+    }
+    index -= 1
+    while count < 64 {
+        if orderedSchedule.count <= index {
+            break
+        }
+        if orderedSchedule.count > 0 {
+            let ints = getIntsFor(date: orderedSchedule[index].0)
+            count += scheduleNotifications(forDate: ints, remaining: 63 - count)
+            index += 1
+        }else {
+            break
+        }
+    }
+}
+
+@discardableResult func scheduleNotifications(forDate date:(Int, Int, Int), remaining:Int) -> Int {
+    var count = 0
+    var durations : [(Period, TimeInterval, Bool)] = []
+    for (period, info) in periods {
+        if info.beforeEnabled {
+            durations.append((period, info.beforeDuration, true))
+        }
+        if info.endEnabled {
+            durations.append((period, info.endDuration, false))
+        }
+    }
+    for (period, duration, start) in durations {
+        if scheduleForPeriod(period: period, date: date, duration: duration, last: remaining - count == 0, start: start) {
+            count += 1
+        }
+        if remaining - count == -1 {
+            return count
+        }
+    }
+    return count
+}
+func scheduleForPeriod(period: Period, date:(Int, Int, Int), duration:TimeInterval, last:Bool, start:Bool) -> Bool {
+    print("schduling \(start ? "start" : "end") for \(period) on \(date)")
+    if scheduleNotification(period: period, interval: duration, forDate: date, last: last, start: start) {
+        return true
     }
     return false
 }

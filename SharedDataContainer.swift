@@ -13,6 +13,17 @@ class Keys {
     static let VERSIONDATEKEY = "GHSSVERSD"
 	static let VERSIONKEY = "GHSSVERS"
 	
+    static let P1KEY = "GHSP1"
+    static let P2KEY = "GHSP2"
+    static let P3KEY = "GHSP3"
+    static let P4KEY = "GHSP4"
+    static let P5KEY = "GHSP5"
+    static let P6KEY = "GHSP6"
+    static let P7KEY = "GHSP7"
+    static let P8KEY = "GHSP8"
+    static let FLEXKEY = "GHSFLEX"
+    static let LUNCHKEY = "GHSLUNCH"
+
 	static let P1DURATIONKEY = "GHSP1DURATION"
 	static let P2DURATIONKEY = "GHSP2DURATION"
 	static let P3DURATIONKEY = "GHSP3DURATION"

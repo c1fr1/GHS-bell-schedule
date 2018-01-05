@@ -7,17 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		97023F931FFFF97B008FD2B0 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97023F921FFFF97B008FD2B0 /* ScheduleViewController.swift */; };
+		97023F951FFFFDF4008FD2B0 /* ScheduleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97023F941FFFFDF4008FD2B0 /* ScheduleTableViewController.swift */; };
+		973B8AF91FFC4D89001E881F /* MMSSPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973B8AF81FFC4D89001E881F /* MMSSPickerViewController.swift */; };
+		973B8B171FFDAB5A001E881F /* NotificationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973B8B161FFDAB5A001E881F /* NotificationTableViewController.swift */; };
+		973B8B191FFDABEE001E881F /* NotificationViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973B8B181FFDABEE001E881F /* NotificationViewController2.swift */; };
 		97BEBB231FCCE40E00DED1B9 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BEBB221FCCE40E00DED1B9 /* SnapshotHelper.swift */; };
-		97BEBB881FCF6EEF00DED1B9 /* CSViewControllerWithKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BEBB871FCF6EEF00DED1B9 /* CSViewControllerWithKeyboard.swift */; };
 		DF06EB8C1FA05DD3001F1D0C /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF06EB8B1FA05DD3001F1D0C /* NotificationCenter.framework */; };
 		DF06EB8F1FA05DD4001F1D0C /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF06EB8E1FA05DD4001F1D0C /* TodayViewController.swift */; };
 		DF06EB921FA05DD4001F1D0C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF06EB901FA05DD4001F1D0C /* MainInterface.storyboard */; };
 		DF06EB961FA05DD4001F1D0C /* GHSScheduleWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DF06EB891FA05DD3001F1D0C /* GHSScheduleWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DF06EBA11FA0E16B001F1D0C /* SharedDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF06EBA01FA0E16B001F1D0C /* SharedDataContainer.swift */; };
 		DF06EBA21FA0E16B001F1D0C /* SharedDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF06EBA01FA0E16B001F1D0C /* SharedDataContainer.swift */; };
-		DF0B3A151F7C6F8C003FEE7B /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0B3A141F7C6F8C003FEE7B /* NotificationViewController.swift */; };
 		DF1DF10F1FAF8E7000DA6679 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1DF10E1FAF8E7000DA6679 /* SettingsVC.swift */; };
-		DF1DF1111FB38ABA00DA6679 /* ScheduleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1DF1101FB38ABA00DA6679 /* ScheduleVC.swift */; };
 		DF7D45DC1F5F87BB00925D2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45DB1F5F87BB00925D2E /* AppDelegate.swift */; };
 		DF7D45DE1F5F87BB00925D2E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45DD1F5F87BB00925D2E /* ViewController.swift */; };
 		DF7D45E11F5F87BB00925D2E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF7D45DF1F5F87BB00925D2E /* Main.storyboard */; };
@@ -65,17 +67,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		97023F921FFFF97B008FD2B0 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
+		97023F941FFFFDF4008FD2B0 /* ScheduleTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewController.swift; sourceTree = "<group>"; };
+		973B8AF81FFC4D89001E881F /* MMSSPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMSSPickerViewController.swift; sourceTree = "<group>"; };
+		973B8B161FFDAB5A001E881F /* NotificationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewController.swift; sourceTree = "<group>"; };
+		973B8B181FFDABEE001E881F /* NotificationViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController2.swift; sourceTree = "<group>"; };
 		97BEBB221FCCE40E00DED1B9 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
-		97BEBB871FCF6EEF00DED1B9 /* CSViewControllerWithKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CSViewControllerWithKeyboard.swift; path = Import/CSViewControllerWithKeyboard.swift; sourceTree = SOURCE_ROOT; };
 		DF06EB891FA05DD3001F1D0C /* GHSScheduleWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GHSScheduleWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF06EB8B1FA05DD3001F1D0C /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		DF06EB8E1FA05DD4001F1D0C /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		DF06EB911FA05DD4001F1D0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		DF06EB931FA05DD4001F1D0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF06EBA01FA0E16B001F1D0C /* SharedDataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDataContainer.swift; sourceTree = "<group>"; };
-		DF0B3A141F7C6F8C003FEE7B /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		DF1DF10E1FAF8E7000DA6679 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
-		DF1DF1101FB38ABA00DA6679 /* ScheduleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleVC.swift; sourceTree = "<group>"; };
 		DF7D3BDD1F7DA9A800BC0752 /* GHS schedule.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GHS schedule.entitlements"; sourceTree = "<group>"; };
 		DF7D45D81F5F87BB00925D2E /* GHS schedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GHS schedule.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF7D45DB1F5F87BB00925D2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -168,14 +172,16 @@
 			isa = PBXGroup;
 			children = (
 				DF7D45DB1F5F87BB00925D2E /* AppDelegate.swift */,
-				DF1DF10E1FAF8E7000DA6679 /* SettingsVC.swift */,
-				DF1DF1101FB38ABA00DA6679 /* ScheduleVC.swift */,
-				DF0B3A141F7C6F8C003FEE7B /* NotificationViewController.swift */,
-				DF7D45DD1F5F87BB00925D2E /* ViewController.swift */,
+				DF7D45F21F5FAD9B00925D2E /* calenderLayer.swift */,
+				973B8AF81FFC4D89001E881F /* MMSSPickerViewController.swift */,
+				973B8B181FFDABEE001E881F /* NotificationViewController2.swift */,
+				973B8B161FFDAB5A001E881F /* NotificationTableViewController.swift */,
 				DF8433F71FB531D200F8763C /* Period.swift */,
 				DF7D45F01F5F88CA00925D2E /* PeriodListClasses.swift */,
-				DF7D45F21F5FAD9B00925D2E /* calenderLayer.swift */,
-				97BEBB871FCF6EEF00DED1B9 /* CSViewControllerWithKeyboard.swift */,
+				97023F921FFFF97B008FD2B0 /* ScheduleViewController.swift */,
+				97023F941FFFFDF4008FD2B0 /* ScheduleTableViewController.swift */,
+				DF1DF10E1FAF8E7000DA6679 /* SettingsVC.swift */,
+				DF7D45DD1F5F87BB00925D2E /* ViewController.swift */,
 				DF7D45DF1F5F87BB00925D2E /* Main.storyboard */,
 				DF7D45E51F5F87BB00925D2E /* Assets.xcassets */,
 				DF7D45E71F5F87BB00925D2E /* LaunchScreen.storyboard */,
@@ -361,15 +367,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				973B8B191FFDABEE001E881F /* NotificationViewController2.swift in Sources */,
+				973B8B171FFDAB5A001E881F /* NotificationTableViewController.swift in Sources */,
 				DF8433F81FB531D200F8763C /* Period.swift in Sources */,
 				DF7D45F51F5FDAAB00925D2E /* calenderStuff.swift in Sources */,
+				973B8AF91FFC4D89001E881F /* MMSSPickerViewController.swift in Sources */,
+				97023F931FFFF97B008FD2B0 /* ScheduleViewController.swift in Sources */,
+				97023F951FFFFDF4008FD2B0 /* ScheduleTableViewController.swift in Sources */,
 				DF7D45DE1F5F87BB00925D2E /* ViewController.swift in Sources */,
 				DF1DF10F1FAF8E7000DA6679 /* SettingsVC.swift in Sources */,
 				DF7D45F31F5FAD9B00925D2E /* calenderLayer.swift in Sources */,
-				DF0B3A151F7C6F8C003FEE7B /* NotificationViewController.swift in Sources */,
-				DF1DF1111FB38ABA00DA6679 /* ScheduleVC.swift in Sources */,
 				DF7D45DC1F5F87BB00925D2E /* AppDelegate.swift in Sources */,
-				97BEBB881FCF6EEF00DED1B9 /* CSViewControllerWithKeyboard.swift in Sources */,
 				DF06EBA11FA0E16B001F1D0C /* SharedDataContainer.swift in Sources */,
 				DF7D45F11F5F88CA00925D2E /* PeriodListClasses.swift in Sources */,
 			);

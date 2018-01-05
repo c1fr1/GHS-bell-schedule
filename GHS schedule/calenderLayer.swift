@@ -157,32 +157,22 @@ class CalendarLayer:CALayer {
 }
 var pt = CGPoint(x:0, y:0)
 
-func getStartTimeFor(period:Int, on:(Int, Int, Int)) -> DateComponents? {
+func getStartTimeFor(period: Period, on:(Int, Int, Int)) -> DateComponents? {
 	var comp = DateComponents()
 	comp.month = on.0
 	comp.day = on.1
 	comp.year = on.2
 	comp.calendar = Calendar(identifier: .gregorian)
 	comp.timeZone = TimeZone(abbreviation: "PST")!
-	let stype = schedule![getDate(from: on)]
-	let daysInfo = periodInfo![stype!]
+	let stype = schedule[getDate(from: on)]
+	let daysInfo = periodInfo[stype!]
 	if daysInfo == nil { return nil }
 	var ptimeinfo:String = ""
 	for (num, info) in daysInfo!.enumerated() {
-		if period == 9 {
-			if info["NAME"] == "FLEX" {
-				ptimeinfo = daysInfo![num]["START"]!
-				break
-			}
-		}else if period == 10 {
-			if info["NAME"] == "LUNCH" {
-				ptimeinfo = daysInfo![num]["START"]!
-				break
-			}
-		}else if info["NAME"] == "P\(period)" {
-			ptimeinfo = daysInfo![num]["START"]!
-			break
-		}
+        if info["NAME"] == period.shortName {
+            ptimeinfo = daysInfo![num]["START"]!
+            break
+        }
 	}
 	if ptimeinfo == "" {
 		return nil
@@ -215,32 +205,22 @@ func getStartTimeFor(period:Int, on:(Int, Int, Int)) -> DateComponents? {
 	}
 	return comp
 }
-func getEndTimeFor(period:Int, on:(Int, Int, Int)) -> DateComponents? {
+func getEndTimeFor(period:Period, on:(Int, Int, Int)) -> DateComponents? {
 	var comp = DateComponents()
 	comp.month = on.0
 	comp.day = on.1
 	comp.year = on.2
 	comp.calendar = Calendar(identifier: .gregorian)
 	comp.timeZone = TimeZone(abbreviation: "PST")!
-	let stype = schedule![getDate(from: on)]
-	let daysInfo = periodInfo![stype!]
+	let stype = schedule[getDate(from: on)]
+	let daysInfo = periodInfo[stype!]
 	if daysInfo == nil { return nil }
 	var ptimeinfo:String = ""
 	for (num, info) in daysInfo!.enumerated() {
-		if period == 9 {
-			if info["NAME"] == "FLEX" {
-				ptimeinfo = daysInfo![num]["END"]!
-				break
-			}
-		}else if period == 10 {
-			if info["NAME"] == "LUNCH" {
-				ptimeinfo = daysInfo![num]["END"]!
-				break
-			}
-		}else if info["NAME"] == "P\(period)" {
-			ptimeinfo = daysInfo![num]["END"]!
-			break
-		}
+        if info["NAME"] == period.shortName {
+            ptimeinfo = daysInfo![num]["END"]!
+            break
+        }
 	}
 	if ptimeinfo == "" {
 		return nil

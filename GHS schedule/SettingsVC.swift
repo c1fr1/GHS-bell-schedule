@@ -13,10 +13,10 @@ class SettingsVC: UIViewController {
 		dismiss(animated: true) {
 		}
 	}
-	@IBAction func beforeEnd(_ sender: Any) {
-		beforeStart = false
-	}
-	@IBAction func beforeBegin(_ sender: Any) {
-		beforeStart = true
-	}
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let dest = segue.destination as? NotificationViewController2 {
+            dest.isBeforeStart = segue.identifier == "PeriodBegins"
+        }
+    }
 }
