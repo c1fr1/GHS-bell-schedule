@@ -39,7 +39,7 @@ class ScheduleTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ClassCell", for: indexPath) as! ScheduleTableViewCell
 
         if let period = Period(rawValue: indexPath.row),
-           let info = periods[period]
+           let info = periodsInfo[period]
         {
             cell.setup(info: info)
         }

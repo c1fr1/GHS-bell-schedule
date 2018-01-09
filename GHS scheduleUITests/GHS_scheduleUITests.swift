@@ -39,9 +39,39 @@ class GHS_scheduleUITests: XCTestCase {
 		
         // XCUIApplication().alerts["“GHS schedule” Would Like to Send You Notifications"].buttons["Allow"].tap()
         
+        // fill out a dummy schedule
+        app.buttons["Reminder Settings"].tap()
+        app.buttons["Add Schedule"].tap()
+        let tablesQuery = app.tables
+        
+        func fillScheduleCell(cell : XCUIElement, className : String, room : String) {
+            let textField0 = cell.children(matching: .textField).element(boundBy: 0)
+            textField0.tap()
+            let clearTextButton = tablesQuery/*@START_MENU_TOKEN@*/.buttons["Clear text"]/*[[".cells",".textFields.buttons[\"Clear text\"]",".buttons[\"Clear text\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/
+            clearTextButton.tap()
+            textField0.typeText(className)
+            let textField1 = cell.children(matching: .textField).element(boundBy: 1)
+            textField1.tap()
+            if clearTextButton.exists {
+                clearTextButton.tap()
+            }
+            textField1.typeText(room)
+        }
+        fillScheduleCell(cell: tablesQuery.children(matching: .cell).element(boundBy: 0), className: "Japanese", room: "B45")
+        fillScheduleCell(cell: tablesQuery.children(matching: .cell).element(boundBy: 1), className: "Chemistry", room: "C12")
+        fillScheduleCell(cell: tablesQuery.children(matching: .cell).element(boundBy: 2), className: "Accounting", room: "C29")
+        fillScheduleCell(cell: tablesQuery.children(matching: .cell).element(boundBy: 3), className: "World Lit", room: "B12")
+        fillScheduleCell(cell: tablesQuery.children(matching: .cell).element(boundBy: 4), className: "Photography", room: "B13")
+        fillScheduleCell(cell: tablesQuery.children(matching: .cell).element(boundBy: 5), className: "Adv Algebra", room: "C45")
+        fillScheduleCell(cell: tablesQuery.children(matching: .cell).element(boundBy: 6), className: "US History", room: "C1")
+        fillScheduleCell(cell: tablesQuery.children(matching: .cell).element(boundBy: 7), className: "Health", room: "B27")
+        
+        app.buttons["Back"].tap()
+        app.buttons["Back"].tap()
+
         let reminderSettingsElement = XCUIApplication().otherElements.containing(.button, identifier:"Reminder Settings").element
-        reminderSettingsElement.swipeRight()
-        // reminderSettingsElement.swipeLeft()
+        // reminderSettingsElement.swipeRight()
+        reminderSettingsElement.swipeLeft()
         
         snapshot("0 A")
         reminderSettingsElement.swipeLeft()
@@ -56,7 +86,7 @@ class GHS_scheduleUITests: XCTestCase {
 		snapshot("2 Cal")
 		tapCoordinate(x: 10, y: 25)
         
-        XCUIApplication().buttons["Reminder Settings"].tap()
+        app.buttons["Reminder Settings"].tap()
         snapshot("3 Settings")
         
         app.buttons["Before the period ends"].tap()

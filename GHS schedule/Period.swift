@@ -134,8 +134,8 @@ class PeriodInfo {
             .lunch   : PeriodInfo(period: .lunch)
         ]
     }
-    class var rangeOfPeriodsWithRooms : Range<Period> {
-        return .period1 ..< .period8
+    class var rangeOfPeriodsWithRooms : CountableClosedRange<Period> {
+        return .period1 ... .period8
     }
 
     var name : String {
@@ -230,4 +230,11 @@ class PeriodInfo {
     }
 }
 
-var periods : [Period : PeriodInfo] = PeriodInfo.initialPeriodInfo
+var periodsInfo : [Period : PeriodInfo] = PeriodInfo.initialPeriodInfo
+
+func periodName(fromShortName shortName : String) -> String {
+    if let info = periodsInfo.values.first(where: { $0.shortName == shortName }) {
+        return info.name
+    }
+    return shortName
+}
