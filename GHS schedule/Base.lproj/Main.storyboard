@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,8 +23,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q9f-bX-sCe">
-                                <rect key="frame" x="97.5" y="430" width="126" height="30"/>
-                                <state key="normal" title="Reminder Settings"/>
+                                <rect key="frame" x="128" y="427" width="64" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Settings"/>
                                 <connections>
                                     <segue destination="22L-6S-JZM" kind="show" id="7Me-ZZ-gLe"/>
                                 </connections>
@@ -71,38 +72,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t0o-d0-hoq">
-                                <rect key="frame" x="112" y="350" width="96" height="30"/>
-                                <state key="normal" title="Add Schedule"/>
-                                <connections>
-                                    <segue destination="ezW-dd-ccQ" kind="show" id="9zm-mc-Tpy"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KAE-mx-9Nr">
-                                <rect key="frame" x="75.5" y="225" width="169" height="30"/>
-                                <state key="normal" title="Before the period begins"/>
-                                <connections>
-                                    <segue destination="xPG-Ju-TUT" kind="show" identifier="PeriodBegins" id="Z3E-kO-6jf"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eEi-K3-WIE">
-                                <rect key="frame" x="81.5" y="100" width="157" height="30"/>
-                                <state key="normal" title="Before the period ends"/>
-                                <connections>
-                                    <segue destination="xPG-Ju-TUT" kind="show" identifier="PeriodEnds" id="jAk-La-ijo"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JFi-NG-4lO">
-                                <rect key="frame" x="109" y="20" width="102" height="30"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPz-Ns-QLt">
                                 <rect key="frame" x="16" y="20" width="34" height="30"/>
                                 <state key="normal" title="Back"/>
                                 <connections>
                                     <action selector="goBack:" destination="22L-6S-JZM" eventType="touchUpInside" id="rXA-Tp-cX2"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JFi-NG-4lO">
+                                <rect key="frame" x="109" y="36" width="102" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KAE-mx-9Nr">
+                                <rect key="frame" x="37.5" y="225" width="245" height="30"/>
+                                <state key="normal" title="Reminders before the period begins"/>
+                                <connections>
+                                    <segue destination="xPG-Ju-TUT" kind="show" identifier="PeriodBegins" id="Z3E-kO-6jf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eEi-K3-WIE">
+                                <rect key="frame" x="43.5" y="100" width="233" height="30"/>
+                                <state key="normal" title="Reminders before the period ends"/>
+                                <connections>
+                                    <segue destination="xPG-Ju-TUT" kind="show" identifier="PeriodEnds" id="jAk-La-ijo"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t0o-d0-hoq">
+                                <rect key="frame" x="96" y="350" width="127" height="30"/>
+                                <state key="normal" title="Add/Edit Schedule"/>
+                                <connections>
+                                    <segue destination="ezW-dd-ccQ" kind="show" id="9zm-mc-Tpy"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -113,7 +114,7 @@
                             <constraint firstItem="eEi-K3-WIE" firstAttribute="centerX" secondItem="NMm-5C-zOd" secondAttribute="centerX" id="3iR-at-rhF"/>
                             <constraint firstItem="eEi-K3-WIE" firstAttribute="centerY" secondItem="NMm-5C-zOd" secondAttribute="centerY" constant="-125" id="561-yR-7lF"/>
                             <constraint firstItem="KAE-mx-9Nr" firstAttribute="centerY" secondItem="NMm-5C-zOd" secondAttribute="centerY" id="BjW-3c-sbe"/>
-                            <constraint firstItem="JFi-NG-4lO" firstAttribute="top" secondItem="EwJ-0N-c65" secondAttribute="bottom" id="HUU-me-z5i"/>
+                            <constraint firstItem="JFi-NG-4lO" firstAttribute="top" secondItem="EwJ-0N-c65" secondAttribute="bottom" constant="16" id="HUU-me-z5i"/>
                             <constraint firstItem="t0o-d0-hoq" firstAttribute="centerY" secondItem="NMm-5C-zOd" secondAttribute="centerY" constant="125" id="LJQ-xu-Hf1"/>
                             <constraint firstItem="JFi-NG-4lO" firstAttribute="centerX" secondItem="NMm-5C-zOd" secondAttribute="centerX" id="N77-Mt-olt"/>
                             <constraint firstItem="rPz-Ns-QLt" firstAttribute="leading" secondItem="NMm-5C-zOd" secondAttribute="leadingMargin" id="RDs-jp-5q0"/>
@@ -328,7 +329,7 @@
                                             </connections>
                                         </switch>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yB2-2L-6D2">
-                                            <rect key="frame" x="166" y="6" width="51" height="33"/>
+                                            <rect key="frame" x="166" y="5.5" width="51" height="33"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <state key="normal" title="Button"/>
                                             <connections>
@@ -409,7 +410,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Period 1" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="1sd-XV-d71">
-                                            <rect key="frame" x="0.0" y="7" width="226" height="30"/>
+                                            <rect key="frame" x="0.0" y="7" width="200" height="30"/>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -418,9 +419,9 @@
                                             </connections>
                                         </textField>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8e6-1h-tg0">
-                                            <rect key="frame" x="234" y="7" width="66" height="30"/>
+                                            <rect key="frame" x="208" y="7" width="92" height="30"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="66" id="Vm9-N4-GMU"/>
+                                                <constraint firstAttribute="width" constant="92" id="Vm9-N4-GMU"/>
                                             </constraints>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>

@@ -345,7 +345,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     content.sound = UNNotificationSound.default()
     guard let info = periodsInfo[period]
         else { return false }
-    let rPeriod = info.name
+    let rPeriod = info.name.value
     content.title = rPeriod
 	
     let mins = Int(floor(interval/60))
@@ -379,7 +379,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 			}
         }
     }
-    if let room = info.room {
+    let room = info.room.value
+    if room.count > 0 {
         if start {
             content.body = "\(content.body)\n\(rPeriod) is in \(room)"
         }
@@ -472,11 +473,11 @@ func saveAndSchedule(clearExisting : Bool = false) {
     var count = 0
     var durations : [(Period, TimeInterval, Bool)] = []
     for (period, info) in periodsInfo {
-        if info.beforeEnabled {
-            durations.append((period, info.beforeDuration, true))
+        if info.beforeEnabled.value {
+            durations.append((period, info.beforeDuration.value, true))
         }
-        if info.endEnabled {
-            durations.append((period, info.endDuration, false))
+        if info.endEnabled.value {
+            durations.append((period, info.endDuration.value, false))
         }
     }
     for (period, duration, start) in durations {

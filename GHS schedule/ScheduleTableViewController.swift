@@ -103,8 +103,8 @@ class ScheduleTableViewCell : UITableViewCell, UITextFieldDelegate {
     func setup(info ii : PeriodInfo)
     {
         info = ii
-        classTextField.text = ii.name
-        roomTextField.text = ii.room
+        classTextField.text = ii.name.value
+        roomTextField.text = ii.room.value
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -115,9 +115,9 @@ class ScheduleTableViewCell : UITableViewCell, UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let contents = textField.text {
             if textField == classTextField {
-                info?.name = contents
+                info?.name.value = contents
             } else {
-                info?.room = contents
+                info?.room.value = contents
             }
         }
     }

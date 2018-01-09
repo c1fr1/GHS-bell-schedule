@@ -129,21 +129,21 @@ class NotificationTableViewCell : UITableViewCell {
     {
         controller = c
         info = ii
-        label.text = ii.name
-        let duration = isBeforeStart ? ii.beforeDuration : ii.endDuration
+        label.text = ii.name.value
+        let duration = isBeforeStart ? ii.beforeDuration.value : ii.endDuration.value
         let mins = Int(floor(duration / 60))
         let secs = Int(duration) - mins * 60
         let mmss = String(format: "%02d:%02d", mins, secs)
         button.setTitle(mmss, for: .normal)
-        enable.isOn = isBeforeStart ? ii.beforeEnabled : ii.endEnabled
+        enable.isOn = isBeforeStart ? ii.beforeEnabled.value : ii.endEnabled.value
     }
     
     @IBAction func enableChanged(_ : AnyObject) {
         if let info = info {
             if isBeforeStart {
-                info.beforeEnabled = enable.isOn
+                info.beforeEnabled.value = enable.isOn
             } else {
-                info.endEnabled = enable.isOn
+                info.endEnabled.value = enable.isOn
             }
         }
     }

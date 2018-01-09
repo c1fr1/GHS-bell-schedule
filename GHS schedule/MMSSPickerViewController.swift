@@ -18,7 +18,7 @@ class MMSSPickerViewController: UIViewController, UIPickerViewDelegate, UIPicker
     var info : PeriodInfo?
     // var periodName : String = "Period ?"
     var periodName : String {
-        return info?.name ?? "Period"
+        return info?.name.value ?? "Period"
     }
 
     override func viewDidLoad() {
@@ -48,13 +48,13 @@ class MMSSPickerViewController: UIViewController, UIPickerViewDelegate, UIPicker
     var duration : TimeInterval
     {
         get {
-            return (isBeforeStart ? info?.beforeDuration : info?.endDuration) ?? PeriodInfo.defaultDuration
+            return (isBeforeStart ? info?.beforeDuration.value : info?.endDuration.value) ?? PeriodInfo.defaultDuration
         }
         set(d) {
             if isBeforeStart {
-                info?.beforeDuration = d
+                info?.beforeDuration.value = d
             } else {
-                info?.endDuration = d
+                info?.endDuration.value = d
             }
         }
     }

@@ -103,21 +103,23 @@ class PeriodInfo {
     var shortName : String {
         return period.shortName
     }
-    var _name : String?
-    var _beforeDuration : TimeInterval?
-    var _beforeEnabled : Bool?
-    var _endDuration : TimeInterval?
-    var _endEnabled : Bool?
-    var room : String?
+    var name : CachedValue<String>
+    var beforeDuration : CachedValue<TimeInterval>
+    var beforeEnabled : CachedValue<Bool>
+    var endDuration : CachedValue<TimeInterval>
+    var endEnabled : CachedValue<Bool>
+    var room : CachedValue<String>
 
-    init(period p : Period, name n : String? = nil, beforeDuration b : TimeInterval? = nil, beforeEnabled be : Bool? = nil, endDuration e : TimeInterval? = nil, endEnabled ee : Bool? = nil, room r : String? = nil) {
+    static let defaultDuration : TimeInterval = 10 * 60
+
+    init(period p : Period /* , name n : String? = nil, beforeDuration b : TimeInterval? = nil, beforeEnabled be : Bool? = nil, endDuration e : TimeInterval? = nil, endEnabled ee : Bool? = nil, room r : String? = nil */) {
         period = p
-        _name = n
-        _beforeDuration = b
-        _beforeEnabled = be
-        _endDuration = e
-        _endEnabled = ee
-        room = r
+        name = CachedValue<String>(key : period.nameKey, default : period.defaultName)
+        beforeDuration = CachedValue<TimeInterval>(key: period.durationKey, default: PeriodInfo.defaultDuration)
+        beforeEnabled = CachedValue<Bool>(key: period.durationEnabledKey, default: false)
+        endDuration = CachedValue<TimeInterval>(key: period.endDurationKey, default: PeriodInfo.defaultDuration)
+        endEnabled = CachedValue<Bool>(key: period.endDurationEnabledKey, default: false)
+        room = CachedValue<String>(key: period.roomKey, default: "")
     }
 
     class var initialPeriodInfo : [Period : PeriodInfo] {
@@ -137,104 +139,42 @@ class PeriodInfo {
     class var rangeOfPeriodsWithRooms : CountableClosedRange<Period> {
         return .period1 ... .period8
     }
-
-    var name : String {
-        get {
-            if let nm = _name {
-                return nm
-            }
-            if let nm = groupDefaults.value(forKey: period.nameKey) as? String {
-                _name = nm
-                return nm
-            }
-            return period.defaultName
-        }
-        set(n) {
-            _name = n
-            groupDefaults.set(n, forKey: period.nameKey)
-        }
-    }
-    
-    static let defaultDuration : TimeInterval = 10 * 60
-
-    var beforeDuration : TimeInterval {
-        get {
-            if let duration = _beforeDuration
-            {
-                return duration
-            }
-            if let duration = groupDefaults.value(forKey: period.durationKey) as? TimeInterval {
-                _beforeDuration = duration
-                return duration
-            }
-            return PeriodInfo.defaultDuration
-        }
-        set(duration) {
-            _beforeDuration = duration
-            groupDefaults.set(duration, forKey: period.durationKey)
-        }
-    }
-
-    var beforeEnabled : Bool {
-        get {
-            if let enabled = _beforeEnabled
-            {
-                return enabled
-            }
-            if let enabled = groupDefaults.value(forKey: period.durationEnabledKey) as? Bool {
-                _beforeEnabled = enabled
-                return enabled
-            }
-            return false
-        }
-        set(enabled) {
-            _beforeEnabled = enabled
-            groupDefaults.set(enabled, forKey: period.durationEnabledKey)
-        }
-    }
-
-    var endDuration : TimeInterval {
-        get {
-            if let duration = _endDuration
-            {
-                return duration
-            }
-            if let duration = groupDefaults.value(forKey: period.endDurationKey) as? TimeInterval {
-                _endDuration = duration
-                return duration
-            }
-            return PeriodInfo.defaultDuration
-        }
-        set(duration) {
-            _endDuration = duration
-            groupDefaults.set(duration, forKey: period.endDurationKey)
-        }
-    }
-
-    var endEnabled : Bool {
-        get {
-            if let enabled = _endEnabled
-            {
-                return enabled
-            }
-            if let enabled = groupDefaults.value(forKey: period.endDurationEnabledKey) as? Bool {
-                _endEnabled = enabled
-                return enabled
-            }
-            return false
-        }
-        set(enabled) {
-            _endEnabled = enabled
-            groupDefaults.set(enabled, forKey: period.endDurationEnabledKey)
-        }
-    }
 }
 
 var periodsInfo : [Period : PeriodInfo] = PeriodInfo.initialPeriodInfo
 
 func periodName(fromShortName shortName : String) -> String {
     if let info = periodsInfo.values.first(where: { $0.shortName == shortName }) {
-        return info.name
+        return info.name.value
     }
     return shortName
+}
+
+class CachedValue<V> {
+    var key : String
+    var dflt : V
+    var _value : V?
+
+    init(key k : String, default d : V) {
+        key = k
+        dflt = d
+    }
+    
+    var value : V {
+        get {
+            if let v = _value
+            {
+                return v
+            }
+            if let v = groupDefaults.value(forKey: key) as? V {
+                _value = v
+                return v
+            }
+            return dflt
+        }
+        set(v) {
+            _value = v
+            groupDefaults.set(v, forKey: key)
+        }
+    }
 }
