@@ -89,17 +89,24 @@ class PeriodTextLayer:CALayer {
     }
     init(with width:CGFloat, y:CGFloat, period:[String:String]) {
         nameLayer = CATextLayer()
+        nameLayer.truncationMode = kCATruncationEnd
         startLayer = CATextLayer()
         endLayer = CATextLayer()
         super.init()
         frame = CGRect(x: 0, y: y, width: width, height: 50)
-        nameLayer.string = period["NAME"]
+        nameLayer.string = periodName(fromShortName: period["NAME"] ?? "")
         startLayer.string = period["START"]
         endLayer.string = period["END"]
         startLayer.alignmentMode = kCAAlignmentCenter
         endLayer.alignmentMode = kCAAlignmentCenter
-        nameLayer.frame = CGRect(x: 15, y: 17, width: width - 10, height: 33)
-        startLayer.frame = CGRect(x: 5 + width/3, y: 17, width: width/3 - 10, height: 33)
+        let nameLayerX = CGFloat(15)
+        let startLayerX = 5 + width/3
+        nameLayer.frame = CGRect(x: nameLayerX, y: 17, width: startLayerX - nameLayerX, height: 33)
+        // nameLayer.borderWidth = 1.0 // for debugging ..
+        // nameLayer.borderColor = UIColor.green.cgColor
+        startLayer.frame = CGRect(x: startLayerX, y: 17, width: width/3 - 10, height: 33)
+        // startLayer.borderWidth = 1.0 // for debugging ..
+        // startLayer.borderColor = UIColor.orange.cgColor
         endLayer.frame = CGRect(x: 5 + 2*width/3, y: 17, width: width/3 - 10, height: 33)
         let font = UIFont(name: "Arial", size: 12)
         nameLayer.font = font
@@ -124,7 +131,7 @@ class PeriodTextLayer:CALayer {
         nameLayer.foregroundColor = UIColor.darkGray.cgColor
         startLayer.foregroundColor = UIColor.darkGray.cgColor
         endLayer.foregroundColor = UIColor.darkGray.cgColor
-        nameLayer.string = period["NAME"]
+        nameLayer.string = periodName(fromShortName: period["NAME"] ?? "")
         startLayer.string = period["START"]
         endLayer.string = period["END"]
         if period["NAME"]! != " " && period["NAME"]! != "" && period["START"] != "" && period["START"] != " " && period["END"] != "" && period["END"] != " " {

@@ -343,7 +343,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 @discardableResult func scheduleNotification(period : Period, interval:TimeInterval, forDate:(Int, Int, Int), last:Bool = false, start:Bool = true) -> Bool {
     let content = UNMutableNotificationContent()
     content.sound = UNNotificationSound.default()
-    guard let info = periods[period]
+    guard let info = periodsInfo[period]
         else { return false }
     let rPeriod = info.name
     content.title = rPeriod
@@ -380,7 +380,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     if let room = info.room {
-		content.body = "\(content.body)\n\(rPeriod) is in \(room)"
+        if start {
+            content.body = "\(content.body)\n\(rPeriod) is in \(room)"
+        }
 	}
     if last {
         content.body = "\(content.body) LAST NOTIFICATION open app to schedule more"
@@ -469,7 +471,7 @@ func saveAndSchedule(clearExisting : Bool = false) {
 @discardableResult func scheduleNotifications(forDate date:(Int, Int, Int), remaining:Int) -> Int {
     var count = 0
     var durations : [(Period, TimeInterval, Bool)] = []
-    for (period, info) in periods {
+    for (period, info) in periodsInfo {
         if info.beforeEnabled {
             durations.append((period, info.beforeDuration, true))
         }
@@ -488,7 +490,6 @@ func saveAndSchedule(clearExisting : Bool = false) {
     return count
 }
 func scheduleForPeriod(period: Period, date:(Int, Int, Int), duration:TimeInterval, last:Bool, start:Bool) -> Bool {
-    print("schduling \(start ? "start" : "end") for \(period) on \(date)")
     if scheduleNotification(period: period, interval: duration, forDate: date, last: last, start: start) {
         return true
     }

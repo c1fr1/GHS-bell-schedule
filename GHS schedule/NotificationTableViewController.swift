@@ -46,14 +46,14 @@ class NotificationTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return periods.count
+        return periodsInfo.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReminderCell", for: indexPath) as! NotificationTableViewCell
 
         if let period = Period(rawValue: indexPath.row),
-           let info = periods[period]
+           let info = periodsInfo[period]
         {
             cell.setup(controller: self, info: info)
         }
