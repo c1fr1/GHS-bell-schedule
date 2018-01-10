@@ -144,7 +144,8 @@ class PeriodInfo {
 var periodsInfo : [Period : PeriodInfo] = PeriodInfo.initialPeriodInfo
 
 func periodName(fromShortName shortName : String) -> String {
-    if let info = periodsInfo.values.first(where: { $0.shortName == shortName }) {
+    let sn = shortName.trimmingCharacters(in: CharacterSet.punctuationCharacters)
+    if let info = periodsInfo.values.first(where: { $0.shortName == sn }) {
         return info.name.value
     }
     return shortName

@@ -11,7 +11,7 @@ import UserNotifications
 
 var orderedSchedule:[(Date, String)] = []
 var schedule:[Date:String] = [:]
-var periodInfo:[String:[[String:String]]] = [:] // TODO: Is this the same as our `periods'??
+var periodInfo:[String:[[String:String]]] = [:]
 var notificationSettings:Bool?
 
 //A: it is not during the school day, checked version number and it is the same, so grabbing stored data
@@ -28,6 +28,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 	
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         startUp()
+        if AppDelegate.inUITest() {
+            func setSchedule(forPeriod period : Period, className : String, room : String, endDuration duration : TimeInterval? = nil, endEnabled enabled : Bool? = nil) {
+                if let info = periodsInfo[period] {
+                    info.name.value = className
+                    info.room.value = room
+                    if let duration = duration {
+                        info.endDuration.value = duration
+                    }
+                    if let enabled = enabled {
+                        info.endEnabled.value = enabled
+                    }
+                }
+            }
+            setSchedule(forPeriod: .period1, className: "Japanese", room: "B45")
+            setSchedule(forPeriod: .period2, className: "Chemistry", room: "C12")
+            setSchedule(forPeriod: .period3, className: "Accounting", room: "C29", endDuration: 5 * 60, endEnabled: true)
+            setSchedule(forPeriod: .period4, className: "World Lit", room: "B12")
+            setSchedule(forPeriod: .period5, className: "Photography", room: "B13")
+            setSchedule(forPeriod: .period6, className: "Adv Algebra", room: "C45")
+            setSchedule(forPeriod: .period7, className: "US History", room: "C1")
+            setSchedule(forPeriod: .period8, className: "Health", room: "B27")
+        }
         UNUserNotificationCenter.current().delegate = self
         return true
     }
@@ -338,6 +360,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 			strings.append(obj.1)
 		}
 		groupDefaults.setValuesForKeys([Keys.FULLSCHEDULEDATESKEY : dates as Any, Keys.FULLSCHEDULESTRINGSSKEY : strings as Any, Keys.PERIODINFOKEY: periodInfo as Any])
+    }
+    
+    class func inUITest() -> Bool
+    {
+        let result = ProcessInfo.processInfo.environment.index(forKey: "UITest") != nil
+        // print("inUITest is \(result)")
+        return result
     }
 }
 @discardableResult func scheduleNotification(period : Period, interval:TimeInterval, forDate:(Int, Int, Int), last:Bool = false, start:Bool = true) -> Bool {

@@ -198,6 +198,7 @@
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ry0-oy-xtC">
                                 <rect key="frame" x="-10" y="110.5" width="320" height="162"/>
+                                <accessibility key="accessibilityConfiguration" identifier="duration"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Pet-6P-FY8" id="SBf-su-J41"/>
                                     <outlet property="delegate" destination="Pet-6P-FY8" id="fzj-BS-ZPH"/>
@@ -322,20 +323,21 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R72-45-Wh6">
-                                            <rect key="frame" x="249" y="6" width="51" height="31"/>
-                                            <connections>
-                                                <action selector="enableChanged:" destination="CaW-M1-LHE" eventType="valueChanged" id="GUt-L8-PGl"/>
-                                            </connections>
-                                        </switch>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yB2-2L-6D2">
-                                            <rect key="frame" x="166" y="5.5" width="51" height="33"/>
+                                            <rect key="frame" x="166" y="6" width="51" height="33"/>
+                                            <accessibility key="accessibilityConfiguration" identifier="duration"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <state key="normal" title="Button"/>
                                             <connections>
                                                 <segue destination="Pet-6P-FY8" kind="presentation" id="HP7-2V-IgQ"/>
                                             </connections>
                                         </button>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R72-45-Wh6">
+                                            <rect key="frame" x="249" y="6" width="51" height="31"/>
+                                            <connections>
+                                                <action selector="enableChanged:" destination="CaW-M1-LHE" eventType="valueChanged" id="GUt-L8-PGl"/>
+                                            </connections>
+                                        </switch>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="R72-45-Wh6" firstAttribute="leading" secondItem="yB2-2L-6D2" secondAttribute="trailing" constant="32" id="7fp-ql-GCr"/>
@@ -384,9 +386,9 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Room #" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WcX-kW-zPH">
-                                    <rect key="frame" x="234" y="23" width="66" height="21"/>
+                                    <rect key="frame" x="208" y="23" width="92" height="21"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="66" id="HIH-iK-OwO"/>
+                                        <constraint firstAttribute="width" constant="92" id="HIH-iK-OwO"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
