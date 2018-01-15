@@ -31,6 +31,7 @@ class CalendarLayer:CALayer {
     var frtext:CATextLayer = CalendarLayer.getrowStarter(d: "Thurs", x: 4)
     var satext:CATextLayer = CalendarLayer.getrowStarter(d: "Fri", x: 5)
     var sutext:CATextLayer = CalendarLayer.getrowStarter(d: "Sat", x: 6)
+    var daysOff:[CGPoint] = []
     var dateTexts:[CATextLayer] = {() -> [CATextLayer] in
         var retval:[CATextLayer] = []
         for x in 1...31 {
@@ -61,7 +62,8 @@ class CalendarLayer:CALayer {
             dateTexts[num].isHidden = true
             dateTexts[num].font = UIFont(name: "Arial", size: 6)!
         }
-        let grid = getGridFrom(width: dframe.width, date: (selectedMonth, 15, selectedYear))
+        let (grid, datePoints) = getGridFrom(width: dframe.width, date: (selectedMonth, 15, selectedYear))
+        daysOff = datePoints
         for (num, box) in grid.enumerated() {//set frame
             if translationCal != nil {
                 dateTexts[num].frame = CGRect(x: box.origin.x + translationCal!, y: box.origin.y, width: box.width, height: box.height)
@@ -140,17 +142,35 @@ class CalendarLayer:CALayer {
             }
         }
         if selected {
-            let frm = getGridFrom(width: frame.width, date: (selectedMonth, selectedDay, selectedYear))[selectedDay - 1]
+            let gridVal = getGridFrom(width: frame.width, date: (selectedMonth, selectedDay, selectedYear))
+            var frm = gridVal.0[selectedDay - 1]
             var transl:CGFloat = 0
             if translationCal != nil {
-                transl += translationCal!
+                transl = translationCal!
             }
-            ctx.move(to: CGPoint(x: frm.midX + 15 + transl, y: dateTexts[selectedDay - 1].frame.origin.y + 9))
-            ctx.addArc(center: CGPoint(x: frm.midX + transl, y: dateTexts[selectedDay - 1].frame.origin.y + 9), radius: 15, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: false)
-            //ctx.move(to: CGPoint(x: dateTexts[selectedDay! - 1].frame.midX + 15, y: dateTexts[selectedDay! - 1].frame.origin.y + 9))
-            //ctx.addArc(center: CGPoint(x: dateTexts[selectedDay! - 1].frame.midX, y: dateTexts[selectedDay! - 1].frame.origin.y + 9), radius: 15, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: false)
+            ctx.setStrokeColor(UIColor.white.cgColor)
+            ctx.setLineWidth(2)
+            for datePos in gridVal.1 {
+                ctx.move(to: CGPoint(x: datePos.x + 13 + transl, y: datePos.y + 9))
+                ctx.addArc(center: CGPoint(x: datePos.x + transl, y: datePos.y + 9), radius: 13, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: false)
+                
+                ctx.drawPath(using: .stroke)
+            }
+            
+            //0.68
+            ctx.move(to: CGPoint(x: frm.midX + 15 + transl, y: frm.origin.y + 9))
+            ctx.addArc(center: CGPoint(x: frm.midX + transl, y: frm.origin.y + 9), radius: 15, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: false)
             ctx.setFillColor(UIColor.gray.cgColor)
             ctx.fillPath()
+            
+            let tdInts = getIntsFor(date: Date())
+            if selectedMonth == tdInts.0 {
+                frm = gridVal.0[tdInts.1 - 1]
+                ctx.move(to: CGPoint(x: frm.midX + 15 + transl, y: frm.origin.y + 9))
+                ctx.addArc(center: CGPoint(x: frm.midX + transl, y: frm.origin.y + 9), radius: 15, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: false)
+                ctx.setFillColor(UIColor.init(red: 0.68, green: 0.68, blue: 0, alpha: 1).cgColor)
+                ctx.fillPath()
+            }
         }
         
     }

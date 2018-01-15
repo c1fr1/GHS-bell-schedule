@@ -35,7 +35,7 @@ class ViewController: UIViewController {
                 translationPeriods = nil
                 if startPoint!.x - sender.location(in: view).x < -50 {
                     //left
-                    if startPoint!.y < clayer.dframe.height {
+                    if startPoint!.y < clayer.dframe.height {//month
                         if clayer.selected {
                             selectedMonth -= 1
                             if selectedMonth <= 0 {
@@ -52,7 +52,7 @@ class ViewController: UIViewController {
                                 c.frame.origin.x -= view.frame.width
                             }
                         }
-                    }else {
+                    }else {//day
                         for p in pllayer.periods {
                             p.isHidden = true
                             p.frame.origin.x -= view.frame.width
@@ -73,7 +73,7 @@ class ViewController: UIViewController {
                     }
                 }else if startPoint!.x - sender.location(in: view).x > 50 {
                     //right
-                    if startPoint!.y < clayer.dframe.height {
+                    if startPoint!.y < clayer.dframe.height {//month
                         if clayer.selected {
                             selectedMonth += 1
                             if selectedMonth > 12 {
@@ -90,7 +90,7 @@ class ViewController: UIViewController {
                                 c.frame.origin.x += view.frame.width
                             }
                         }
-                    }else {
+                    }else {//day
                         for p in pllayer.periods {
                             p.isHidden = true
                             p.frame.origin.x += view.frame.width
@@ -111,6 +111,7 @@ class ViewController: UIViewController {
                         }
                     }
                 }
+                clayer.layoutCalendar()//test
                 updateDisplay()
                 if monthChanged {
                     timer = Timer.scheduledTimer(withTimeInterval: 0.15, repeats: false, block: {(_:Timer) in
@@ -160,7 +161,7 @@ class ViewController: UIViewController {
         }
         if clayer.selected {
             let pnt = CGPoint(x: sender.location(in: view).x, y: sender.location(in: view).y + 10)
-            for (num, bx) in getGridFrom(width: UIScreen.main.bounds.width, date: (selectedMonth, 15, selectedYear)).enumerated() {
+            for (num, bx) in getGridFrom(width: UIScreen.main.bounds.width, date: (selectedMonth, 15, selectedYear)).0.enumerated() {
                 if bx.contains(pnt) {
                     clayer.dateTexts[selectedDay - 1].font = UIFont(name: "Arial", size: 6)!
                     clayer.dateTexts[selectedDay - 1].foregroundColor = UIColor.white.cgColor
@@ -203,6 +204,7 @@ class ViewController: UIViewController {
         
         pllayer.frame = CGRect(x: 0, y: clayer.dframe.height, width: view.frame.width, height: view.frame.height)
         pllayer.frame.origin.y = clayer.dframe.height
+        //fix cal
         pllayer.setNeedsDisplay()
         clayer.setNeedsDisplay()
     }

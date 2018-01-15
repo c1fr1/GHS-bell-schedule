@@ -495,3 +495,28 @@ func scheduleForPeriod(period: Period, date:(Int, Int, Int), duration:TimeInterv
     return false
 }
 
+
+func getGridFrom(width:CGFloat, date:(Int, Int, Int)) -> ([CGRect], [CGPoint]) {//belongs in calendarstuff, but... scope...
+    var currentWeekDay = getdayNum(from: (date.0, 1, date.2))
+    var row = 0
+    var retval:[CGRect] = []
+    var nsRetVal:[CGPoint] = []
+    let dimension = (width-30)/7
+    for day in 0..<getDayCount(forMonth: date.0, andYear: date.2) {
+        retval.append(CGRect(x: 15 + CGFloat(currentWeekDay)*dimension, y: 130 + CGFloat(row)*30, width: dimension, height: 30))
+        currentWeekDay += 1
+        if currentWeekDay == 7 {
+            currentWeekDay = 0
+            row += 1
+        }
+        let stype = schedule[getDate(from: (date.0, day + 1, date.2))]
+        if stype != nil {
+            if stype == "NO-SCHOOL" || stype == "NO SCHOOL" || !periodInfo.keys.contains(stype!) {
+                nsRetVal.append(CGPoint(x: retval.last!.midX, y: retval.last!.origin.y))
+            }
+        }else {
+            nsRetVal.append(CGPoint(x: retval.last!.midX, y: retval.last!.origin.y))
+        }
+    }
+    return (retval, nsRetVal)
+}

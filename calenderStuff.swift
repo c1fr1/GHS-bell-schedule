@@ -209,21 +209,7 @@ func getRowCount(forYear:Int, andMonth:Int) -> Int {
     }
     return 0
 }
-func getGridFrom(width:CGFloat, date:(Int, Int, Int)) -> [CGRect] {
-    var currentWeekDay = getdayNum(from: (date.0, 1, date.2))
-    var row = 0
-    var retval:[CGRect] = []
-    let dimension = (width-30)/7
-    for _ in 0..<getDayCount(forMonth: date.0, andYear: date.2) {
-        retval.append(CGRect(x: 15 + CGFloat(currentWeekDay)*dimension, y: 130 + CGFloat(row)*30, width: dimension, height: 30))
-        currentWeekDay += 1
-        if currentWeekDay == 7 {
-            currentWeekDay = 0
-            row += 1
-        }
-    }
-    return retval
-}
+
 func gbtf(text:[String:String]) -> DateComponents {
     var comp = DateComponents()
     comp.calendar = Calendar(identifier: .gregorian)
