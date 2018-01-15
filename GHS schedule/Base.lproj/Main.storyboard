@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina3_5" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,11 +19,11 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q9f-bX-sCe">
-                                <rect key="frame" x="128" y="427" width="64" height="33"/>
+                                <rect key="frame" x="155.66666666666666" y="725" width="64" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Settings"/>
                                 <connections>
@@ -69,11 +69,11 @@
                         <viewControllerLayoutGuide type="bottom" id="sTO-Yk-0W5"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="NMm-5C-zOd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPz-Ns-QLt">
-                                <rect key="frame" x="16" y="20" width="34" height="30"/>
+                                <rect key="frame" x="16" y="44" width="34" height="30"/>
                                 <state key="normal" title="Back"/>
                                 <connections>
                                     <action selector="goBack:" destination="22L-6S-JZM" eventType="touchUpInside" id="rXA-Tp-cX2"/>
@@ -86,21 +86,21 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KAE-mx-9Nr">
-                                <rect key="frame" x="37.5" y="225" width="245" height="30"/>
+                                <rect key="frame" x="65" y="391" width="245" height="30"/>
                                 <state key="normal" title="Reminders before the period begins"/>
                                 <connections>
                                     <segue destination="xPG-Ju-TUT" kind="show" identifier="PeriodBegins" id="Z3E-kO-6jf"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eEi-K3-WIE">
-                                <rect key="frame" x="43.5" y="100" width="233" height="30"/>
+                                <rect key="frame" x="71" y="266" width="233" height="30"/>
                                 <state key="normal" title="Reminders before the period ends"/>
                                 <connections>
                                     <segue destination="xPG-Ju-TUT" kind="show" identifier="PeriodEnds" id="jAk-La-ijo"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t0o-d0-hoq">
-                                <rect key="frame" x="96" y="350" width="127" height="30"/>
+                                <rect key="frame" x="124" y="516" width="127" height="30"/>
                                 <state key="normal" title="Add/Edit Schedule"/>
                                 <connections>
                                     <segue destination="ezW-dd-ccQ" kind="show" id="9zm-mc-Tpy"/>
@@ -136,24 +136,17 @@
                         <viewControllerLayoutGuide type="bottom" id="Fic-MH-bob"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="knU-aA-huv">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="57t-Hr-Rrh">
-                                <rect key="frame" x="16" y="16" width="34" height="30"/>
-                                <state key="normal" title="Back"/>
-                                <connections>
-                                    <action selector="close:" destination="ezW-dd-ccQ" eventType="touchUpInside" id="PJE-Gz-pHT"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Schedule" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o5P-Vv-Vco">
-                                <rect key="frame" x="120" y="36" width="81" height="22"/>
+                                <rect key="frame" x="147" y="60" width="81" height="22"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="flS-fC-W8t">
-                                <rect key="frame" x="10" y="66" width="300" height="414"/>
+                                <rect key="frame" x="37.666666666666657" y="90" width="300" height="688"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="YE2-5j-6oA"/>
                                 </constraints>
@@ -161,15 +154,22 @@
                                     <segue destination="9yr-53-exU" kind="embed" id="4If-xf-9sb"/>
                                 </connections>
                             </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="57t-Hr-Rrh">
+                                <rect key="frame" x="16" y="44" width="34" height="30"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="close:" destination="ezW-dd-ccQ" eventType="touchUpInside" id="PJE-Gz-pHT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="flS-fC-W8t" firstAttribute="centerX" secondItem="knU-aA-huv" secondAttribute="centerX" id="9Hn-Pl-dJD"/>
                             <constraint firstItem="Fic-MH-bob" firstAttribute="top" secondItem="flS-fC-W8t" secondAttribute="bottom" id="DGH-Ue-D5p"/>
                             <constraint firstItem="o5P-Vv-Vco" firstAttribute="centerX" secondItem="knU-aA-huv" secondAttribute="centerX" id="Icm-cS-gvZ"/>
-                            <constraint firstItem="57t-Hr-Rrh" firstAttribute="top" secondItem="knU-aA-huv" secondAttribute="top" constant="16" id="LCG-GH-qIK"/>
+                            <constraint firstItem="57t-Hr-Rrh" firstAttribute="top" secondItem="b3V-EX-zJj" secondAttribute="bottom" id="Lwx-5n-fgj"/>
+                            <constraint firstItem="57t-Hr-Rrh" firstAttribute="leading" secondItem="knU-aA-huv" secondAttribute="leadingMargin" id="MU7-dj-hw6"/>
                             <constraint firstItem="o5P-Vv-Vco" firstAttribute="top" secondItem="b3V-EX-zJj" secondAttribute="bottom" constant="16" id="OnI-N7-a1B"/>
-                            <constraint firstItem="57t-Hr-Rrh" firstAttribute="leading" secondItem="knU-aA-huv" secondAttribute="leading" constant="16" id="RqR-Ro-BcV"/>
                             <constraint firstItem="flS-fC-W8t" firstAttribute="top" secondItem="o5P-Vv-Vco" secondAttribute="bottom" constant="8" id="bNm-AQ-cwN"/>
                         </constraints>
                     </view>
@@ -187,17 +187,17 @@
                         <viewControllerLayoutGuide type="bottom" id="aX3-jd-z2L"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Sfd-bX-3Kb">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="383"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="657"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reminder before Period 1 ends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Dk-K4-IzE">
-                                <rect key="frame" x="33" y="81.5" width="234.5" height="21"/>
+                                <rect key="frame" x="32.999999999999986" y="191.66666666666666" width="234.66666666666663" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ry0-oy-xtC">
-                                <rect key="frame" x="-10" y="110.5" width="320" height="162"/>
+                                <rect key="frame" x="-10" y="220.66666666666663" width="320" height="216"/>
                                 <accessibility key="accessibilityConfiguration" identifier="duration"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Pet-6P-FY8" id="SBf-su-J41"/>
@@ -205,7 +205,7 @@
                                 </connections>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MSQ-5j-G5t">
-                                <rect key="frame" x="129.5" y="280.5" width="41" height="33"/>
+                                <rect key="frame" x="129.66666666666666" y="444.66666666666669" width="41" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Done"/>
                                 <connections>
@@ -242,30 +242,30 @@
                         <viewControllerLayoutGuide type="bottom" id="nXG-gw-lzM"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="6U0-gR-cgZ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Reminders" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QuW-t9-CwE">
-                                <rect key="frame" x="114" y="36" width="93" height="21.5"/>
+                                <rect key="frame" x="141" y="59.999999999999993" width="93" height="21.666666666666664"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5w-wF-8KM">
-                                <rect key="frame" x="16" y="20" width="34" height="30"/>
+                                <rect key="frame" x="16" y="44" width="34" height="30"/>
                                 <state key="normal" title="Back"/>
                                 <connections>
                                     <action selector="close:" destination="xPG-Ju-TUT" eventType="touchUpInside" id="gAQ-Jb-vgs"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Min." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K7k-p5-1X4">
-                                <rect key="frame" x="194" y="75.5" width="33" height="21"/>
+                                <rect key="frame" x="221.66666666666666" y="99.666666666666671" width="33" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvL-F9-FmT">
-                                <rect key="frame" x="10" y="97" width="300" height="383"/>
+                                <rect key="frame" x="37.666666666666657" y="121" width="300" height="657"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="zb6-rA-94q"/>
                                 </constraints>
@@ -274,7 +274,7 @@
                                 </connections>
                             </containerView>
                             <switch hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Xc-eN-GIY">
-                                <rect key="frame" x="259" y="57.5" width="51" height="31"/>
+                                <rect key="frame" x="286.66666666666669" y="81.666666666666671" width="51" height="31"/>
                             </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -306,7 +306,7 @@
             <objects>
                 <tableViewController id="PQF-JO-yr5" customClass="NotificationTableViewController" customModule="GHS_schedule" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="KfQ-TM-m4H">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="383"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="657"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
@@ -324,7 +324,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yB2-2L-6D2">
-                                            <rect key="frame" x="166" y="6" width="51" height="33"/>
+                                            <rect key="frame" x="166" y="5.6666666666666679" width="51" height="33"/>
                                             <accessibility key="accessibilityConfiguration" identifier="duration"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <state key="normal" title="Button"/>
@@ -372,7 +372,7 @@
             <objects>
                 <tableViewController id="9yr-53-exU" customClass="ScheduleTableViewController" customModule="GHS_schedule" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="S5K-QF-SLC">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="414"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="688"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Cv8-nx-4d8">

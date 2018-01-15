@@ -29,6 +29,7 @@
 		DF7D45F31F5FAD9B00925D2E /* calenderLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45F21F5FAD9B00925D2E /* calenderLayer.swift */; };
 		DF7D45F51F5FDAAB00925D2E /* calenderStuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */; };
 		DF8433F81FB531D200F8763C /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8433F71FB531D200F8763C /* Period.swift */; };
+		DFACA5D6200C4A310022A265 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = DFACA5D5200C4A310022A265 /* README.txt */; };
 		DFEBBFA21F6667F500046334 /* GHS logo.png in Resources */ = {isa = PBXBuildFile; fileRef = DFEBBFA11F6667F500046334 /* GHS logo.png */; };
 		DFF618C31FA70A4C007375BB /* calenderStuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */; };
 		DFF618CB1FA84517007375BB /* GHS_scheduleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF618CA1FA84517007375BB /* GHS_scheduleUITests.swift */; };
@@ -92,6 +93,7 @@
 		DF7D45F21F5FAD9B00925D2E /* calenderLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = calenderLayer.swift; sourceTree = "<group>"; };
 		DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = calenderStuff.swift; sourceTree = "<group>"; };
 		DF8433F71FB531D200F8763C /* Period.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
+		DFACA5D5200C4A310022A265 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		DFEBBFA11F6667F500046334 /* GHS logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GHS logo.png"; sourceTree = "<group>"; };
 		DFF618C21FA1973D007375BB /* GHSScheduleWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GHSScheduleWidget.entitlements; sourceTree = "<group>"; };
 		DFF618C81FA84517007375BB /* GHS scheduleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GHS scheduleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,6 +150,7 @@
 		DF7D45CF1F5F87BB00925D2E = {
 			isa = PBXGroup;
 			children = (
+				DFACA5D5200C4A310022A265 /* README.txt */,
 				DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */,
 				DF06EBA01FA0E16B001F1D0C /* SharedDataContainer.swift */,
 				DF7D45DA1F5F87BB00925D2E /* GHS schedule */,
@@ -339,6 +342,7 @@
 				DF7D45E91F5F87BB00925D2E /* LaunchScreen.storyboard in Resources */,
 				DF7D45E61F5F87BB00925D2E /* Assets.xcassets in Resources */,
 				DF7D45E11F5F87BB00925D2E /* Main.storyboard in Resources */,
+				DFACA5D6200C4A310022A265 /* README.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
