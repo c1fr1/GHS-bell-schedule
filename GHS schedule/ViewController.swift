@@ -199,6 +199,10 @@ class ViewController: UIViewController {
         mainVC = self
     }
 	
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateDisplay()
+    }
     func updateDisplay() {
         pllayer.setup()
         

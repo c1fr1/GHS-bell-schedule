@@ -14,6 +14,7 @@ class GHS_scheduleUITests: XCTestCase {
 		
 		// Put setup code here. This method is called before the invocation of each test method in the class.
 		let app = XCUIApplication()
+        app.launchEnvironment = [ "UITest": "1" ]
 		setupSnapshot(app)
 		
 		// In UI tests it is usually best to stop immediately when a failure occurs.
@@ -38,8 +39,8 @@ class GHS_scheduleUITests: XCTestCase {
 		XCUIDevice.shared.orientation = .faceUp
 		
         // XCUIApplication().alerts["“GHS schedule” Would Like to Send You Notifications"].buttons["Allow"].tap()
-        
-        let reminderSettingsElement = XCUIApplication().otherElements.containing(.button, identifier:"Reminder Settings").element
+
+        let reminderSettingsElement = XCUIApplication().otherElements.containing(.button, identifier:"Settings").element
         reminderSettingsElement.swipeRight()
         // reminderSettingsElement.swipeLeft()
         
@@ -56,14 +57,14 @@ class GHS_scheduleUITests: XCTestCase {
 		snapshot("2 Cal")
 		tapCoordinate(x: 10, y: 25)
         
-        XCUIApplication().buttons["Reminder Settings"].tap()
+        app.buttons["Settings"].tap()
         snapshot("3 Settings")
         
-        app.buttons["Before the period ends"].tap()
+        app.buttons["Reminders before the period ends"].tap()
         snapshot("4 Reminders")
         let backButton = app.buttons["Back"]
         backButton.tap()
-        app.buttons["Add Schedule"].tap()
+        app.buttons["Add/Edit Schedule"].tap()
         snapshot("5 Schedule")
         
 	}
