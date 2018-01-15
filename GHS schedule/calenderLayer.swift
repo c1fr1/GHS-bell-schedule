@@ -2,7 +2,7 @@
 //  calenderLayer.swift
 //  GHS schedule
 //
-//  Created by Varas Pendragon on 9/5/17.
+//  Created by C1FR1 on 9/5/17.
 //  Copyright © 2017 4inunison. All rights reserved.
 //
 

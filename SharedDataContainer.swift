@@ -2,7 +2,7 @@
 //  File.swift
 //  GHS schedule
 //
-//  Created by Varas Pendragon on 10/25/17.
+//  Created by C1FR1 on 10/25/17.
 //  Copyright © 2017 4inunison. All rights reserved.
 //
 

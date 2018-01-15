@@ -2,7 +2,7 @@
 //  GHS_scheduleUITests.swift
 //  GHS scheduleUITests
 //
-//  Created by Varas Pendragon on 10/30/17.
+//  Created by C1FR1 on 10/30/17.
 //  Copyright © 2017 4inunison. All rights reserved.
 //
 
