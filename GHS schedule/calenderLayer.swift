@@ -10,27 +10,24 @@ import UIKit
 
 class CalendarLayer:CALayer {
     var selected:Bool = false
+    var inset : CGFloat = 0
     var dframe:CGRect {
         if selected {
-            return CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 135 + 30*CGFloat(getRowCount(forYear: selectedYear, andMonth: selectedMonth)))
+            return CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 115 + inset + 30*CGFloat(getRowCount(forYear: selectedYear, andMonth: selectedMonth)))
         }else {
-            if transitionPixels != nil {
-                return CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 100 + transitionPixels!)
-            }else {
-                return CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 100)
-            }
+            return CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 80 + inset + (transitionPixels ?? 0))
         }
     }
     var transitionPixels:CGFloat?
     var ghsText:CATextLayer = CATextLayer()
     var dateText:CATextLayer = CATextLayer()
-    var mtext:CATextLayer = CalendarLayer.getrowStarter(d: "Sun", x: 0)
-    var ttext:CATextLayer = CalendarLayer.getrowStarter(d: "Mon", x: 1)
-    var wtext:CATextLayer = CalendarLayer.getrowStarter(d: "Tues", x: 2)
-    var thtext:CATextLayer = CalendarLayer.getrowStarter(d: "Wed", x: 3)
-    var frtext:CATextLayer = CalendarLayer.getrowStarter(d: "Thurs", x: 4)
-    var satext:CATextLayer = CalendarLayer.getrowStarter(d: "Fri", x: 5)
-    var sutext:CATextLayer = CalendarLayer.getrowStarter(d: "Sat", x: 6)
+    var mtext:CATextLayer
+    var ttext:CATextLayer
+    var wtext:CATextLayer
+    var thtext:CATextLayer
+    var frtext:CATextLayer
+    var satext:CATextLayer
+    var sutext:CATextLayer
     var daysOff:[CGPoint] = []
     var dateTexts:[CATextLayer] = {() -> [CATextLayer] in
         var retval:[CATextLayer] = []
@@ -45,16 +42,15 @@ class CalendarLayer:CALayer {
         }
         return retval
     }()
-    public static func getrowStarter(d:String, x:CGFloat) -> CATextLayer {
-        let retVal = CATextLayer()
-        retVal.font = UIFont.boldSystemFont(ofSize: 15)
-        retVal.fontSize = 15
-        retVal.alignmentMode = kCAAlignmentCenter
-        retVal.foregroundColor = UIColor.white.cgColor
-        retVal.string = d
+    func initRowStarter(l:CATextLayer, d:String, x:CGFloat) {
+        l.contentsScale = UIScreen.main.scale
+        l.font = UIFont.boldSystemFont(ofSize: 15)
+        l.fontSize = 15
+        l.alignmentMode = kCAAlignmentCenter
+        l.foregroundColor = UIColor.white.cgColor
+        l.string = d
         let mults = (UIScreen.main.bounds.width-30)/7
-        retVal.frame = CGRect(x: x*mults + 15 , y: 100, width: mults, height: 30)
-        return retVal
+        l.frame = CGRect(x: x*mults + 15 , y: 80 + inset, width: mults, height: 30)
     }
     func layoutCalendar() {
         for (num, _) in dateTexts.enumerated() {
@@ -62,7 +58,7 @@ class CalendarLayer:CALayer {
             dateTexts[num].isHidden = true
             dateTexts[num].font = UIFont(name: "Arial", size: 6)!
         }
-        let (grid, datePoints) = getGridFrom(width: dframe.width, date: (selectedMonth, 15, selectedYear))
+        let (grid, datePoints) = getGridFrom(width: dframe.width, inset: inset, date: (selectedMonth, 15, selectedYear))
         daysOff = datePoints
         for (num, box) in grid.enumerated() {//set frame
             if translationCal != nil {
@@ -74,8 +70,16 @@ class CalendarLayer:CALayer {
             }
         }
     }
-    override init() {
+    init(inset i : CGFloat) {
+        mtext = CATextLayer()
+        ttext = CATextLayer()
+        wtext = CATextLayer()
+        thtext = CATextLayer()
+        frtext = CATextLayer()
+        satext = CATextLayer()
+        sutext = CATextLayer()
         super.init()
+        inset = i
         for _ in dateTexts {
             addSublayer(dateText)
         }
@@ -87,21 +91,21 @@ class CalendarLayer:CALayer {
         ghsText.font = UIFont(name: "Arial", size: 6)!
         ghsText.fontSize = 27
         ghsText.foregroundColor = UIColor.white.cgColor
-        ghsText.frame = CGRect(x: 20, y: 25, width: 300, height: 50)
+        ghsText.frame = CGRect(x: 20, y: 5 + inset, width: 300, height: 50)
         ghsText.string = "Grant Bell Schedule"
         
         dateText.font = UIFont(name: "Arial", size: 6)!
         dateText.fontSize = 18
         dateText.foregroundColor = UIColor.white.cgColor
-        dateText.frame = CGRect(x: 20, y: 60, width: 300, height: 50)
+        dateText.frame = CGRect(x: 20, y: 40 + inset, width: 300, height: 50)
         
-        mtext.contentsScale = UIScreen.main.scale
-        ttext.contentsScale = UIScreen.main.scale
-        wtext.contentsScale = UIScreen.main.scale
-        thtext.contentsScale = UIScreen.main.scale
-        frtext.contentsScale = UIScreen.main.scale
-        satext.contentsScale = UIScreen.main.scale
-        sutext.contentsScale = UIScreen.main.scale
+        initRowStarter(l:mtext, d: "Sun", x: 0)
+        initRowStarter(l:ttext, d: "Mon", x: 1)
+        initRowStarter(l:wtext, d: "Tues", x: 2)
+        initRowStarter(l:thtext, d: "Wed", x: 3)
+        initRowStarter(l:frtext, d: "Thurs", x: 4)
+        initRowStarter(l:satext, d: "Fri", x: 5)
+        initRowStarter(l:sutext, d: "Sat", x: 6)
         
         addSublayer(mtext)
         addSublayer(ttext)
@@ -125,6 +129,8 @@ class CalendarLayer:CALayer {
     override func draw(in ctx: CGContext) {
         ctx.setFillColor(UIColor(red: 0, green: 0.2, blue: 0.6, alpha: 1).cgColor)
         ctx.fill(dframe)
+        // ctx.setStrokeColor(UIColor.orange.cgColor)
+        // ctx.stroke(dframe, width: 2)
         
         let date = getDate(from: (selectedMonth, selectedDay, selectedYear))
         let formatter = DateFormatter()
@@ -142,7 +148,7 @@ class CalendarLayer:CALayer {
             }
         }
         if selected {
-            let gridVal = getGridFrom(width: frame.width, date: (selectedMonth, selectedDay, selectedYear))
+            let gridVal = getGridFrom(width: frame.width, inset: inset, date: (selectedMonth, selectedDay, selectedYear))
             var frm = gridVal.0[selectedDay - 1]
             var transl:CGFloat = 0
             if translationCal != nil {
