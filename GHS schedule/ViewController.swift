@@ -163,7 +163,7 @@ class ViewController: UIViewController {
         }
         if clayer.selected {
             let pnt = CGPoint(x: sender.location(in: view).x, y: sender.location(in: view).y + 10)
-            for (num, bx) in getGridFrom(width: UIScreen.main.bounds.width, date: (selectedMonth, 15, selectedYear)).0.enumerated() {
+            for (num, bx) in getGridFrom(width: UIScreen.main.bounds.width, inset: topLayoutGuide.length, date: (selectedMonth, 15, selectedYear)).0.enumerated() {
                 if bx.contains(pnt) {
                     clayer.dateTexts[selectedDay - 1].font = UIFont(name: "Arial", size: 6)!
                     clayer.dateTexts[selectedDay - 1].foregroundColor = UIColor.white.cgColor
@@ -185,8 +185,8 @@ class ViewController: UIViewController {
         clayer.layoutCalendar()
     }
 	
-    override func awakeFromNib() {
-        clayer = CalendarLayer()
+    func setupLayers() {
+        clayer = CalendarLayer(inset : topLayoutGuide.length)
         view.layer.addSublayer(clayer)
         clayer.frame = view.frame
         clayer.contentsScale = UIScreen.main.scale
@@ -200,7 +200,16 @@ class ViewController: UIViewController {
         timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(start(_:)), userInfo: nil, repeats: false)
         mainVC = self
     }
-	
+
+    private var setupDone = false
+    override func viewDidLayoutSubviews() {
+        // we have to wait till the layout guides are in place before we can layout the layers
+        super.viewDidLayoutSubviews()
+        if setupDone == false {
+            setupLayers()
+            setupDone = true
+        }
+    }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateDisplay()
