@@ -138,6 +138,7 @@ class ViewController: UIViewController {
                 }
                 startPoint = nil
             }else {
+                //start in process swiping
                 if clayer.selected {
                     if startPoint!.y < clayer.dframe.height {
                         translationCal = (sender.location(in: view).x - startPoint!.x)*3
@@ -150,6 +151,7 @@ class ViewController: UIViewController {
                     translationPeriods = (sender.location(in: view).x - startPoint!.x)*3
                     updateDisplay()
                 }
+                //end in process swiping
             }
         }else {
             startPoint = sender.location(in: view)

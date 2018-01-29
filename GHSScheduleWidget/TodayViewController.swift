@@ -16,118 +16,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 	@IBOutlet weak var timeTill: UILabel!
     
     override func viewDidLoad() {
-        let data = getStoredScheduleInfo()
-        let dayType = getStoredData()[getDate(from: getDateInts())]
-		if dayType != nil {
-			let dayInfo = data[dayType!]
-			if dayInfo != nil {
-				var beforePeriod = false
-				var curPeriod:[String:String]?
-				let cal = Calendar(identifier: .gregorian)
-				let formatter = DateFormatter()
-				formatter.calendar = Calendar(identifier: .gregorian)
-				formatter.timeZone = TimeZone(identifier: "PST")
-				formatter.dateFormat = "hh:mm aa"
-				let curDat = cal.date(from: getf(text: ["END":formatter.string(from: Date())]))!
-				for period in dayInfo! {
-					let startTime = cal.date(from: gbtf(text: period))!
-					let endTime = cal.date(from: getf(text: period))!
-					if startTime > curDat {
-						if let pnum = period["NAME"] {
-							if pnum == "P1" || pnum == "P5" {
-								let intv = startTime.timeIntervalSince(curDat)
-								if intv < 3600 || intv >= 0 {
-									beforePeriod = true
-									curPeriod = period
-									break
-								}
-							}
-						}
-						let intv = startTime.timeIntervalSince(curDat)
-						if intv < 600 && intv >= 0 {
-							beforePeriod = true
-							curPeriod = period
-							break
-						}
-					}else if endTime > curDat {
-						curPeriod = period
-						break
-					}
-				}
-				if curPeriod != nil {
-                    var pnum = curPeriod!["NAME"]
-                    if pnum == "P1" {
-                        pnum = groupDefaults.value(forKey: Keys.P1CLASSKEY) as? String
-                    }else if pnum == "P2" {
-                        pnum = groupDefaults.value(forKey: Keys.P2CLASSKEY) as? String
-                    }else if pnum == "P3" {
-                        pnum = groupDefaults.value(forKey: Keys.P3CLASSKEY) as? String
-                    }else if pnum == "P4" {
-                        pnum = groupDefaults.value(forKey: Keys.P4CLASSKEY) as? String
-                    }else if pnum == "P5" {
-                        pnum = groupDefaults.value(forKey: Keys.P5CLASSKEY) as? String
-                    }else if pnum == "P6" {
-                        pnum = groupDefaults.value(forKey: Keys.P6CLASSKEY) as? String
-                    }else if pnum == "P7" {
-                        pnum = groupDefaults.value(forKey: Keys.P7CLASSKEY) as? String
-                    }else if pnum == "P8" {
-                        pnum = groupDefaults.value(forKey: Keys.P8CLASSKEY) as? String
-                    }
-                    if pnum == nil {
-                        pnum = curPeriod!["NAME"]
-                    }
-					if beforePeriod {
-						if curPeriod!["NAME"] == "P1" || curPeriod!["NAME"] == "P5" {
-							let mins = Int(floor(cal.date(from: gbtf(text: curPeriod!))!.timeIntervalSince(curDat)/60))
-							periodInfo.text = "Before school on \(dayType!) day"
-							timeLabel.text = ""
-							if mins > 1 {
-								timeTill.text = "Starts in \(mins) minutes"
-							}else if mins == 1 {
-								timeTill.text = "Starts in a minute"
-							}else {
-								timeTill.text = "Starts in less than a minute"
-							}
-						}else {
-							let mins = Int(floor(cal.date(from: gbtf(text: curPeriod!))!.timeIntervalSince(curDat)/60))
-							periodInfo.text = pnum
-							timeLabel.text = "from \(curPeriod!["START"]!) to \(curPeriod!["END"]!)"
-							if mins > 1 {
-								timeTill.text = "Starts in \(mins) minutes"
-							}else if mins == 1 {
-								timeTill.text = "Starts in a minute"
-							}else {
-								timeTill.text = "Starts in less than a minute"
-							}
-						}
-					}else {
-						periodInfo.text = pnum
-						timeLabel.text = "from \(curPeriod!["START"]!) to \(curPeriod!["END"]!)"
-						let seconds = cal.date(from: getf(text: curPeriod!))!.timeIntervalSince(curDat)
-						let mins = Int(floor(seconds/60))
-						if mins > 1 {
-							timeTill.text = "Ends in \(mins) minutes"
-						}else if mins == 1 {
-							timeTill.text = "Ends in a minute"
-						}else {
-							timeTill.text = "Ends in less than a minute"
-						}
-					}
-				}else {
-					periodInfo.text = "no current period"
-					timeLabel.text = ""
-					timeTill.text = ""
-				}
-			}else {
-				periodInfo.text = "no current period"
-				timeLabel.text = ""
-				timeTill.text = ""
-			}
-		}else {
-			periodInfo.text = "no current period"
-			timeLabel.text = ""
-			timeTill.text = ""
-		}
+        
         super.viewDidLoad()
     }
     func getStoredScheduleInfo() -> [String:[[String:String]]] {
@@ -165,6 +54,119 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         // If an error is encountered, use NCUpdateResult.Failed
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
+        
+        let data = getStoredScheduleInfo()
+        let dayType = getStoredData()[getDate(from: getDateInts())]
+        if dayType != nil {
+            let dayInfo = data[dayType!]
+            if dayInfo != nil {
+                var beforePeriod = false
+                var curPeriod:[String:String]?
+                let cal = Calendar(identifier: .gregorian)
+                let formatter = DateFormatter()
+                formatter.calendar = Calendar(identifier: .gregorian)
+                formatter.timeZone = TimeZone(identifier: "PST")
+                formatter.dateFormat = "hh:mm aa"
+                let curDat = cal.date(from: getf(text: ["END":formatter.string(from: Date())]))!
+                for period in dayInfo! {
+                    let startTime = cal.date(from: gbtf(text: period))!
+                    let endTime = cal.date(from: getf(text: period))!
+                    if startTime > curDat {
+                        if let pnum = period["NAME"] {
+                            if pnum == "P1" || pnum == "P5" {
+                                let intv = startTime.timeIntervalSince(curDat)
+                                if intv < 3600 || intv >= 0 {
+                                    beforePeriod = true
+                                    curPeriod = period
+                                    break
+                                }
+                            }
+                        }
+                        let intv = startTime.timeIntervalSince(curDat)
+                        if intv < 600 && intv >= 0 {
+                            beforePeriod = true
+                            curPeriod = period
+                            break
+                        }
+                    }else if endTime > curDat {
+                        curPeriod = period
+                        break
+                    }
+                }
+                if curPeriod != nil {
+                    var pnum = curPeriod!["NAME"]
+                    if pnum == "P1" {
+                        pnum = groupDefaults.value(forKey: Keys.P1CLASSKEY) as? String
+                    }else if pnum == "P2" {
+                        pnum = groupDefaults.value(forKey: Keys.P2CLASSKEY) as? String
+                    }else if pnum == "P3" {
+                        pnum = groupDefaults.value(forKey: Keys.P3CLASSKEY) as? String
+                    }else if pnum == "P4" {
+                        pnum = groupDefaults.value(forKey: Keys.P4CLASSKEY) as? String
+                    }else if pnum == "P5" {
+                        pnum = groupDefaults.value(forKey: Keys.P5CLASSKEY) as? String
+                    }else if pnum == "P6" {
+                        pnum = groupDefaults.value(forKey: Keys.P6CLASSKEY) as? String
+                    }else if pnum == "P7" {
+                        pnum = groupDefaults.value(forKey: Keys.P7CLASSKEY) as? String
+                    }else if pnum == "P8" {
+                        pnum = groupDefaults.value(forKey: Keys.P8CLASSKEY) as? String
+                    }
+                    if pnum == nil {
+                        pnum = curPeriod!["NAME"]
+                    }
+                    if beforePeriod {
+                        if curPeriod!["NAME"] == "P1" || curPeriod!["NAME"] == "P5" {
+                            let mins = Int(floor(cal.date(from: gbtf(text: curPeriod!))!.timeIntervalSince(curDat)/60))
+                            periodInfo.text = "Before school on \(dayType!) day"
+                            timeLabel.text = ""
+                            if mins > 1 {
+                                timeTill.text = "Starts in \(mins) minutes"
+                            }else if mins == 1 {
+                                timeTill.text = "Starts in a minute"
+                            }else {
+                                timeTill.text = "Starts in less than a minute"
+                            }
+                        }else {
+                            let mins = Int(floor(cal.date(from: gbtf(text: curPeriod!))!.timeIntervalSince(curDat)/60))
+                            periodInfo.text = pnum
+                            timeLabel.text = "from \(curPeriod!["START"]!) to \(curPeriod!["END"]!)"
+                            if mins > 1 {
+                                timeTill.text = "Starts in \(mins) minutes"
+                            }else if mins == 1 {
+                                timeTill.text = "Starts in a minute"
+                            }else {
+                                timeTill.text = "Starts in less than a minute"
+                            }
+                        }
+                    }else {
+                        periodInfo.text = pnum
+                        timeLabel.text = "from \(curPeriod!["START"]!) to \(curPeriod!["END"]!)"
+                        let seconds = cal.date(from: getf(text: curPeriod!))!.timeIntervalSince(curDat)
+                        let mins = Int(floor(seconds/60))
+                        if mins > 1 {
+                            timeTill.text = "Ends in \(mins) minutes"
+                        }else if mins == 1 {
+                            timeTill.text = "Ends in a minute"
+                        }else {
+                            timeTill.text = "Ends in less than a minute"
+                        }
+                    }
+                }else {
+                    periodInfo.text = "no current period"
+                    timeLabel.text = ""
+                    timeTill.text = ""
+                }
+            }else {
+                periodInfo.text = "no current period"
+                timeLabel.text = ""
+                timeTill.text = ""
+            }
+        }else {
+            periodInfo.text = "no current period"
+            timeLabel.text = ""
+            timeTill.text = ""
+        }
         
         completionHandler(NCUpdateResult.newData)
     }

@@ -54,6 +54,7 @@ class PeriodListLayer:CALayer {
             setSchedule(schedule: [])
         }
         if translationPeriods != nil {
+            print(translationPeriods!)
             for p in periods {
                 p.frame.origin.x = translationPeriods!
             }

@@ -168,7 +168,7 @@ class CalendarLayer:CALayer {
                 frm = gridVal.0[tdInts.1 - 1]
                 ctx.move(to: CGPoint(x: frm.midX + 15 + transl, y: frm.origin.y + 9))
                 ctx.addArc(center: CGPoint(x: frm.midX + transl, y: frm.origin.y + 9), radius: 15, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: false)
-                ctx.setFillColor(UIColor.init(red: 0.68, green: 0.68, blue: 0, alpha: 1).cgColor)
+                ctx.setFillColor(UIColor.init(red: 0.68, green: 0, blue: 0, alpha: 1).cgColor)//a guible color
                 ctx.fillPath()
             }
         }
