@@ -15,7 +15,7 @@ class SettingsVC: UIViewController {
 	}
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let dest = segue.destination as? NotificationViewController2 {
+        if let dest = segue.destination as? NotificationViewController {
             dest.isBeforeStart = segue.identifier == "PeriodBegins"
         }
     }

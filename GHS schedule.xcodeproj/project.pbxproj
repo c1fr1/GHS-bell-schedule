@@ -11,7 +11,7 @@
 		97023F951FFFFDF4008FD2B0 /* ScheduleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97023F941FFFFDF4008FD2B0 /* ScheduleTableViewController.swift */; };
 		973B8AF91FFC4D89001E881F /* MMSSPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973B8AF81FFC4D89001E881F /* MMSSPickerViewController.swift */; };
 		973B8B171FFDAB5A001E881F /* NotificationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973B8B161FFDAB5A001E881F /* NotificationTableViewController.swift */; };
-		973B8B191FFDABEE001E881F /* NotificationViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973B8B181FFDABEE001E881F /* NotificationViewController2.swift */; };
+		973B8B191FFDABEE001E881F /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973B8B181FFDABEE001E881F /* NotificationViewController.swift */; };
 		97BEBB231FCCE40E00DED1B9 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BEBB221FCCE40E00DED1B9 /* SnapshotHelper.swift */; };
 		DF06EB8C1FA05DD3001F1D0C /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF06EB8B1FA05DD3001F1D0C /* NotificationCenter.framework */; };
 		DF06EB8F1FA05DD4001F1D0C /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF06EB8E1FA05DD4001F1D0C /* TodayViewController.swift */; };
@@ -72,7 +72,7 @@
 		97023F941FFFFDF4008FD2B0 /* ScheduleTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewController.swift; sourceTree = "<group>"; };
 		973B8AF81FFC4D89001E881F /* MMSSPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMSSPickerViewController.swift; sourceTree = "<group>"; };
 		973B8B161FFDAB5A001E881F /* NotificationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewController.swift; sourceTree = "<group>"; };
-		973B8B181FFDABEE001E881F /* NotificationViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController2.swift; sourceTree = "<group>"; };
+		973B8B181FFDABEE001E881F /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		97BEBB221FCCE40E00DED1B9 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		DF06EB891FA05DD3001F1D0C /* GHSScheduleWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GHSScheduleWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF06EB8B1FA05DD3001F1D0C /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -177,7 +177,7 @@
 				DF7D45DB1F5F87BB00925D2E /* AppDelegate.swift */,
 				DF7D45F21F5FAD9B00925D2E /* calenderLayer.swift */,
 				973B8AF81FFC4D89001E881F /* MMSSPickerViewController.swift */,
-				973B8B181FFDABEE001E881F /* NotificationViewController2.swift */,
+				973B8B181FFDABEE001E881F /* NotificationViewController.swift */,
 				973B8B161FFDAB5A001E881F /* NotificationTableViewController.swift */,
 				DF8433F71FB531D200F8763C /* Period.swift */,
 				DF7D45F01F5F88CA00925D2E /* PeriodListClasses.swift */,
@@ -371,7 +371,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				973B8B191FFDABEE001E881F /* NotificationViewController2.swift in Sources */,
+				973B8B191FFDABEE001E881F /* NotificationViewController.swift in Sources */,
 				973B8B171FFDAB5A001E881F /* NotificationTableViewController.swift in Sources */,
 				DF8433F81FB531D200F8763C /* Period.swift in Sources */,
 				DF7D45F51F5FDAAB00925D2E /* calenderStuff.swift in Sources */,

@@ -11,7 +11,7 @@ import UIKit
 class NotificationTableViewController: UITableViewController {
 
     var isBeforeStart : Bool {
-        if let parent = parent as? NotificationViewController2
+        if let parent = parent as? NotificationViewController
         {
             return parent.isBeforeStart
         }
@@ -100,7 +100,7 @@ class NotificationTableViewController: UITableViewController {
         if let button = sender as? UIButton,
            let container = button.superview,
            let cell = container.superview as? NotificationTableViewCell,
-           let notificationController = parent as? NotificationViewController2,
+           let notificationController = parent as? NotificationViewController,
            let pickerController = segue.destination as? MMSSPickerViewController
         {
             pickerController.notificationController = notificationController

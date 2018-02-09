@@ -1,5 +1,5 @@
 //
-//  NotificationViewController2.swift
+//  NotificationViewController.swift
 //  GHS schedule
 //
 //  Created by Jeffrey R Lewis on 1/3/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NotificationViewController2: UIViewController {
+class NotificationViewController: UIViewController {
     @IBOutlet var titleLabel : UILabel!
 
     var isBeforeStart : Bool = false

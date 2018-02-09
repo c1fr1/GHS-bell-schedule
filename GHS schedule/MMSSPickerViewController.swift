@@ -13,8 +13,7 @@ class MMSSPickerViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet var pickerView : UIPickerView!
     @IBOutlet var doneButton : UIButton!
 
-    // var notificationController : NotificationViewController?
-    var notificationController : NotificationViewController2?
+    var notificationController : NotificationViewController?
     var info : PeriodInfo?
     // var periodName : String = "Period ?"
     var periodName : String {
