@@ -53,9 +53,9 @@ class GHS_scheduleUITests: XCTestCase {
 			let coordinate = normalized.withOffset(CGVector(dx: xCoordinate, dy: yCoordinate))
 			coordinate.tap()
 		}
-		tapCoordinate(x: 10, y: 25)
+		tapCoordinate(x: 10, y: 50)
 		snapshot("2 Cal")
-		tapCoordinate(x: 10, y: 25)
+		tapCoordinate(x: 10, y: 50)
         
         app.buttons["Settings"].tap()
         snapshot("3 Settings")
