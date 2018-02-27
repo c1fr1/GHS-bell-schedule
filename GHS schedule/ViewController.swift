@@ -28,6 +28,7 @@ class ViewController: UIViewController {
         return .lightContent
     }
     @IBAction func gesture(_ sender: UIPanGestureRecognizer) {//check back later for updates.
+        
         if startPoint != nil {
             if sender.numberOfTouches == 0 {
                 var monthChanged = false
@@ -139,18 +140,22 @@ class ViewController: UIViewController {
                 startPoint = nil
             }else {
                 //start in process swiping
+                CATransaction.begin()
+                print("animation: ", CATransaction.animationDuration())
+                CATransaction.setDisableActions(true)
                 if clayer.selected {
                     if startPoint!.y < clayer.dframe.height {
-                        translationCal = (sender.location(in: view).x - startPoint!.x)*3
+                        translationCal = (sender.location(in: view).x - startPoint!.x)*2
                     }else {
-                        translationPeriods = (sender.location(in: view).x - startPoint!.x)*3
+                        translationPeriods = (sender.location(in: view).x - startPoint!.x)*2
                     }
                     updateDisplay()
                     clayer.layoutCalendar()
                 }else {
-                    translationPeriods = (sender.location(in: view).x - startPoint!.x)*3
+                    translationPeriods = (sender.location(in: view).x - startPoint!.x)*2
                     updateDisplay()
                 }
+                CATransaction.commit()
                 //end in process swiping
             }
         }else {
@@ -187,6 +192,7 @@ class ViewController: UIViewController {
 	
     func setupLayers() {
         clayer = CalendarLayer(inset : topLayoutGuide.length)
+        view.layer.addSublayer(clayer.backgroundLayer)
         view.layer.addSublayer(clayer)
         clayer.frame = view.frame
         clayer.contentsScale = UIScreen.main.scale

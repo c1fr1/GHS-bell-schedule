@@ -15,10 +15,10 @@ class CalendarLayer:CALayer {
         if selected {
             return CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 115 + inset + 30*CGFloat(getRowCount(forYear: selectedYear, andMonth: selectedMonth)))
         }else {
-            return CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 80 + inset + (transitionPixels ?? 0))
+            return CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 80 + inset)
         }
     }
-    var transitionPixels:CGFloat?
+    var backgroundLayer = CALayer();
     var ghsText:CATextLayer = CATextLayer()
     var dateText:CATextLayer = CATextLayer()
     var mtext:CATextLayer
@@ -71,6 +71,9 @@ class CalendarLayer:CALayer {
         }
     }
     init(inset i : CGFloat) {
+        backgroundLayer.backgroundColor = UIColor(red: 0, green: 0.2, blue: 0.6, alpha: 1).cgColor
+        
+        
         mtext = CATextLayer()
         ttext = CATextLayer()
         wtext = CATextLayer()
@@ -79,6 +82,8 @@ class CalendarLayer:CALayer {
         satext = CATextLayer()
         sutext = CATextLayer()
         super.init()
+        //addSublayer(backgroundLayer)
+        backgroundLayer.frame = dframe
         inset = i
         for _ in dateTexts {
             addSublayer(dateText)
@@ -128,7 +133,7 @@ class CalendarLayer:CALayer {
     }
     override func draw(in ctx: CGContext) {
         ctx.setFillColor(UIColor(red: 0, green: 0.2, blue: 0.6, alpha: 1).cgColor)
-        ctx.fill(dframe)
+        backgroundLayer.frame = dframe//ctx.fill(dframe)
         // ctx.setStrokeColor(UIColor.orange.cgColor)
         // ctx.stroke(dframe, width: 2)
         
@@ -162,7 +167,6 @@ class CalendarLayer:CALayer {
                 
                 ctx.drawPath(using: .stroke)
             }
-            
             //0.68
             ctx.move(to: CGPoint(x: frm.midX + 15 + transl, y: frm.origin.y + 9))
             ctx.addArc(center: CGPoint(x: frm.midX + transl, y: frm.origin.y + 9), radius: 15, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: false)
@@ -174,7 +178,7 @@ class CalendarLayer:CALayer {
                 frm = gridVal.0[tdInts.1 - 1]
                 ctx.move(to: CGPoint(x: frm.midX + 15 + transl, y: frm.origin.y + 9))
                 ctx.addArc(center: CGPoint(x: frm.midX + transl, y: frm.origin.y + 9), radius: 15, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: false)
-                ctx.setFillColor(UIColor.init(red: 0.68, green: 0.61, blue: 0, alpha: 1).cgColor)//a guible color
+                ctx.setFillColor(UIColor.init(red: 0.1, green: 0.5, blue: 1, alpha: 1).cgColor)//a guible color
                 ctx.fillPath()
             }
         }
