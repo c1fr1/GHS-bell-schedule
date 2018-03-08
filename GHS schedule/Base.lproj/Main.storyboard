@@ -216,15 +216,15 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Class" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwn-Ho-pAm">
-                                <rect key="frame" x="16" y="116" width="42" height="21"/>
+                                <rect key="frame" x="10" y="116" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Room #" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WcX-kW-zPH">
-                                <rect key="frame" x="224" y="116" width="80" height="21"/>
+                                <rect key="frame" x="218" y="116" width="92" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="HIH-iK-OwO"/>
+                                    <constraint firstAttribute="width" constant="92" id="HIH-iK-OwO"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -242,15 +242,15 @@
                             <constraint firstItem="o5P-Vv-Vco" firstAttribute="centerX" secondItem="knU-aA-huv" secondAttribute="centerX" id="Icm-cS-gvZ"/>
                             <constraint firstItem="57t-Hr-Rrh" firstAttribute="top" secondItem="b3V-EX-zJj" secondAttribute="bottom" id="Lwx-5n-fgj"/>
                             <constraint firstItem="57t-Hr-Rrh" firstAttribute="leading" secondItem="knU-aA-huv" secondAttribute="leadingMargin" id="MU7-dj-hw6"/>
-                            <constraint firstItem="xwn-Ho-pAm" firstAttribute="leading" secondItem="knU-aA-huv" secondAttribute="leading" constant="16" id="NwL-G9-Lu9"/>
+                            <constraint firstItem="WcX-kW-zPH" firstAttribute="trailing" secondItem="flS-fC-W8t" secondAttribute="trailing" id="OUe-d4-pF1"/>
                             <constraint firstItem="o5P-Vv-Vco" firstAttribute="top" secondItem="b3V-EX-zJj" secondAttribute="bottom" constant="46" id="OnI-N7-a1B"/>
                             <constraint firstItem="u2p-D8-7eR" firstAttribute="leading" secondItem="knU-aA-huv" secondAttribute="leading" id="Qxj-e3-tyA"/>
+                            <constraint firstItem="xwn-Ho-pAm" firstAttribute="leading" secondItem="flS-fC-W8t" secondAttribute="leading" id="TOS-mv-vTg"/>
                             <constraint firstItem="flS-fC-W8t" firstAttribute="top" secondItem="xwn-Ho-pAm" secondAttribute="bottom" constant="10" id="VhN-oz-n46"/>
                             <constraint firstItem="u2p-D8-7eR" firstAttribute="top" secondItem="Nqi-jp-Ec4" secondAttribute="bottom" constant="10" id="jAi-wK-3GB"/>
                             <constraint firstItem="flS-fC-W8t" firstAttribute="top" secondItem="WcX-kW-zPH" secondAttribute="bottom" constant="10" id="qYd-fc-NjF"/>
                             <constraint firstItem="flS-fC-W8t" firstAttribute="top" secondItem="o5P-Vv-Vco" secondAttribute="bottom" constant="59" id="sKx-da-4Z0"/>
                             <constraint firstItem="Nqi-jp-Ec4" firstAttribute="top" secondItem="57t-Hr-Rrh" secondAttribute="bottom" constant="5" id="vFE-tF-ipk"/>
-                            <constraint firstAttribute="trailing" secondItem="WcX-kW-zPH" secondAttribute="trailing" constant="16" id="vsO-1w-5cF"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -385,7 +385,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Period" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0P-Cr-IXx">
-                                <rect key="frame" x="16" y="115.5" width="50" height="21"/>
+                                <rect key="frame" x="10" y="115.5" width="50" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -395,13 +395,13 @@
                         <constraints>
                             <constraint firstItem="QuW-t9-CwE" firstAttribute="top" secondItem="TOU-Zz-V1j" secondAttribute="bottom" constant="46" id="21R-EL-cVi"/>
                             <constraint firstItem="tU2-yb-cuS" firstAttribute="top" secondItem="VPi-5T-hlt" secondAttribute="bottom" constant="10" id="32K-hT-Rj5"/>
-                            <constraint firstItem="x0P-Cr-IXx" firstAttribute="leading" secondItem="6U0-gR-cgZ" secondAttribute="leadingMargin" id="5vz-36-8dO"/>
                             <constraint firstItem="dvL-F9-FmT" firstAttribute="trailing" secondItem="3Xc-eN-GIY" secondAttribute="trailing" constant="2" id="6HM-BU-W2F"/>
                             <constraint firstItem="dvL-F9-FmT" firstAttribute="top" secondItem="3Xc-eN-GIY" secondAttribute="bottom" constant="8" id="8mP-Qq-bKI"/>
                             <constraint firstItem="dvL-F9-FmT" firstAttribute="top" secondItem="K7k-p5-1X4" secondAttribute="bottom" constant="10" id="Ail-jd-yqE"/>
                             <constraint firstAttribute="trailing" secondItem="tU2-yb-cuS" secondAttribute="trailing" id="AlQ-RF-fFJ"/>
                             <constraint firstItem="3Xc-eN-GIY" firstAttribute="leading" secondItem="K7k-p5-1X4" secondAttribute="trailing" constant="32" id="DY1-ao-Jgk"/>
                             <constraint firstItem="VPi-5T-hlt" firstAttribute="leading" secondItem="6U0-gR-cgZ" secondAttribute="leading" id="Dy8-g8-Co1"/>
+                            <constraint firstItem="x0P-Cr-IXx" firstAttribute="leading" secondItem="dvL-F9-FmT" secondAttribute="leading" id="F73-ch-LEo"/>
                             <constraint firstItem="QuW-t9-CwE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="K5w-wF-8KM" secondAttribute="trailing" constant="8" id="HXK-WF-5Yx"/>
                             <constraint firstItem="VPi-5T-hlt" firstAttribute="top" secondItem="K5w-wF-8KM" secondAttribute="bottom" constant="5" id="IDL-Xu-rQN"/>
                             <constraint firstItem="dvL-F9-FmT" firstAttribute="centerX" secondItem="6U0-gR-cgZ" secondAttribute="centerX" id="Jlh-Yd-HBc"/>
@@ -448,7 +448,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yB2-2L-6D2">
-                                            <rect key="frame" x="166" y="6" width="51" height="33"/>
+                                            <rect key="frame" x="166" y="5.5" width="51" height="33"/>
                                             <accessibility key="accessibilityConfiguration" identifier="duration"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <state key="normal" title="Button">
