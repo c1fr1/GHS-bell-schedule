@@ -175,18 +175,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 	
 	func getData() {
 		let versionNumDefault = groupDefaults.value(forKey: Keys.VERSIONKEY)
-        let currScheduleDate = groupDefaults.value(forKey: Keys.VERSIONDATEKEY) as? Int
-		let versionNum:Int? = versionNumDefault as? Int
+        let localDate = groupDefaults.value(forKey: Keys.VERSIONDATEKEY) as? Int
+		let localVersionNum:Int? = versionNumDefault as? Int
 		var data:Data?
 		var obj:[String:Any]?
 		do {
 			data = try Data(contentsOf: URL(string: "http://www.grantcompsci.com/bellapp/versionNumber.json")!)
 			obj = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [String:Any]
-			let rVersNum = Int(obj!["VERSION"] as! String)!
-            let rDate = Int(obj!["DATE"] as! String)!
-			if versionNum != nil && currScheduleDate != nil {
-				if rDate <= currScheduleDate! {
-                    if rVersNum <= versionNum! {
+			let serverVersionNumber = Int(obj!["VERSION"] as! String)!
+            let serverDate = Int(obj!["DATE"] as! String)!
+			if localVersionNum != nil && localDate != nil {
+				if serverDate <= localDate! {
+                    if serverVersionNumber <= localVersionNum! {//switchback
                         //A
                         var t = getStoredData()
                         schedule = t.0
@@ -214,8 +214,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         if periodInfo.count == 0 {
                             periodInfo = getStoredScheduleInfo()
                         }
-                        groupDefaults.setValue(rVersNum, forKey: Keys.VERSIONKEY)
-                        groupDefaults.setValue(rDate, forKey: Keys.VERSIONDATEKEY)
+                        storeInfo()
+                        groupDefaults.setValue(serverVersionNumber, forKey: Keys.VERSIONKEY)
+                        groupDefaults.setValue(serverDate, forKey: Keys.VERSIONDATEKEY)
                     }
 				}else {
 					//B new
@@ -231,8 +232,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 					if periodInfo.count == 0 {
 						periodInfo = getStoredScheduleInfo()
 					}
-					groupDefaults.setValue(rVersNum, forKey: Keys.VERSIONKEY)
-                    groupDefaults.setValue(rDate, forKey: Keys.VERSIONDATEKEY)
+                    storeInfo()
+					groupDefaults.setValue(serverVersionNumber, forKey: Keys.VERSIONKEY)
+                    groupDefaults.setValue(serverDate, forKey: Keys.VERSIONDATEKEY)
 				}
 			}else {
 				//C
@@ -240,14 +242,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 				schedule = t.0
 				orderedSchedule = t.1
 				periodInfo = getScheduleInfo()
-				groupDefaults.setValue(rVersNum, forKey: Keys.VERSIONKEY)
-                groupDefaults.setValue(rDate, forKey: Keys.VERSIONDATEKEY)
+                storeInfo()
+				groupDefaults.setValue(serverVersionNumber, forKey: Keys.VERSIONKEY)
+                groupDefaults.setValue(serverDate, forKey: Keys.VERSIONDATEKEY)
 				UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound], completionHandler: { (accepted, error) in
 					print("acceptedNotifications:\(accepted)")
 				})
 			}
 		} catch _ {
-			if versionNum != nil {
+			if localVersionNum != nil {
 				let t = getStoredData()
 				schedule = t.0
 				orderedSchedule = t.1
@@ -484,12 +487,15 @@ func saveAndSchedule(clearExisting : Bool = false) {
         }
     }
     index -= 1
+    if index < 0 {
+        index = 0;
+    }
     while count < 64 {
         if orderedSchedule.count <= index {
             break
         }
         if orderedSchedule.count > 0 {
-            let ints = getIntsFor(date: orderedSchedule[index].0)
+            let ints = getIntsFor(date: orderedSchedule[index].0)//crashy
             count += scheduleNotifications(forDate: ints, remaining: 63 - count)
             index += 1
         }else {
