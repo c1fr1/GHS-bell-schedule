@@ -69,6 +69,13 @@ class CalendarLayer:CALayer {
                 dateTexts[num].isHidden = false
             }
         }
+        mtext.isHidden = !selected
+        ttext.isHidden = !selected
+        wtext.isHidden = !selected
+        thtext.isHidden = !selected
+        frtext.isHidden = !selected
+        satext.isHidden = !selected
+        sutext.isHidden = !selected
     }
     init(inset i : CGFloat) {
         backgroundLayer.backgroundColor = UIColor(red: 0, green: 0.2, blue: 0.6, alpha: 1).cgColor

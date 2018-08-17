@@ -12,11 +12,15 @@ class PeriodListLayer:CALayer {
     var scheduleType:String = "NO SCHOOL"
     var textlyr:CATextLayer = CATextLayer()
     var periods:[PeriodTextLayer]
+    var header:PeriodListLayerHeader
     override init() {
         periods = []
+        header = PeriodListLayerHeader()
         super.init()
+        addSublayer(header)
         for x in 1...9 {
             periods.append(PeriodTextLayer(with: UIScreen.main.bounds.width, y: 50*CGFloat(x), period: ["NAME":"", "START":"", "END":""]))
+            periods.last?.zPosition = -1
             addSublayer(periods.last!)
         }
         textlyr.font = UIFont(name: "Arial", size: 12)!
@@ -31,13 +35,18 @@ class PeriodListLayer:CALayer {
         scheduleType = nLayer.scheduleType
         textlyr = nLayer.textlyr
         periods = nLayer.periods
+        header = nLayer.header
         super.init(layer: layer)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     func setup() {
+        header.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
+        header.contentsScale = UIScreen.main.scale
+        header.setNeedsDisplay()
         textlyr.frame = CGRect(x: 15, y: 12, width: frame.width, height: 38)
+        header.zPosition = 0;
         let sType = schedule[getDate(from: (selectedMonth, selectedDay, selectedYear))]
         if sType != nil {
             scheduleType = sType!
@@ -54,7 +63,6 @@ class PeriodListLayer:CALayer {
             setSchedule(schedule: [])
         }
         if translationPeriods != nil {
-            print(translationPeriods!)
             for p in periods {
                 p.frame.origin.x = translationPeriods!
             }
@@ -69,9 +77,19 @@ class PeriodListLayer:CALayer {
             p.reuse(period: ["NAME":"", "START":"", "END":""])
         }
         for (num, dict) in schedule.enumerated() {
+            if (num >= periods.count) {
+                periods.append(PeriodTextLayer(with: UIScreen.main.bounds.width, y: 50*CGFloat(num + 1), period: ["NAME":"", "START":"", "END":""]))
+                periods.last?.zPosition = -1
+                addSublayer(periods.last!)
+            }
             periods[num].reuse(period: dict)
         }
     }
+    override func draw(in ctx: CGContext) {
+        //header.setNeedsDisplay()
+    }
+}
+class PeriodListLayerHeader:CALayer {
     override func draw(in ctx: CGContext) {
         ctx.setFillColor(UIColor.lightGray.cgColor)
         ctx.fill(CGRect(x: 0, y: 0, width: frame.width, height: 50))

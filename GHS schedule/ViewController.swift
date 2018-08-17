@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var notificationsButton: UIButton!
     
     var startPoint:CGPoint?
+    var lastPoint:CGPoint?
     var pllayer:PeriodListLayer!
     var clayer:CalendarLayer!
     
@@ -137,11 +138,23 @@ class ViewController: UIViewController {
                         })
                     })
                 }
+                if pllayer.periods[periodInfo[pllayer.scheduleType]!.count - 1].frame.origin.y <= 350 {
+                    let offset:CGFloat = pllayer.periods[periodInfo[pllayer.scheduleType]!.count - 1].frame.origin.y * -1 + 350
+                    for layer in pllayer.periods {
+                        layer.frame.origin.y += offset
+                    }
+                }
+                if pllayer.periods[0].frame.origin.y >= 50 {
+                    let offset:CGFloat = pllayer.periods[0].frame.origin.y * -1 + 50
+                    for layer in pllayer.periods {
+                        layer.frame.origin.y += offset
+                    }
+                }
                 startPoint = nil
-            }else {
+                lastPoint = nil
+            }else {//not the last event in the swipe
                 //start in process swiping
                 CATransaction.begin()
-                print("animation: ", CATransaction.animationDuration())
                 CATransaction.setDisableActions(true)
                 if clayer.selected {
                     if startPoint!.y < clayer.dframe.height {
@@ -152,14 +165,20 @@ class ViewController: UIViewController {
                     updateDisplay()
                     clayer.layoutCalendar()
                 }else {
+                    let yoffset:CGFloat = sender.location(in: view!).y - lastPoint!.y
                     translationPeriods = (sender.location(in: view).x - startPoint!.x)*2
                     updateDisplay()
+                    for layer in pllayer.periods {
+                        layer.frame.origin.y += yoffset
+                    }
                 }
                 CATransaction.commit()
                 //end in process swiping
+                lastPoint = sender.location(in: view)
             }
         }else {
             startPoint = sender.location(in: view)
+            lastPoint = startPoint
         }
     }
     @IBAction func tap(_ sender: UITapGestureRecognizer) {
@@ -191,14 +210,14 @@ class ViewController: UIViewController {
     }
 	
     func setupLayers() {
+        pllayer  = PeriodListLayer()
+        view.layer.addSublayer(pllayer)
         clayer = CalendarLayer(inset : topLayoutGuide.length)
         view.layer.addSublayer(clayer.backgroundLayer)
         view.layer.addSublayer(clayer)
         clayer.frame = view.frame
         clayer.contentsScale = UIScreen.main.scale
         clayer.setNeedsDisplay()
-        pllayer  = PeriodListLayer()
-        view.layer.addSublayer(pllayer)
         pllayer.frame = CGRect(x: 0, y: clayer.dframe.height, width: view.frame.width, height: view.frame.height)
         pllayer.contentsScale = UIScreen.main.scale
         pllayer.setNeedsDisplay()
@@ -227,6 +246,7 @@ class ViewController: UIViewController {
         pllayer.frame.origin.y = clayer.dframe.height
         //fix cal
         pllayer.setNeedsDisplay()
+        pllayer.header.setNeedsDisplay()
         clayer.setNeedsDisplay()
     }
 }
