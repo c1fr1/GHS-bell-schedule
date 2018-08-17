@@ -138,8 +138,8 @@ class ViewController: UIViewController {
                         })
                     })
                 }
-                if pllayer.periods[periodInfo[pllayer.scheduleType]!.count - 1].frame.origin.y <= 350 {
-                    let offset:CGFloat = pllayer.periods[periodInfo[pllayer.scheduleType]!.count - 1].frame.origin.y * -1 + 350
+                if pllayer.periods[periodInfo[pllayer.scheduleType]!.count - 1].frame.origin.y <= view.frame.height - 220 {
+                    let offset:CGFloat = pllayer.periods[periodInfo[pllayer.scheduleType]!.count - 1].frame.origin.y * -1 + view.frame.height - 220
                     for layer in pllayer.periods {
                         layer.frame.origin.y += offset
                     }
@@ -234,6 +234,7 @@ class ViewController: UIViewController {
             setupLayers()
             setupDone = true
         }
+        view.bringSubview(toFront: notificationsButton)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
