@@ -119,10 +119,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 			formatter.dateFormat = "yyyyMMdd"
 			formatter.timeZone = TimeZone(abbreviation: "PST")
 			if formatter.string(from: curDate) == formatter.string(from: date) {
-				formatter.dateFormat = "HH"
-				let hrs = Int(formatter.string(from: date))!
-				formatter.dateFormat = "mm"
-				let mins = Int(formatter.string(from: date))!
+				let hrs = Calendar.current.component(.hour, from: date)
+                let mins = Calendar.current.component(.minute, from: date)
 				let day = getdayNum(from: (selectedMonth, selectedDay, selectedYear))//change this to 5 or six to say it is a weekend and actually "getData"
                 if (((hrs > 8 && hrs < 16) || (mins >= 30 && hrs == 8)) && day != 6  && day != 0) || curDate.timeIntervalSince(date) < 180 {//any time after school, or any time during weekend
 					var t = getStoredData()//D
