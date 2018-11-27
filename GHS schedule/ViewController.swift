@@ -138,10 +138,16 @@ class ViewController: UIViewController {
                         })
                     })
                 }
-                if pllayer.periods[periodInfo[pllayer.scheduleType]!.count - 1].frame.origin.y <= view.frame.height - 220 {
-                    let offset:CGFloat = pllayer.periods[periodInfo[pllayer.scheduleType]!.count - 1].frame.origin.y * -1 + view.frame.height - 220
-                    for layer in pllayer.periods {
-                        layer.frame.origin.y += offset
+                var layer = periodInfo[pllayer.scheduleType]
+                if (layer == nil) {
+                    layer = periodInfo["NO-SCHOOL"]
+                }
+                if (layer!.count) > 0 {
+                    if pllayer.periods[layer!.count - 1].frame.origin.y <= view.frame.height - 220 {
+                        let offset:CGFloat = pllayer.periods[periodInfo[pllayer.scheduleType]!.count - 1].frame.origin.y * -1 + view.frame.height - 220
+                        for layer in pllayer.periods {
+                            layer.frame.origin.y += offset
+                        }
                     }
                 }
                 if pllayer.periods[0].frame.origin.y >= 50 {
