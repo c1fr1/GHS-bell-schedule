@@ -30,6 +30,7 @@
 		DF7D45F51F5FDAAB00925D2E /* calenderStuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */; };
 		DF8433F81FB531D200F8763C /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8433F71FB531D200F8763C /* Period.swift */; };
 		DFACA5D6200C4A310022A265 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = DFACA5D5200C4A310022A265 /* README.txt */; };
+		DFBE9FFD21AF7986007709A7 /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBE9FFC21AF7986007709A7 /* PrivacyPolicyViewController.swift */; };
 		DFEBBFA21F6667F500046334 /* GHS logo.png in Resources */ = {isa = PBXBuildFile; fileRef = DFEBBFA11F6667F500046334 /* GHS logo.png */; };
 		DFF618C31FA70A4C007375BB /* calenderStuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */; };
 		DFF618CB1FA84517007375BB /* GHS_scheduleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF618CA1FA84517007375BB /* GHS_scheduleUITests.swift */; };
@@ -94,6 +95,7 @@
 		DF7D45F41F5FDAAB00925D2E /* calenderStuff.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = calenderStuff.swift; sourceTree = "<group>"; };
 		DF8433F71FB531D200F8763C /* Period.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
 		DFACA5D5200C4A310022A265 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		DFBE9FFC21AF7986007709A7 /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
 		DFEBBFA11F6667F500046334 /* GHS logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GHS logo.png"; sourceTree = "<group>"; };
 		DFF618C21FA1973D007375BB /* GHSScheduleWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GHSScheduleWidget.entitlements; sourceTree = "<group>"; };
 		DFF618C81FA84517007375BB /* GHS scheduleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GHS scheduleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,6 +193,7 @@
 				DF7D45EA1F5F87BB00925D2E /* Info.plist */,
 				DF7D3BDD1F7DA9A800BC0752 /* GHS schedule.entitlements */,
 				DFEBBFA11F6667F500046334 /* GHS logo.png */,
+				DFBE9FFC21AF7986007709A7 /* PrivacyPolicyViewController.swift */,
 			);
 			path = "GHS schedule";
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				973B8B191FFDABEE001E881F /* NotificationViewController.swift in Sources */,
+				DFBE9FFD21AF7986007709A7 /* PrivacyPolicyViewController.swift in Sources */,
 				973B8B171FFDAB5A001E881F /* NotificationTableViewController.swift in Sources */,
 				DF8433F81FB531D200F8763C /* Period.swift in Sources */,
 				DF7D45F51F5FDAAB00925D2E /* calenderStuff.swift in Sources */,
